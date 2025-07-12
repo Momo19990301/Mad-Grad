@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENU</title>
+    <style>
+        /* Custom Fonts - 確保字體路徑正確 */
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('Fonts/GenJyuuGothic-ExtraLight.ttf') format('truetype');
+            font-weight: 200; /* ExtraLight */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('Fonts/GenJyuuGothic-Light.ttf') format('truetype');
+            font-weight: 300; /* Light */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('Fonts/GenJyuuGothic-Normal.ttf') format('truetype');
+            font-weight: 400; /* Normal/Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('Fonts/GenJyuuGothic-Regular.ttf') format('truetype');
+            font-weight: 400; /* Normal/Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('Fonts/GenJyuuGothic-Medium.ttf') format('truetype');
+            font-weight: 500; /* Medium */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('Fonts/GenJyuuGothic-Bold.ttf') format('truetype');
+            font-weight: 700; /* Bold */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('Fonts/GenJyuuGothic-Heavy.ttf') format('truetype');
+            font-weight: 900; /* Heavy */
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            /* 讓 body 根據內容自然增長高度，並允許滾動 */
+            background-color: #161b22; /* 深色背景，作為 fallback */
+            width: 100%; /* 確保 body 佔滿整個視窗寬度 */
+            position: relative; /* 讓 body 成為定位上下文，以便絕對定位的子元素可以相對於它定位 */
+            font-family: 'GenJyuuGothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            color: #c9d1d9; /* 淺色字體，模擬深色模式 */
+            line-height: 1.6;
+            /* 所有文字的通用發光效果，非常微妙 */
+            text-shadow: 0 0 2px rgba(255,255,255,0.2);
+            min-height: 100vh; /* 新增：確保 body 至少佔滿視窗高度 */
+            display: flex; /* 新增：啟用 Flexbox 佈局 */
+            flex-direction: column; /* 新增：子元素垂直堆疊 */
+            justify-content: center; /* 新增：垂直居中內容 */
+            align-items: center; /* 新增：水平居中內容 */
+            padding: 40px 0; /* 新增：為內容提供上下邊距 */
+            box-sizing: border-box; /* 新增：確保 padding 不會增加總寬度/高度 */
+        }
+        
+        /* Canvas 背景樣式 */
+        canvas {
+            position: fixed; /* 讓 Canvas 固定在視窗背景，不隨滾動條移動 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1; /* 最底層 */
+        }
+
+        /* 新增圖片容器樣式：位於 Canvas 上方，內容下方，固定在畫面中央 */
+        .fixed-background-image-layer {
+            position: fixed; /* 固定在視窗中，不隨滾動條移動 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 精確居中 */
+            width: 100vw; /* 佔滿視窗寬度 */
+            height: 100vh; /* 佔滿視窗高度 */
+            display: flex; /* 使用 flex 居中內部的圖片 */
+            justify-content: center;
+            align-items: center;
+            z-index: 2; /* 在 Canvas (z-index: 1) 上方，在 menu-content-wrapper (z-index: 10) 下方 */
+            pointer-events: none; /* 允許點擊穿透圖片到後面的元素 */
+            opacity: 0.5; /* <--- 在這裡調整透明度！值從 0.0 (完全透明) 到 1.0 (完全不透明) */
+        }
+        .fixed-background-image-layer img {
+            display: block;
+            width: 100%; /* 圖片寬度佔滿父容器 */
+            height: 100%; /* 圖片高度佔滿父容器 */
+            object-fit: contain; /* 【重要修改】確保圖片完整顯示，不裁剪，可能會留白邊 */
+            border-radius: 8px; /* 圖片本身也可以有圓角 */
+            /* 圖片本身不需要 box-shadow，因為外層容器已經是半透明的 */
+        }
+
+
+        /* MENU 內容的容器，使其疊加在 Canvas 和固定圖片上方 */
+        .menu-content-wrapper {
+            position: relative; /* 確保在 Canvas 和圖片上方 */
+            z-index: 10; /* 在固定圖片 (z-index: 2) 上方 */
+            background-color: rgba(22, 27, 34, 0.8); /* 半透明背景 */
+            max-width: 900px; 
+            width: 90%; 
+            padding: 20px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            /* 重新添加 margin: auto 進行水平居中，並提供上下邊距 */
+            /* margin: 40px auto; */
+            /* 讓內容自然流動，並由 body 處理滾動 */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'GenJyuuGothic', sans-serif;
+            color: #ffffff; /* 標題顏色 */
+            margin-top: 1.2em;
+            margin-bottom: 0.8em;
+            /* MENU 標題的發光效果 */
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4); 
+        }
+        h1 { 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        /* 超連結文字的顏色和發光效果 */
+        a {
+            color: #FFC000; /* 連結文字顏色與發光顏色一致 */
+            text-decoration: none;
+            text-shadow: 0 0 8px #FFC000, 0 0 15px rgba(255,192,0,0.3); 
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+
+        /* 超連結鼠標靠近時變亮 */
+        a:hover {
+            color: #FFFF00; /* 懸停時顏色更亮，接近純黃色 */
+            text-shadow: 0 0 15px #FFFF00, 0 0 25px rgba(255,255,0,0.6); /* 懸停時發光更強 */
+            text-decoration: underline;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        ul {
+            list-style-type: none; 
+            padding-left: 0; 
+        }
+        li {
+            /* 新增底部邊框作為分隔線 */
+            border-bottom: 1px solid rgba(128, 128, 128, 0.3); /* 淺灰色半透明線條 */
+            padding-bottom: 8px; /* 線條下方間距 */
+            margin-bottom: 8px; /* 列表項目之間間距 */
+            padding-top: 5px; /* 線條上方間距 */
+        }
+        /* 移除最後一個列表項目的底部邊框，避免多餘的線條 */
+        li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        /* 如果是巢狀列表，其最後一個子項目的底部邊框也移除 */
+        .collapsible-content li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+
+        code {
+            font-family: "Fira Code", "Cascadia Code", "JetBrains Mono", monospace;
+            background-color: #2b323b;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #e6edfa;
+        }
+
+        pre {
+            background-color: #2b323b;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1.5em;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+
+        blockquote {
+            border-left: 4px solid #6a737d;
+            padding-left: 15px;
+            margin-left: 0;
+            color: #8b949e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+        }
+
+        th, td {
+            border: 1px solid #30363d;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #30363d;
+            color: #c9d1d9;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* 自定義 Hashtag 樣式 */
+        .hashtag {
+            color: #ddd; 
+            background-color: #4a3e6b; 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-size: 0.85em; 
+            margin-right: 6px; 
+            white-space: nowrap;
+            display: inline-block; 
+        }
+
+        /* 資料夾名稱和箭頭樣式 */
+        .folder-name {
+            font-family: 'GenJyuuGothic', sans-serif;
+            cursor: pointer; 
+            font-weight: bold;
+            color: white; /* 資料夾名稱文字顏色設定為白色 */
+            user-select: none; 
+            text-shadow: 0 0 8px white, 0 0 15px rgba(255,255,255,0.3); 
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+        /* 資料夾名稱鼠標靠近時變亮 */
+        .folder-name:hover {
+            color: #E0E0E0; /* 懸停時顏色稍亮 */
+            text-shadow: 0 0 12px white, 0 0 20px rgba(255,255,255,0.5); /* 懸停時發光更強 */
+        }
+
+        .folder-toggle {
+            display: inline-block;
+            width: 1em; 
+            margin-right: 5px;
+            color: #0FFFC0; /* ">" 符號文字顏色設定為青綠色 */
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+            text-shadow: 0 0 8px #0FFFC0, 0 0 15px rgba(0,255,192,0.3); 
+        }
+        /* 下拉符號鼠標靠近時變亮 */
+        .folder-toggle:hover {
+            color: #66FFFF; /* 懸停時顏色更亮 */
+            text-shadow: 0 0 12px #66FFFF, 0 0 20px rgba(102,255,255,0.6); /* 懸停時發光更強 */
+        }
+        .folder-toggle.expanded {
+            transform: rotate(90deg); 
+        }
+        /* 可收合內容的樣式 */
+        .collapsible-content {
+            display: none; 
+            padding-left: 20px; 
+            border-left: 1px solid #0fffbfb6; 
+            margin-top: 5px;
+        }
+        .collapsible-content.expanded {
+            display: block; 
+        }
+
+        /* 連結樣式 (再次定義以確保優先級，並將顏色與發光顏色一致) */
+        li > a {
+            font-family: 'GenJyuuGothic', sans-serif;
+            font-size: 1.1em;
+            color: #FFC000; /* 連結顏色與發光顏色一致 */
+            text-decoration: none;
+            text-shadow: 0 0 8px #FFC000, 0 0 15px rgba(255,192,0,0.3); 
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+        li > a:hover {
+            color: #FFFF00; /* 懸停時顏色更亮，接近純黃色 */
+            text-shadow: 0 0 15px #FFFF00, 0 0 25px rgba(255,255,0,0.6); /* 懸停時發光更強 */
+            text-decoration: underline;
+        }
+
+        /* 為 Back to MENU 連結和 header-container 新增的樣式 (也適用於 MENU.html 的登出按鈕) */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-shrink: 0; 
+        }
+        .header-container h1 {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .user-info { 
+            color: #0FFFC0; /* Welcome, DemoUser! 文字顏色設定為青綠色 */
+            font-size: 1em;
+            margin-right: 15px; 
+            text-shadow: 0 0 8px #0FFFC0, 0 0 15px rgba(0,255,192,0.3); /* 與下拉符號相同的發光效果 */
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+        /* 用戶資訊鼠標靠近時變亮 */
+        .user-info:hover {
+            color: #66FFFF; /* 懸停時顏色更亮 */
+            text-shadow: 0 0 12px #66FFFF, 0 0 20px rgba(102,255,255,0.6); /* 懸停時發光更強 */
+        }
+
+        .header-right { 
+            display: flex;
+            align-items: center;
+        }
+        .logout-button { 
+            background-color: #FF4D4D; 
+            color: white; /* 按鈕文字顏色 */
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+            cursor: pointer;
+            border: none; 
+            font-family: 'GenJyuuGothic', sans-serif; 
+            text-shadow: 0 0 5px rgba(255,255,255,0.7); 
+        }
+        /* 登出按鈕文字鼠標靠近時變亮 */
+        .logout-button:hover {
+            background-color: #CC0000; 
+            color: #FFEEEE; /* 懸停時文字顏色稍亮 */
+            text-shadow: 0 0 8px rgba(255,255,255,1), 0 0 15px rgba(255,255,255,0.8); /* 懸停時發光更強 */
+            text-decoration: none; 
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .menu-content-wrapper {
+                margin: 20px auto;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .user-info {
+                font-size: 0.9em;
+                margin-right: 10px;
+            }
+            .logout-button {
+                padding: 6px 12px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="breathingGradientCanvas"></canvas>
+
+    <!-- 【新增圖片層】圖片放在這裡，位於 Canvas (z-index: 1) 和 menu-content-wrapper (z-index: 10) 之間 -->
+    <!-- 圖片檔案必須放在 'HTML_Output/Illustration/' 資料夾中 -->
+    <div class="fixed-background-image-layer">
+        <img src="Illustration/New_Cover.png" alt="Cover Image">
+    </div>
+    
+    <div class="menu-content-wrapper">
+        
+        <div class="header-container">
+            <h1>MENU</h1>
+            <div class="header-right">
+                <span id="userInfo" class="user-info">Welcome, DemoUser!</span> 
+                <a href="#" id="logoutButton" class="logout-button">Log out</a>
+            </div>
+        </div>
+        <ul>
+            
+                        <li>
+                            <span class="folder-toggle">►</span> <span class="folder-name">Lab</span>
+                            <ul class="collapsible-content">
+                                <li><a href="Lab\AIoT Lab.html">AIoT Lab</a></li>
+<li><a href="Lab\Bonus.html">Bonus</a></li>
+<li><a href="Lab\EMCA Lab.html">EMCA Lab</a></li>
+<li><a href="Lab\SoC Lab.html">SoC Lab</a></li>
+                            </ul>
+                        </li>
+                    
+
+                        <li>
+                            <span class="folder-toggle">►</span> <span class="folder-name">SoC Lab</span>
+                            <ul class="collapsible-content">
+                                <li><a href="SoC Lab\Prof. 蛋頭博士.html">Prof. 蛋頭博士</a></li>
+<li><a href="SoC Lab\余十三.html">余十三</a></li>
+<li><a href="SoC Lab\徐丞丞.html">徐丞丞</a></li>
+<li><a href="SoC Lab\心碎小狗.html">心碎小狗</a></li>
+<li><a href="SoC Lab\應葛格.html">應葛格</a></li>
+<li><a href="SoC Lab\敦敦.html">敦敦</a></li>
+<li><a href="SoC Lab\橋牌社長.html">橋牌社長</a></li>
+<li><a href="SoC Lab\焦糖o彤兒.html">焦糖o彤兒</a></li>
+<li><a href="SoC Lab\珊珊姊.html">珊珊姊</a></li>
+<li><a href="SoC Lab\色彩學大師.html">色彩學大師</a></li>
+<li><a href="SoC Lab\黃老二.html">黃老二</a></li>
+                            </ul>
+                        </li>
+                    
+
+                        <li>
+                            <span class="folder-toggle">►</span> <span class="folder-name">AIoT Lab</span>
+                            <ul class="collapsible-content">
+                                <li><a href="AIoT Lab\Rocky.html">Rocky</a></li>
+<li><a href="AIoT Lab\慈慈.html">慈慈</a></li>
+<li><a href="AIoT Lab\求萌 & 首蒙元.html">求萌 & 首蒙元</a></li>
+<li><a href="AIoT Lab\牛仔褲寶貝.html">牛仔褲寶貝</a></li>
+<li><a href="AIoT Lab\老人與狗.html">老人與狗</a></li>
+<li><a href="AIoT Lab\阿詠.html">阿詠</a></li>
+                            </ul>
+                        </li>
+                    
+
+                        <li>
+                            <span class="folder-toggle">►</span> <span class="folder-name">EMCA Lab</span>
+                            <ul class="collapsible-content">
+                                <li><a href="EMCA Lab\海神巨獸.html">海神巨獸</a></li>
+<li><a href="EMCA Lab\金門王.html">金門王</a></li>
+                            </ul>
+                        </li>
+                    
+
+                        <li>
+                            <span class="folder-toggle">►</span> <span class="folder-name">Bonus</span>
+                            <ul class="collapsible-content">
+                                <li><a href="Bonus\憑拳大將軍.html">憑拳大將軍</a></li>
+<li><a href="Bonus\懶惰小依 & 賴床小依.html">懶惰小依 & 賴床小依</a></li>
+<li><a href="Bonus\渟渟急轉彎.html">渟渟急轉彎</a></li>
+<li><a href="Bonus\王依渟.html">王依渟</a></li>
+<li><a href="Bonus\紀崴.html">紀崴</a></li>
+<li><a href="Bonus\蒂娜.html">蒂娜</a></li>
+                            </ul>
+                        </li>
+                    
+
+                        <li>
+                            <span class="folder-toggle">►</span> <span class="folder-name">Appendix</span>
+                            <ul class="collapsible-content">
+                                <li><a href="Appendix\深淵.html">深淵</a></li>
+                            </ul>
+                        </li>
+                    
+<li><a href="Attributes.html">Attributes</a></li>
+<li><a href="Settings.html">Settings</a></li>
+        </ul>
+    
+        <!-- 你的 MD_to_HTML.py 腳本應該將轉換後的 Markdown 內容 (header-container 和 ul 列表) 插入到這裡 -->
+    </div>
+
+    <script>
+        const canvas = document.getElementById('breathingGradientCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // 基礎暗色背景漸層顏色
+        const baseGradientColors = {
+            start: '#000000', // 非常暗的藍紫色
+            end: '#323232'    // 稍微亮一點的暗紫色
+        };
+
+        // 呼吸光暈的顏色 (已調整為更鮮豔的色彩值)
+        const breathingLightColors = [
+            { r: 255, g: 0, b: 0 },   // 紅色 (更鮮豔的紅)
+            { r: 0, g: 255, b: 0 },   // 綠色 (更鮮豔的綠/青綠)
+            { r: 0, g: 0, b: 255 }    // 藍色 (保持不變)
+        ];
+
+        // 呼吸光暈物件陣列
+        let breathingLights = [];
+
+        // 初始化呼吸光暈的屬性
+        function initBreathingLights() {
+            breathingLights = []; 
+            // 確保 Canvas 尺寸至少為 10，避免 Math.max(0,0) * 0.8 = 0 的情況
+            // 使用 Math.max(10, ...) 確保即使 window.innerWidth/Height 為 0 或無效，也能有最小尺寸
+            const minCanvasDim = Math.max(10, Number.isFinite(canvas.width) && canvas.width > 0 ? canvas.width : 800, Number.isFinite(canvas.height) && canvas.height > 0 ? canvas.height : 600);
+            const minRadius = minCanvasDim * 0.8; 
+            // 增加脈衝幅度，讓呼吸效果更明顯
+            const maxPulseAmplitude = minRadius * 0.4; 
+
+            // 紅光暈
+            breathingLights.push({
+                x: canvas.width * 0.2, 
+                y: canvas.height * 0.8,
+                baseRadius: minRadius,
+                maxPulse: maxPulseAmplitude,
+                pulseSpeed: 0.001, 
+                color: breathingLightColors[0],
+                offset: Math.PI * 0.7, 
+                baseOpacity: 0.10 
+            });
+
+            // 綠光暈
+            breathingLights.push({
+                x: canvas.width * 0.5, 
+                y: canvas.height * 0.5,
+                baseRadius: minRadius,
+                maxPulse: maxPulseAmplitude,
+                pulseSpeed: 0.001, 
+                color: breathingLightColors[1],
+                offset: Math.PI * 0.7, 
+                baseOpacity: 0.10 
+            });
+
+            // 藍光暈
+            breathingLights.push({
+                x: canvas.width * 0.8, 
+                y: canvas.height * 0.2,
+                baseRadius: minRadius,
+                maxPulse: maxPulseAmplitude,
+                pulseSpeed: 0.001, 
+                color: breathingLightColors[2],
+                offset: Math.PI * 0.7, 
+                baseOpacity: 0.10 
+            });
+        }
+
+        // 繪製基礎暗色背景漸層
+        function drawBaseGradient() {
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height); 
+            gradient.addColorStop(0, baseGradientColors.start);
+            gradient.addColorStop(1, baseGradientColors.end);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // 繪製呼吸光暈
+        function drawBreathingLights() {
+            // 在繪製前再次檢查 Canvas 尺寸是否有效
+            if (!Number.isFinite(canvas.width) || canvas.width <= 0 || !Number.isFinite(canvas.height) || canvas.height <= 0) {
+                console.error("Canvas dimensions are invalid or zero, skipping drawing frame.");
+                return; // 跳過繪製，避免錯誤
+            }
+
+            breathingLights.forEach(light => {
+                const pulseValue = Math.sin(Date.now() * light.pulseSpeed + light.offset);
+                
+                // 計算 currentRadius，確保它是有限的正數，且至少為 1.0
+                let currentRadius = light.baseRadius + pulseValue * light.maxPulse;
+                if (!Number.isFinite(currentRadius) || currentRadius < 1.0) {
+                    currentRadius = 1.0; // Fallback to a safe positive value
+                }
+                
+                // 計算 currentOpacity，確保它是有限且在 0-1 之間
+                let currentOpacity = light.baseOpacity + Math.max(0, pulseValue * 0.05); 
+                if (!Number.isFinite(currentOpacity) || currentOpacity < 0) {
+                    currentOpacity = 0.01; 
+                } else if (currentOpacity > 1) {
+                    currentOpacity = 1;
+                }
+
+                // 確保 light.x 和 light.y 是有限的，避免 createRadialGradient 報錯
+                const safeX = Number.isFinite(light.x) ? light.x : canvas.width / 2;
+                const safeY = Number.isFinite(light.y) ? light.y : canvas.height / 2;
+
+                // 在呼叫 createRadialGradient 前，再次對所有參數進行最終檢查
+                if (!Number.isFinite(safeX) || !Number.isFinite(safeY) || !Number.isFinite(currentRadius) || currentRadius <= 0) {
+                    console.error("Invalid parameters for createRadialGradient:", { safeX, safeY, currentRadius });
+                    return; // 跳過此光暈的繪製
+                }
+
+                const gradient = ctx.createRadialGradient(safeX, safeY, 0, safeX, safeY, currentRadius);
+                
+                gradient.addColorStop(0, `rgba(${light.color.r}, ${light.color.g}, ${light.color.b}, ${currentOpacity * 1.5})`); 
+                gradient.addColorStop(0.5, `rgba(${light.color.r}, ${light.color.g}, ${light.color.b}, ${currentOpacity * 0.8})`);
+                gradient.addColorStop(1, `rgba(${light.color.r}, ${light.color.g}, ${light.color.b}, 0)`);
+
+                ctx.fillStyle = gradient;
+                ctx.globalCompositeOperation = 'lighter'; 
+                ctx.fillRect(0, 0, canvas.width, canvas.height); 
+                ctx.globalCompositeOperation = 'source-over'; 
+            });
+        }
+
+        // 動畫循環
+        function animate() {
+            drawBaseGradient(); 
+            drawBreathingLights(); 
+            requestAnimationFrame(animate); 
+        }
+
+        // 處理視窗大小改變
+        function resizeCanvas() {
+            // 確保 width 和 height 是有效的正數，如果不是則設定預設值
+            canvas.width = Number.isFinite(window.innerWidth) && window.innerWidth > 0 ? window.innerWidth : 800;
+            canvas.height = Number.isFinite(window.innerHeight) && window.innerHeight > 0 ? window.innerHeight : 600;
+            initBreathingLights(); 
+        }
+
+        // 初始化並啟動動畫
+        window.addEventListener('resize', resizeCanvas); 
+        resizeCanvas(); 
+        animate(); 
+
+        // MENU 頁面原有的 JavaScript 邏輯
+        document.addEventListener('DOMContentLoaded', function() {
+            // 登入檢查
+            const isLoggedIn = sessionStorage.getItem('loggedIn');
+            if (isLoggedIn !== 'true') {
+                const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                window.location.href = currentDirPath + 'login.html'; 
+            }
+
+            // 顯示用戶資訊
+            const userInfoSpan = document.getElementById('userInfo');
+            const currentUserId = sessionStorage.getItem('currentUserId');
+            if (userInfoSpan && currentUserId) {
+                userInfoSpan.textContent = 'Welcome, ' + currentUserId + '!';
+            } else if (userInfoSpan) { // 如果沒有 currentUserId，顯示預設值
+                userInfoSpan.textContent = 'Welcome, Guest!'; 
+            }
+
+            // 登出按鈕功能
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    sessionStorage.removeItem('loggedIn'); // 清除登入標誌
+                    sessionStorage.removeItem('currentUserId'); // 移除用戶 ID
+                    const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+                    window.location.href = currentDirPath + 'login.html'; 
+                });
+            }
+
+            // 資料夾收合/展開功能
+            const folderToggles = document.querySelectorAll('.folder-toggle');
+            folderToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    this.classList.toggle('expanded');
+                    const content = this.closest('li').querySelector('.collapsible-content');
+                    if (content) {
+                        content.classList.toggle('expanded');
+                    }
+                });
+
+                const folderName = toggle.nextElementSibling; // folder-name span
+                if (folderName && folderName.classList.contains('folder-name')) {
+                    folderName.addEventListener('click', function() {
+                        this.previousElementSibling.click();
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
