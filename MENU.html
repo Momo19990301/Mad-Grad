@@ -411,14 +411,20 @@
                             <ul class="collapsible-content">
                                 <li><a href="SoC Lab\Prof. 蛋頭博士.html">Prof. 蛋頭博士</a></li>
 <li><a href="SoC Lab\余十三.html">余十三</a></li>
+<li><a href="SoC Lab\小南瓜.html">小南瓜</a></li>
 <li><a href="SoC Lab\徐丞丞.html">徐丞丞</a></li>
 <li><a href="SoC Lab\心碎小狗.html">心碎小狗</a></li>
 <li><a href="SoC Lab\應葛格.html">應葛格</a></li>
 <li><a href="SoC Lab\敦敦.html">敦敦</a></li>
+<li><a href="SoC Lab\梵楓霖.html">梵楓霖</a></li>
 <li><a href="SoC Lab\橋牌社長.html">橋牌社長</a></li>
+<li><a href="SoC Lab\湖口砲兵連連長.html">湖口砲兵連連長</a></li>
 <li><a href="SoC Lab\焦糖o彤兒.html">焦糖o彤兒</a></li>
 <li><a href="SoC Lab\珊珊姊.html">珊珊姊</a></li>
 <li><a href="SoC Lab\色彩學大師.html">色彩學大師</a></li>
+<li><a href="SoC Lab\諸葛小劉.html">諸葛小劉</a></li>
+<li><a href="SoC Lab\陳大帥帥.html">陳大帥帥</a></li>
+<li><a href="SoC Lab\馬華.html">馬華</a></li>
 <li><a href="SoC Lab\黃老二.html">黃老二</a></li>
                             </ul>
                         </li>
@@ -428,6 +434,7 @@
                             <span class="folder-toggle">►</span> <span class="folder-name">AIoT Lab</span>
                             <ul class="collapsible-content">
                                 <li><a href="AIoT Lab\Rocky.html">Rocky</a></li>
+<li><a href="AIoT Lab\小瓜.html">小瓜</a></li>
 <li><a href="AIoT Lab\慈慈.html">慈慈</a></li>
 <li><a href="AIoT Lab\求萌 & 首蒙元.html">求萌 & 首蒙元</a></li>
 <li><a href="AIoT Lab\牛仔褲寶貝.html">牛仔褲寶貝</a></li>
@@ -462,7 +469,10 @@
                         <li>
                             <span class="folder-toggle">►</span> <span class="folder-name">Appendix</span>
                             <ul class="collapsible-content">
-                                <li><a href="Appendix\深淵.html">深淵</a></li>
+                                <li><a href="Appendix\Rock.html">Rock</a></li>
+<li><a href="Appendix\深淵.html">深淵</a></li>
+<li><a href="Appendix\球球.html">球球</a></li>
+<li><a href="Appendix\穢土轉生研究生.html">穢土轉生研究生</a></li>
                             </ul>
                         </li>
                     
@@ -623,7 +633,7 @@
             const isLoggedIn = sessionStorage.getItem('loggedIn');
             if (isLoggedIn !== 'true') {
                 const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-                window.location.href = currentDirPath + 'login.html'; 
+                window.location.href = currentDirPath + 'Login.html'; 
             }
 
             // 顯示用戶資訊
@@ -643,7 +653,7 @@
                     sessionStorage.removeItem('loggedIn'); // 清除登入標誌
                     sessionStorage.removeItem('currentUserId'); // 移除用戶 ID
                     const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-                    window.location.href = currentDirPath + 'login.html'; 
+                    window.location.href = currentDirPath + 'Login.html'; 
                 });
             }
 
