@@ -3,48 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>王依渟</title>
+    <title>Auto White Balance</title>
     <style>
         /* Custom Fonts - 確保字體路徑正確 */
         @font-face {
             font-family: 'GenJyuuGothic';
-            src: url('../Fonts/GenJyuuGothic-ExtraLight.ttf') format('truetype');
+            src: url('../../Fonts/GenJyuuGothic-ExtraLight.ttf') format('truetype');
             font-weight: 200; /* ExtraLight */
             font-style: normal;
         }
         @font-face {
             font-family: 'GenJyuuGothic';
-            src: url('../Fonts/GenJyuuGothic-Light.ttf') format('truetype');
+            src: url('../../Fonts/GenJyuuGothic-Light.ttf') format('truetype');
             font-weight: 300; /* Light */
             font-style: normal;
         }
         @font-face {
             font-family: 'GenJyuuGothic';
-            src: url('../Fonts/GenJyuuGothic-Normal.ttf') format('truetype');
+            src: url('../../Fonts/GenJyuuGothic-Normal.ttf') format('truetype');
             font-weight: 400; /* Normal/Regular */
             font-style: normal;
         }
         @font-face {
             font-family: 'GenJyuuGothic';
-            src: url('../Fonts/GenJyuuGothic-Regular.ttf') format('truetype');
+            src: url('../../Fonts/GenJyuuGothic-Regular.ttf') format('truetype');
             font-weight: 400; /* Normal/Regular */
             font-style: normal;
         }
         @font-face {
             font-family: 'GenJyuuGothic';
-            src: url('../Fonts/GenJyuuGothic-Medium.ttf') format('truetype');
+            src: url('../../Fonts/GenJyuuGothic-Medium.ttf') format('truetype');
             font-weight: 500; /* Medium */
             font-style: normal;
         }
         @font-face {
             font-family: 'GenJyuuGothic';
-            src: url('../Fonts/GenJyuuGothic-Bold.ttf') format('truetype');
+            src: url('../../Fonts/GenJyuuGothic-Bold.ttf') format('truetype');
             font-weight: 700; /* Bold */
             font-style: normal;
         }
         @font-face {
             font-family: 'GenJyuuGothic';
-            src: url('../Fonts/GenJyuuGothic-Heavy.ttf') format('truetype');
+            src: url('../../Fonts/GenJyuuGothic-Heavy.ttf') format('truetype');
             font-weight: 900; /* Heavy */
             font-style: normal;
         }
@@ -53,7 +53,7 @@
             margin: 0;
             padding: 40px 0; /* 為內容提供上下邊距 */
             background-color: #0F0F0F; /* 非常深的藍黑色背景，作為圖片加載前的 fallback */
-            background-image: url('../Illustration/Background.png'); /* 背景圖片路徑已修正 */
+            background-image: url('../../Illustration/Background.png');
             background-size: cover; /* 圖片完全填滿，超出剪裁 */
             background-position: center center; /* 圖片置中 */
             background-repeat: no-repeat; /* 不重複 */
@@ -106,11 +106,6 @@
             text-align: left; /* 主標題置左對齊 */
             position: relative; /* 為了 ::after 偽元素定位 */
             overflow: hidden; /* 隱藏超出部分的偽元素 */
-            /* color: #ffffff; */
-            /* background-image: none; */
-            /* -webkit-background-clip: border-box; */
-            /* background-clip: border-box; */
-            /* -webkit-text-fill-color: initial; */
             
             /* 金屬光澤效果 */
             color: transparent; /* 使文字透明 */
@@ -191,9 +186,9 @@
             margin-bottom: 1.2em;
         }
         ul li {
-                position: relative;
-                padding-left: 25px; /* 為自定義點留出空間 */
-                margin-bottom: 0.8em;
+            position: relative;
+            padding-left: 25px; /* 為自定義點留出空間 */
+            margin-bottom: 0.8em;
         }
         ul li::before {
             content: '◆'; /* 自定義列表點為菱形 */
@@ -310,6 +305,48 @@
             color: #C0C0C0; /* 鼠標懸停時變為銀色 */
             text-decoration: underline; /* 鼠標懸停時顯示下劃線 */
         }
+
+        /* 新增：回到頂部按鈕樣式 */
+        #backToTopBtn {
+            display: none; /* 預設隱藏 */
+            position: fixed; /* 固定在視窗中 */
+            bottom: 30px; /* 距離底部 30px */
+            right: 30px; /* 【修改】距離右側 30px */
+            z-index: 99; /* 確保在其他元素之上 */
+            /* border: none; */
+            /* outline: none; */
+            /* 【修改】金屬光澤背景 */
+            /* background-image: linear-gradient(to right, #A07800 0%, #FFEB3B 25%, #D4AF37 50%, #FFEB3B 75%, #A07800 100%); */
+            background: none;
+            border: 1px solid #FFDC6D; /* 輕微邊框 */
+            color: rgb(255, 220, 109); /* 【修改】文字顏色為深灰色 */
+            cursor: pointer; /* 鼠標指針 */
+            padding: 15px; /* 內邊距 */
+            border-radius: 10px; /* 圓角 */
+            font-size: 18px; /* 字體大小 */
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(255, 220, 109, 0.5); /* 陰影，與金屬感搭配 */
+            transition: background-image 0.3s, box-shadow 0.3s, opacity 0.5s ease-in-out; /* 平滑過渡 */
+            font-family: 'GenJyuuGothic', sans-serif; /* 使用自定義字體 */
+            opacity: 0; /* 初始完全透明 */
+            pointer-events: none; /* 初始禁用點擊事件 */
+            text-shadow: none; /* 【新增】移除文字發光 */
+        }
+
+        #backToTopBtn:hover {
+            color: rgb(253, 238, 187);
+            background-color: rgba(255, 234, 112, 0.3);
+            border: 1px solid #fde48f; /* 懸停時邊框變亮 */
+            box-shadow: 0 4px 12px rgba(253, 228, 145, 0.5); /* 陰影，與金屬感搭配 */
+
+        }
+
+        #backToTopBtn.show {
+            display: block; /* 顯示時設定為 block */
+            opacity: 1; /* 顯示時完全不透明 */
+            pointer-events: auto; /* 顯示時啟用點擊事件 */
+        }
+
         /* 響應式調整 */
         @media (max-width: 768px) {
             .content-container {
@@ -324,42 +361,55 @@
             p {
                 font-size: 1em;
             }
+            #backToTopBtn { /* 手機版調整按鈕位置和大小 */
+                bottom: 20px;
+                right: 20px; /* 【修改】手機版也在右下角 */
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Canvas 元素已移除 -->
-
     <div class="content-container">
         <div class="header-container">
-            <h1>王依渟</h1>
-            <a href="..\MENU.html" class="back-to-menu-link">Back to MENU</a>
+            <h1>Auto White Balance</h1>
+            <a href="../../MENU.html" class="back-to-menu-link">Back to MENU</a>
         </div>
-        <h1>Illustration</h1>
-<p><img src="..\Illustration\王依渟.png" alt="王依渟.png"></p>
-<h1>Gender</h1>
-<h5>♀️ - 女生</h5>
-<h5>🕵️‍♂️ - 你不知道我是誰（初始蓋伏）</h5>
-<h1>Goal</h1>
-<h5>親手讓兩位研究生肄業</h5>
-<h1>Ability</h1>
-<h3><span style="color:#ED7D31;"># 要愛愛 - </span></h3>
-<h5>當一位研究生發表妳的<span style="color:#7F7F7F;">垃圾</span>論文時，跟他索取兩張手牌，並且蓋伏角色。</h5>
-<h3><span style="color:#ED7D31;"># 真塑可愛 - </span></h3>
-<h5>當你傳遞論文時，翻開角色找最多兩位覺得你可愛的研究生<span style="color:#ED7D31;">走啊打球</span>。</h5>
-<h3><span style="color:#ED7D31;">## 蓮旭宗出 - </span></h3>
-<h5>使用手牌發表一篇<span style="color:#7F7F7F;">垃圾</span>論文在一位研究生面前。接著展示牌庫的兩張牌，若其中一張是<span style="color:#7F7F7F;">黑色</span>，可以對同一位研究生再次發動「蓮旭宗出」。</h5>
-<h1>Trivia</h1>
-<br>
-<p><span class="hashtag">#Bonus</span> <span class="hashtag">#Multiverse_of_依渟</span> </p>
-<h1>Relationship</h1>
-<br>
+        <p><img src="..\..\Illustration\Auto White Balance.png" alt="Auto White Balance.png"></p>
+<h1>使用你的手牌將一位研究生三篇已發表論文替換為<span style="color:#FF0000;">紅</span>、<span style="color:#70AD47;">綠</span>、<span style="color:#4472C4;">藍</span>三種顏色的論文。</h1>
     </div>
 
-    <script>
-        // 所有 Canvas 相關的 JavaScript 程式碼已移除
+    <!-- 新增：回到頂部按鈕 -->
+    <button id="backToTopBtn" title="Go to top">⇑ Top</button>
 
-        // 你原有的 JavaScript 邏輯
+    <script>
+        // 獲取「回到頂部」按鈕元素
+        const backToTopBtn = document.getElementById("backToTopBtn");
+
+        // 函數：根據滾動位置顯示或隱藏按鈕
+        function toggleBackToTopButton() {
+            // 當用戶滾動超過 200px 時顯示按鈕
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        }
+
+        // 當用戶滾動頁面時，執行 toggleBackToTopButton 函數
+        window.addEventListener('scroll', toggleBackToTopButton);
+
+        // 當用戶點擊按鈕時，平滑滾動到頁面頂部
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 啟用平滑滾動
+            });
+        });
+
+        // 你原有的 JavaScript 邏輯 (請確保這部分是您當前的程式碼)
         document.addEventListener('DOMContentLoaded', function() {
             const isLoggedIn = sessionStorage.getItem('loggedIn');
             if (isLoggedIn !== 'true') {
@@ -367,6 +417,8 @@
                 const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
                 window.location.href = currentDirPath + 'Login.html'; 
             }
+            // 在頁面載入時也執行一次，以確保按鈕的初始狀態正確
+            toggleBackToTopButton();
         });
     </script>
 </body>

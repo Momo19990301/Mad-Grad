@@ -355,6 +355,39 @@
             text-decoration: none; 
         }
 
+        /* 語言切換按鈕樣式 */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-right: 15px; /* 與用戶資訊保持距離 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 5px;
+            overflow: hidden; /* 確保按鈕圓角 */
+        }
+        .lang-button {
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #c9d1d9; /* 預設文字顏色 */
+            background-color: rgba(43, 48, 59, 0.7); /* 預設背景色 */
+            transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+            text-shadow: none; /* 移除預設發光，active 時再添加 */
+        }
+        .lang-button:hover:not(.active) {
+            background-color: rgba(60, 68, 80, 0.8);
+            color: #e0e0e0;
+        }
+        .lang-button.active {
+            background-color: #0FFFC0; /* 選中時的背景色 */
+            color: #161b22; /* 選中時的文字顏色 */
+            text-shadow: 0 0 5px #0FFFC0; /* 選中時的發光 */
+        }
+        /* 確保左右兩個按鈕之間有分隔線，或者邊界清晰 */
+        #langZh {
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
         /* 響應式調整 */
         @media (max-width: 768px) {
             .menu-content-wrapper {
@@ -372,6 +405,14 @@
                 padding: 6px 12px;
                 font-size: 0.8em;
             }
+            /* 響應式調整語言切換按鈕 */
+            .language-switcher {
+                margin-right: 10px;
+            }
+            .lang-button {
+                padding: 4px 8px;
+                font-size: 0.8em;
+            }
         }
     </style>
 </head>
@@ -387,97 +428,167 @@
     <div class="menu-content-wrapper">
         
         <div class="header-container">
-            <h1>MENU</h1>
+            <h1 data-lang-key="menu_title">MENU</h1>
             <div class="header-right">
-                <span id="userInfo" class="user-info">Welcome, DemoUser!</span> 
-                <a href="#" id="logoutButton" class="logout-button">Log out</a>
+                <div class="language-switcher">
+                    <span id="langZh" class="lang-button active" data-lang="zh">繁體中文</span>
+                    <span id="langEn" class="lang-button" data-lang="en">English</span>
+                </div>
+                <span id="userInfo" class="user-info" data-lang-key="welcome_message">Welcome, Guest!</span>
+                <button id="logoutButton" class="logout-button" data-lang-key="logout_button">Log out</button>
             </div>
         </div>
         <ul>
             
-                        <li>
-                            <span class="folder-toggle">►</span> <span class="folder-name">Lab</span>
-                            <ul class="collapsible-content">
-                                <li><a href="Lab\AIoT Lab.html">AIoT Lab</a></li>
-<li><a href="Lab\Bonus.html">Bonus</a></li>
-<li><a href="Lab\EMCA Lab.html">EMCA Lab</a></li>
-<li><a href="Lab\SoC Lab.html">SoC Lab</a></li>
-                            </ul>
-                        </li>
-                    
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="lab_folder">Lab</span>
+                    <ul class="collapsible-content">
+                        <li><a href="Lab\SoC Lab.html" data-lang-key="soc_lab_link">SoC Lab</a></li>
+<li><a href="Lab\AIoT Lab.html" data-lang-key="aiot_lab_link">AIoT Lab</a></li>
+<li><a href="Lab\EMCA Lab.html" data-lang-key="emca_lab_link">EMCA Lab</a></li>
+<li><a href="Lab\Badass.html" data-lang-key="badass_link">Badass</a></li>
+                    </ul>
+                </li>
+            
 
-                        <li>
-                            <span class="folder-toggle">►</span> <span class="folder-name">SoC Lab</span>
-                            <ul class="collapsible-content">
-                                <li><a href="SoC Lab\Prof. 蛋頭博士.html">Prof. 蛋頭博士</a></li>
-<li><a href="SoC Lab\余十三.html">余十三</a></li>
-<li><a href="SoC Lab\小南瓜.html">小南瓜</a></li>
-<li><a href="SoC Lab\徐丞丞.html">徐丞丞</a></li>
-<li><a href="SoC Lab\心碎小狗.html">心碎小狗</a></li>
-<li><a href="SoC Lab\應葛格.html">應葛格</a></li>
-<li><a href="SoC Lab\敦敦.html">敦敦</a></li>
-<li><a href="SoC Lab\梵楓霖.html">梵楓霖</a></li>
-<li><a href="SoC Lab\橋牌社長.html">橋牌社長</a></li>
-<li><a href="SoC Lab\湖口砲兵連連長.html">湖口砲兵連連長</a></li>
-<li><a href="SoC Lab\焦糖o彤兒.html">焦糖o彤兒</a></li>
-<li><a href="SoC Lab\珊珊姊.html">珊珊姊</a></li>
-<li><a href="SoC Lab\色彩學大師.html">色彩學大師</a></li>
-<li><a href="SoC Lab\諸葛小劉.html">諸葛小劉</a></li>
-<li><a href="SoC Lab\陳大帥帥.html">陳大帥帥</a></li>
-<li><a href="SoC Lab\馬華.html">馬華</a></li>
-<li><a href="SoC Lab\黃老二.html">黃老二</a></li>
-                            </ul>
-                        </li>
-                    
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="soc_lab_link">SoC Lab</span>
+                    <ul class="collapsible-content">
+                        <li><a href="SoC Lab\Prof. 蛋頭博士.html" data-lang-key="prof_link">Prof. 蛋頭博士</a></li>
+<li><a href="SoC Lab\余十三.html" data-lang-key="余十三_link">余十三</a></li>
+<li><a href="SoC Lab\小南瓜.html" data-lang-key="小南瓜_link">小南瓜</a></li>
+<li><a href="SoC Lab\徐丞丞.html" data-lang-key="徐丞丞_link">徐丞丞</a></li>
+<li><a href="SoC Lab\心碎小狗.html" data-lang-key="心碎小狗_link">心碎小狗</a></li>
+<li><a href="SoC Lab\應葛格.html" data-lang-key="應葛格_link">應葛格</a></li>
+<li><a href="SoC Lab\敦敦.html" data-lang-key="敦敦_link">敦敦</a></li>
+<li><a href="SoC Lab\梵楓霖.html" data-lang-key="梵楓霖_link">梵楓霖</a></li>
+<li><a href="SoC Lab\橋牌社長.html" data-lang-key="橋牌社長_link">橋牌社長</a></li>
+<li><a href="SoC Lab\湖口砲兵連連長.html" data-lang-key="湖口砲兵連連長_link">湖口砲兵連連長</a></li>
+<li><a href="SoC Lab\焦糖o彤兒.html" data-lang-key="焦糖o彤兒_link">焦糖o彤兒</a></li>
+<li><a href="SoC Lab\珊珊姊.html" data-lang-key="珊珊姊_link">珊珊姊</a></li>
+<li><a href="SoC Lab\色彩學大師.html" data-lang-key="色彩學大師_link">色彩學大師</a></li>
+<li><a href="SoC Lab\諸葛小劉.html" data-lang-key="諸葛小劉_link">諸葛小劉</a></li>
+<li><a href="SoC Lab\陳大帥帥.html" data-lang-key="陳大帥帥_link">陳大帥帥</a></li>
+<li><a href="SoC Lab\馬華.html" data-lang-key="馬華_link">馬華</a></li>
+<li><a href="SoC Lab\黃老二.html" data-lang-key="黃老二_link">黃老二</a></li>
+                    </ul>
+                </li>
+            
 
-                        <li>
-                            <span class="folder-toggle">►</span> <span class="folder-name">AIoT Lab</span>
-                            <ul class="collapsible-content">
-                                <li><a href="AIoT Lab\Rocky.html">Rocky</a></li>
-<li><a href="AIoT Lab\小瓜.html">小瓜</a></li>
-<li><a href="AIoT Lab\慈慈.html">慈慈</a></li>
-<li><a href="AIoT Lab\求萌 & 首蒙元.html">求萌 & 首蒙元</a></li>
-<li><a href="AIoT Lab\牛仔褲寶貝.html">牛仔褲寶貝</a></li>
-<li><a href="AIoT Lab\老人與狗.html">老人與狗</a></li>
-<li><a href="AIoT Lab\阿詠.html">阿詠</a></li>
-                            </ul>
-                        </li>
-                    
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="aiot_lab_link">AIoT Lab</span>
+                    <ul class="collapsible-content">
+                        <li><a href="AIoT Lab\Rocky.html" data-lang-key="rocky_link">Rocky</a></li>
+<li><a href="AIoT Lab\小瓜.html" data-lang-key="小瓜_link">小瓜</a></li>
+<li><a href="AIoT Lab\慈慈.html" data-lang-key="慈慈_link">慈慈</a></li>
+<li><a href="AIoT Lab\求萌 & 首蒙元.html" data-lang-key="求萌_8_首蒙元_link">求萌 & 首蒙元</a></li>
+<li><a href="AIoT Lab\牛仔褲寶貝.html" data-lang-key="牛仔褲寶貝_link">牛仔褲寶貝</a></li>
+<li><a href="AIoT Lab\老人與狗.html" data-lang-key="老人與狗_link">老人與狗</a></li>
+<li><a href="AIoT Lab\阿詠.html" data-lang-key="阿詠_link">阿詠</a></li>
+                    </ul>
+                </li>
+            
 
-                        <li>
-                            <span class="folder-toggle">►</span> <span class="folder-name">EMCA Lab</span>
-                            <ul class="collapsible-content">
-                                <li><a href="EMCA Lab\海神巨獸.html">海神巨獸</a></li>
-<li><a href="EMCA Lab\金門王.html">金門王</a></li>
-                            </ul>
-                        </li>
-                    
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="emca_lab_link">EMCA Lab</span>
+                    <ul class="collapsible-content">
+                        <li><a href="EMCA Lab\海神巨獸.html" data-lang-key="海神巨獸_link">海神巨獸</a></li>
+<li><a href="EMCA Lab\金門王.html" data-lang-key="金門王_link">金門王</a></li>
+                    </ul>
+                </li>
+            
 
-                        <li>
-                            <span class="folder-toggle">►</span> <span class="folder-name">Bonus</span>
-                            <ul class="collapsible-content">
-                                <li><a href="Bonus\憑拳大將軍.html">憑拳大將軍</a></li>
-<li><a href="Bonus\懶惰小依 & 賴床小依.html">懶惰小依 & 賴床小依</a></li>
-<li><a href="Bonus\渟渟急轉彎.html">渟渟急轉彎</a></li>
-<li><a href="Bonus\王依渟.html">王依渟</a></li>
-<li><a href="Bonus\紀崴.html">紀崴</a></li>
-<li><a href="Bonus\蒂娜.html">蒂娜</a></li>
-                            </ul>
-                        </li>
-                    
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="badass_link">Badass</span>
+                    <ul class="collapsible-content">
+                        <li><a href="Badass\憑拳大將軍.html" data-lang-key="憑拳大將軍_link">憑拳大將軍</a></li>
+<li><a href="Badass\懶惰小依 & 賴床小依.html" data-lang-key="懶惰小依_8_賴床小依_link">懶惰小依 & 賴床小依</a></li>
+<li><a href="Badass\渟渟急轉彎.html" data-lang-key="渟渟急轉彎_link">渟渟急轉彎</a></li>
+<li><a href="Badass\王依渟.html" data-lang-key="王依渟_link">王依渟</a></li>
+<li><a href="Badass\紀崴.html" data-lang-key="紀崴_link">紀崴</a></li>
+<li><a href="Badass\蒂娜.html" data-lang-key="蒂娜_link">蒂娜</a></li>
+                    </ul>
+                </li>
+            
 
-                        <li>
-                            <span class="folder-toggle">►</span> <span class="folder-name">Appendix</span>
-                            <ul class="collapsible-content">
-                                <li><a href="Appendix\Rock.html">Rock</a></li>
-<li><a href="Appendix\深淵.html">深淵</a></li>
-<li><a href="Appendix\球球.html">球球</a></li>
-<li><a href="Appendix\穢土轉生研究生.html">穢土轉生研究生</a></li>
-                            </ul>
-                        </li>
-                    
-<li><a href="Attributes.html">Attributes</a></li>
-<li><a href="Settings.html">Settings</a></li>
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="algorithm_folder">Algorithm</span>
+                    <ul class="collapsible-content">
+                        
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="hand_based_folder">Hand Based</span>
+                    <ul class="collapsible-content">
+                        <li><a href="Algorithm\Hand Based\Artificial Intelligence.html" data-lang-key="artificial_intelligence_link">Artificial Intelligence</a></li>
+<li><a href="Algorithm\Hand Based\Demosaicing.html" data-lang-key="demosaicing_link">Demosaicing</a></li>
+<li><a href="Algorithm\Hand Based\Eye Corner Detection.html" data-lang-key="eye_corner_detection_link">Eye Corner Detection</a></li>
+<li><a href="Algorithm\Hand Based\Histogram Equalization.html" data-lang-key="histogram_equalization_link">Histogram Equalization</a></li>
+<li><a href="Algorithm\Hand Based\Iris Matching.html" data-lang-key="iris_matching_link">Iris Matching</a></li>
+<li><a href="Algorithm\Hand Based\Phase Search.html" data-lang-key="phase_search_link">Phase Search</a></li>
+                    </ul>
+                </li>
+            
+
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="paper_based_folder">Paper Based</span>
+                    <ul class="collapsible-content">
+                        <li><a href="Algorithm\Paper Based\Auto White Balance.html" data-lang-key="auto_white_balance_link">Auto White Balance</a></li>
+<li><a href="Algorithm\Paper Based\Digital IC Design.html" data-lang-key="digital_ic_design_link">Digital IC Design</a></li>
+<li><a href="Algorithm\Paper Based\Firework Algorithm.html" data-lang-key="firework_algorithm_link">Firework Algorithm</a></li>
+<li><a href="Algorithm\Paper Based\Halftone.html" data-lang-key="halftone_link">Halftone</a></li>
+<li><a href="Algorithm\Paper Based\Lossy Compression.html" data-lang-key="lossy_compression_link">Lossy Compression</a></li>
+<li><a href="Algorithm\Paper Based\Tone Reproduction.html" data-lang-key="tone_reproduction_link">Tone Reproduction</a></li>
+                    </ul>
+                </li>
+            
+
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="rule_based_folder">Rule Based</span>
+                    <ul class="collapsible-content">
+                        <li><a href="Algorithm\Rule Based\Big Data Analysis.html" data-lang-key="big_data_analysis_link">Big Data Analysis</a></li>
+<li><a href="Algorithm\Rule Based\Fuzzy Control.html" data-lang-key="fuzzy_control_link">Fuzzy Control</a></li>
+<li><a href="Algorithm\Rule Based\Motion Estimation & Compensation.html" data-lang-key="motion_estimation_8_compensation_link">Motion Estimation & Compensation</a></li>
+<li><a href="Algorithm\Rule Based\NAS Database.html" data-lang-key="nas_database_link">NAS Database</a></li>
+<li><a href="Algorithm\Rule Based\Noise Filter.html" data-lang-key="noise_filter_link">Noise Filter</a></li>
+<li><a href="Algorithm\Rule Based\Parallel Computing.html" data-lang-key="parallel_computing_link">Parallel Computing</a></li>
+                    </ul>
+                </li>
+            
+                    </ul>
+                </li>
+            
+
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="action_folder">Action</span>
+                    <ul class="collapsible-content">
+                        <li><a href="Action\All-nighter.html" data-lang-key="all_nighter_link">All-nighter</a></li>
+<li><a href="Action\Analyze.html" data-lang-key="analyze_link">Analyze</a></li>
+<li><a href="Action\Anticipate.html" data-lang-key="anticipate_link">Anticipate</a></li>
+<li><a href="Action\Assign.html" data-lang-key="assign_link">Assign</a></li>
+<li><a href="Action\Defer.html" data-lang-key="defer_link">Defer</a></li>
+<li><a href="Action\Dump.html" data-lang-key="dump_link">Dump</a></li>
+<li><a href="Action\Falsify.html" data-lang-key="falsify_link">Falsify</a></li>
+<li><a href="Action\Forced Publish.html" data-lang-key="forced_publish_link">Forced Publish</a></li>
+<li><a href="Action\Let's ball.html" data-lang-key="lets_ball_link">Let's ball</a></li>
+<li><a href="Action\Paper Storm.html" data-lang-key="paper_storm_link">Paper Storm</a></li>
+<li><a href="Action\Plagiarize.html" data-lang-key="plagiarize_link">Plagiarize</a></li>
+<li><a href="Action\Retract.html" data-lang-key="retract_link">Retract</a></li>
+<li><a href="Action\Seminar.html" data-lang-key="seminar_link">Seminar</a></li>
+<li><a href="Action\Side Quest.html" data-lang-key="side_quest">Side Quest</a></li>
+<li><a href="Action\Start Over.html" data-lang-key="start_over_link">Start Over</a></li>
+                    </ul>
+                </li>
+            
+
+                <li>
+                    <span class="folder-toggle">►</span> <span class="folder-name" data-lang-key="appendix_folder">Appendix</span>
+                    <ul class="collapsible-content">
+                        <li><a href="Appendix\Rock.html" data-lang-key="rock_link">Rock</a></li>
+<li><a href="Appendix\深淵.html" data-lang-key="深淵_link">深淵</a></li>
+<li><a href="Appendix\球球.html" data-lang-key="球球_link">球球</a></li>
+<li><a href="Appendix\穢土轉生研究生.html" data-lang-key="穢土轉生研究生_link">穢土轉生研究生</a></li>
+                    </ul>
+                </li>
+            
         </ul>
     
         <!-- 你的 MD_to_HTML.py 腳本應該將轉換後的 Markdown 內容 (header-container 和 ul 列表) 插入到這裡 -->
@@ -486,6 +597,139 @@
     <script>
         const canvas = document.getElementById('breathingGradientCanvas');
         const ctx = canvas.getContext('2d');
+
+        // 語言翻譯字典
+        const translations = {
+            zh: {
+                menu_title: "選單",
+                welcome_message: "歡迎, ", // 注意：這裡只放“歡迎,”，後面的用戶名會動態拼接
+                logout_button: "登出",
+                lab_folder: "實驗室",
+                    soc_lab_link: "系統單晶片 實驗室",
+                    aiot_lab_link: "智慧物聯網 實驗室",
+                    emca_lab_link: "電機控制與應用 實驗室",
+                    badass_link: "狠角色",
+                algorithm_folder: "演算法",
+                    paper_based_folder: "論文系",
+                        halftone_link: "半色調",
+                        digital_ic_design_link: "數位晶片設計",
+                        firework_algorithm_link: "煙花演算法",
+                        lossy_compression_link: "破壞性資料壓縮",
+                        auto_white_balance_link: "自動白平衡",
+                        tone_reproduction_link: "色調重現",
+                    hand_based_folder: "手牌系",
+                        artificial_intelligence_link: "人工智慧",
+                        histogram_equalization_link: "直方圖均衡化",
+                        eye_corner_detection_link: "眼角偵測",
+                        iris_matching_link: "虹膜匹配",
+                        demosaicing_link: "解馬賽克",
+                        phase_search_link: "階段式搜索",
+                    rule_based_folder: "規則系",
+                        big_data_analysis_link: "大數據分析",
+                        nas_database_link: "NAS 資料庫",
+                        parallel_computing_link: "平行計算",
+                        motion_estimation_8_compensation_link: "動作估計 & 補償",
+                        fuzzy_control_link: "模糊控制",
+                        noise_filter_link: "雜訊濾波器",
+                action_folder: "動作",
+                    assign_link: "指定",
+                    seminar_link: "書報討論",
+                    defer_link: "休學",
+                    analyze_link: "研究",
+                    retract_link: "撤銷",
+                    anticipate_link: "預判",
+                    plagiarize_link: "抄襲",
+                    dump_link: "擺爛",
+                    forced_publish_link: "強制發表",
+                    falsify_link: "偽造",
+                    start_over_link: "砍掉重練",
+                    all_nighter_link: "今晚加班",
+                    paper_storm_link: "論文高產",
+                    lets_ball_link: "走啊打球",
+                    side_quest: "支線任務",
+                appendix_folder: "附件"
+            },
+            en: {
+                menu_title: "MENU",
+                welcome_message: "Welcome, ", // 注意：這裡只放“Welcome,”，後面的用戶名會動態拼接
+                logout_button: "Log out",
+                lab_folder: "Lab",
+                    soc_lab_link: "SoC Lab",
+                    aiot_lab_link: "AIoT Lab",
+                    emca_lab_link: "EMCA Lab",
+                    badass_link: "Badass",
+                algorithm_folder: "Algorithm",
+                    paper_based_folder: "Paper Based",
+                        halftone_link: "Halftone",
+                        digital_ic_design_link: "Digital IC Design",
+                        firework_algorithm_link: "Firework Algorithm",
+                        lossy_compression_link: "Lossy Compression",
+                        auto_white_balance_link: "Auto White Balance",
+                        tone_reproduction_link: "Tone Reproduction",
+                    hand_based_folder: "Hand Based",
+                        artificial_intelligence_link: "Artificial Intelligence",
+                        histogram_equalization_link: "Histogram Equalization",
+                        eye_corner_detection_link: "Eye Corner Detection",
+                        iris_matching_link: "Iris Matching",
+                        demosaicing_link: "Demosaicing",
+                        phase_search_link: "Phase Search",
+                    rule_based_folder: "Rule Based",
+                        big_data_analysis_link: "Big Data Analysis",
+                        nas_database_link: "NAS Database",
+                        parallel_computing_link: "Parallel Computing",
+                        motion_estimation_8_compensation_link: "Motion Estimation & Compensation",
+                        fuzzy_control_link: "Fuzzy Control",
+                        noise_filter_link: "Noise Filter",
+                action_folder: "Action",
+                    assign_link: "Assign",
+                    seminar_link: "Seminar",
+                    defer_link: "Defer",
+                    analyze_link: "Analyze",
+                    retract_link: "Retract",
+                    anticipate_link: "Anticipate",
+                    plagiarize_link: "Plagiarize",
+                    dump_link: "Dump",
+                    forced_publish_link: "Forced Publish",
+                    falsify_link: "Falsify",
+                    start_over_link: "Start Over",
+                    all_nighter_link: "All-nighter",
+                    paper_storm_link: "Paper Storm",
+                    lets_ball_link: "Let's ball",
+                    side_quest: "Side Quest",
+                appendix_folder: "Appendix"
+            }
+        };
+
+        // 獲取所有需要翻譯的元素
+        const translatableElements = document.querySelectorAll('[data-lang-key]');
+
+        // 函數：應用翻譯
+        function applyTranslations(lang) {
+            translatableElements.forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (key && translations[lang] && translations[lang][key] !== undefined) {
+                    if (key === 'welcome_message') {
+                        // 特殊處理 welcome_message，只翻譯前綴，保留用戶名
+                        const currentUserId = sessionStorage.getItem('currentUserId');
+                        element.textContent = translations[lang][key] + (currentUserId ? currentUserId + '!' : 'Guest!');
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // 更新語言切換按鈕的 active 狀態
+            document.querySelectorAll('.lang-button').forEach(button => {
+                if (button.getAttribute('data-lang') === lang) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            // 將當前語言儲存到 localStorage
+            localStorage.setItem('currentLanguage', lang);
+        }
 
         // 基礎暗色背景漸層顏色
         const baseGradientColors = {
@@ -609,9 +853,9 @@
 
         // 動畫循環
         function animate() {
-            drawBaseGradient(); 
-            drawBreathingLights(); 
-            requestAnimationFrame(animate); 
+            drawBaseGradient();
+            drawBreathingLights();
+            requestAnimationFrame(animate);
         }
 
         // 處理視窗大小改變
@@ -619,13 +863,13 @@
             // 確保 width 和 height 是有效的正數，如果不是則設定預設值
             canvas.width = Number.isFinite(window.innerWidth) && window.innerWidth > 0 ? window.innerWidth : 800;
             canvas.height = Number.isFinite(window.innerHeight) && window.innerHeight > 0 ? window.innerHeight : 600;
-            initBreathingLights(); 
+            initBreathingLights();
         }
 
         // 初始化並啟動動畫
         window.addEventListener('resize', resizeCanvas); 
-        resizeCanvas(); 
-        animate(); 
+        resizeCanvas();
+        animate();
 
         // MENU 頁面原有的 JavaScript 邏輯
         document.addEventListener('DOMContentLoaded', function() {
@@ -639,11 +883,11 @@
             // 顯示用戶資訊
             const userInfoSpan = document.getElementById('userInfo');
             const currentUserId = sessionStorage.getItem('currentUserId');
-            if (userInfoSpan && currentUserId) {
-                userInfoSpan.textContent = 'Welcome, ' + currentUserId + '!';
-            } else if (userInfoSpan) { // 如果沒有 currentUserId，顯示預設值
-                userInfoSpan.textContent = 'Welcome, Guest!'; 
-            }
+            // if (userInfoSpan && currentUserId) {
+            //     userInfoSpan.textContent = 'Welcome, ' + currentUserId + '!';
+            // } else if (userInfoSpan) { // 如果沒有 currentUserId，顯示預設值
+            //     userInfoSpan.textContent = 'Welcome, Guest!'; 
+            // }
 
             // 登出按鈕功能
             const logoutButton = document.getElementById('logoutButton');
@@ -675,6 +919,22 @@
                     });
                 }
             });
+
+            // 【新增】語言切換邏輯
+            const langZhButton = document.getElementById('langZh');
+            const langEnButton = document.getElementById('langEn');
+
+            if (langZhButton) {
+                langZhButton.addEventListener('click', () => applyTranslations('zh'));
+            }
+            if (langEnButton) {
+                langEnButton.addEventListener('click', () => applyTranslations('en'));
+            }
+
+            // 頁面載入時，檢查 localStorage 或預設為英文
+            const savedLanguage = localStorage.getItem('currentLanguage');
+            applyTranslations(savedLanguage || 'en'); // 預設為英文
+
         });
     </script>
 </body>

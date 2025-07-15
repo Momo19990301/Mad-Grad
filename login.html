@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
+    <title>Mad Grad - Log in</title>
     <style>
-        /* Custom Fonts */
+        /* --- 1. Custom Fonts (自訂字體) --- */
         @font-face {
             font-family: 'GenJyuuGothic';
             src: url('Fonts/GenJyuuGothic-ExtraLight.ttf') format('truetype');
@@ -48,6 +48,7 @@
             font-weight: 900; /* Heavy */
             font-style: normal;
         }
+        /* --- 2. Base & Global Styles (基礎與全域樣式) --- */
         body {
             font-family: 'GenJyuuGothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             background-color: #1a1a2e; /* 深色背景 */
@@ -69,7 +70,9 @@
             display: block; /* 移除 Canvas 下方的額外空間 */
             z-index: 1; /* 確保 Canvas 在背景層 */
         }
+        /* --- 3. Layout & Container Styles (排版與容器樣式) --- */
         .login-container {
+            position: relative;
             background-color: rgba(42, 42, 74, 0.85); /* 比背景稍淺的容器 */
             padding: 40px;
             border-radius: 8px;
@@ -86,6 +89,7 @@
             margin-bottom: 30px;
             font-family: 'GenJyuuGothic', sans-serif; /* 確保標題也應用字體 */
         }
+        /* --- 4. Form Elements (表單元素) --- */
         .input-group {
             margin-bottom: 20px;
             text-align: left;
@@ -98,7 +102,8 @@
             font-family: 'GenJyuuGothic', sans-serif; /* 確保 label 也應用字體 */
         }
         .input-group input[type="text"],
-        .input-group input[type="password"] {
+        .input-group input[type="password"],
+        .input-group input[type="email"] {
             width: calc(100% - 20px);
             padding: 12px 10px;
             border: 1px solid #3e2f5b;
@@ -113,96 +118,272 @@
         .input-group input:focus {
             border-color: #8ab4f8;
         }
-        button {
+        /* --- 6. Specific Buttons (特定按鈕樣式) --- */
+        .base-button {
             width: 100%;
             padding: 12px;
-            background-image: linear-gradient(to right, #FF00FF, #8A2BE2); /* 從鮮豔的洋紅色到紫羅蘭色的漸層 */
-            color: #FFFFFF; /* 按鈕文字顏色：白色 */
+            color: #FFFFFF;
             border: none;
             border-radius: 5px;
             font-size: 1.1em;
-            font-weight: bold;
+            font-weight: bold; /* 或使用 font-weight: 700; */
             cursor: pointer;
-            transition: background-image 0.3s ease; /* 漸層過渡 */
-            /* === 請在此處添加或修改 === */
-            font-family: 'GenJyuuGothic', sans-serif; /* 明確指定按鈕的字體 */
-            font-weight: 700; /* 確保按鈕文字更粗 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 為按鈕增加陰影 */
+            transition: background-image 0.3s ease, background-color 0.3s ease; /* 確保過渡效果涵蓋兩種情況 */
+            font-family: 'GenJyuuGothic', sans-serif;
+            font-weight: 700; /* 明確使用字體的 Bold */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-        button:hover {
-            background-image: linear-gradient(to right, #CC00CC, #6A1E9E); /* 懸停時漸層變深 */
+        .login-button {
+            background-image: linear-gradient(to right, #FF00FF, #8A2BE2);
         }
-        .error-message {
-            color: #ff6b6b; /* 紅色錯誤訊息 */
-            margin-top: 15px;
-            display: none; /* 默認隱藏 */
+        .login-button:hover {
+            background-image: linear-gradient(to right, #CC00CC, #6A1E9E);
+        }
+        .register-button {
+            background-image: linear-gradient(to right, #8afccc, #169bb3); /* Register 按鈕漸層 */
+            margin-top: 15px; /* 與登入按鈕的間距 */
+        }
+        .register-button:hover {
+            background-image: linear-gradient(to right, #62b492, #0e6a7a); /* Register 按鈕懸停效果 */
+        }
+        /* .submit-button {
+            background-image: linear-gradient(to right, #FF00FF, #8A2BE2);
+        }
+        .submit-button:hover {
+            background-image: linear-gradient(to right, #CC00CC, #6A1E9E);
+        } */
+        #languageToggleButton {
+            position: absolute;
+            top: 20px; /* 調整位置 */
+            right: 20px; /* 調整位置 */
+            padding: 8px 12px;
+            background: none; /* 文字按鈕，無實心背景 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 5px;
+            color: #e0e0e0; /* 淺色文字 */
+            cursor: pointer;
             font-size: 0.9em;
-            font-family: 'GenJyuuGothic', sans-serif; /* 確保錯誤訊息也應用字體 */
+            font-family: 'GenJyuuGothic', sans-serif;
+            z-index: 15; /* 確保在登入容器上方 */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        #languageToggleButton:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* 懸停時輕微的背景效果 */
+            border-color: rgba(255, 255, 255, 0.5); /* 懸停時邊框變亮 */
+        }
+        #successOkButton {
+            background-image: linear-gradient(to right, #bff891, #01a70f);
+            width: 60%; /* 這是它獨有的 */
+            max-width: 200px; /* 這是它獨有的 */
+            padding: 10px; /* 略有不同 */
+            font-size: 1em; /* 略有不同 */
+            margin-top: 0; /* 這是它獨有的 */
+        }
+        #successOkButton:hover {
+            background-image: linear-gradient(to right, #9ac775, #01750a);
+        }
+        /* --- 7. Messages (訊息樣式) --- */
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            display: none;
+            font-size: 0.9em;
+            font-family: 'GenJyuuGothic', sans-serif;
+        }
+        /* --- 8. Modals (模態框) --- */
+        .modal {
+            display: none; /* 默認隱藏 */
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: rgba(42, 42, 74, 0.95);
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            animation: fadeIn 0.5s;
+            box-sizing: border-box;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #fff;
+            text-decoration: none;
+        }
+        .modal-content .input-group label {
+            color: #ccc;
+        }
+        .modal-content .input-group input {
+            background-color: #3e2f5b;
+            color: #e0e0e0;
+            border: 1px solid #3e2f5b;
+        }
+        .modal-content .input-group input:focus {
+            border-color: #8ab4f8;
+        }
+        .modal-content button[type="submit"] {
+            background-image: linear-gradient(to right, #fce878, #ddbc01);
+            margin-top: 20px;
+        }
+        .modal-content button[type="submit"]:hover {
+            background-image: linear-gradient(to right, #c7b75e, #998200);
+        }
+        /* --- 9. Success Modal Specific Styles (成功提示模態框特定樣式) --- */
+        #successModal .modal-content {
+            text-align: center; /* 讓內容居中 */
+            padding: 40px 30px; /* 增加上下內距 */
+        }
+        .success-icon {
+            width: 80px; /* 調整圖案大小 */
+            height: 80px;
+            background-color: #28a745; /* 綠色背景 */
+            border-radius: 50%; /* 圓形 */
+            display: inline-flex; /* 讓圖案和文字居中 */
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.6); /* 綠色光暈 */
+        }
+        .success-icon svg {
+            fill: #fff; /* 打勾顏色白色 */
+            width: 50px; /* 打勾大小 */
+            height: 50px;
+        }
+        #successMessageText {
+            color: #ffffff;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        /* --- 10. Animations (動畫) --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <canvas id="neonCanvas"></canvas> <!-- Canvas ID 已更改 -->
+    <canvas id="neonCanvas"></canvas>
     <div class="login-container">
-        <h2>Mad Grad</h2>
+        <h1 data-lang-key="loginTitle">Mad Grad</h1>
+        <button type="button" id="languageToggleButton">⇄ 繁體中文</button>
         <form id="loginForm">
             <div class="input-group">
-                <label for="username">Account:</label>
+                <label for="username" data-lang-key="usernameLabel">Username:</label>
                 <input type="text" id="username" name="username" required>
             </div>
             <div class="input-group">
-                <label for="password">Password:</label>
+                <label for="password" data-lang-key="passwordLabel">Password:</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit">Log in</button>
-            <p id="errorMessage" class="error-message"></p>
+            <p id="errorMessage" class="error-message" data-lang-key="errorMessage"></p>
+            <button type="submit" class="base-button login-button" data-lang-key="loginButton">Log in</button>
         </form>
+        <button type="button" id="registerButton" class="base-button register-button" data-lang-key="registerButton">Register</button>
     </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 data-lang-key="registerAccountTitle">Register Account</h2>
+            <form id="registerForm">
+                <div class="input-group">
+                    <label for="regNickname" data-lang-key="nicknameLabel">Nickname:</label>
+                    <input type="text" id="regNickname" name="nickname" required>
+                </div>
+                <div class="input-group">
+                    <label for="regUsername" data-lang-key="regUsernameLabel">Username:</label>
+                    <input type="text" id="regUsername" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="regPassword" data-lang-key="regPasswordLabel">Password:</label>
+                    <input type="password" id="regPassword" name="password" required>
+                </div>
+                <div class="input-group">
+                    <label for="regConfirmPassword" data-lang-key="regConfirmPasswordLabel">Confirm Password:</label>
+                    <input type="password" id="regConfirmPassword" name="confirm_password" required>
+                </div>
+                <div class="input-group">
+                    <label for="regEmail" data-lang-key="regEmailLabel">Email:</label>
+                    <input type="email" id="regEmail" name="email" required>
+                </div>
+                <button type="submit" class="base-button" data-lang-key="submitButton">Submit</button>
+                <p id="registerErrorMessage" class="error-message" data-lang-key="registerErrorMessage"></p>
+                </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+            </div>
+            <p id="successMessageText" data-lang-key="successMessageText">Received!<br>Activation will be notified by email.</p>
+            <button type="button" id="successOkButton" class="base-button" data-lang-key="successOkButton">OK</button>
+        </div>
+    </div>
+
     <script>
         // Canvas 動畫 JavaScript 邏輯
-        const canvas = document.getElementById('neonCanvas'); // Canvas ID 已更改
+        const canvas = document.getElementById('neonCanvas');
         const ctx = canvas.getContext('2d');
-        let particles = []; // 包含所有粒子 (線條和節點)
+        let particles = [];
 
-        // 背景漸層顏色 (根據新 prompt 調整，整體亮度更暗)
-        // 從左下角 (0, canvas.height) 的亮粉色/洋紅色到中間，再到右上角 (canvas.width, 0) 的深靛藍色
-        const gradientStartColor = '#781E4F'; // 亮粉色/洋紅色 (稍微調暗)
-        const gradientMidColor = '#653371';   // 深紫色 (稍微調暗)
-        const gradientEndColor = '#313C69';   // 深靛藍/海軍藍 (更暗)
+        const gradientStartColor = '#781E4F';
+        const gradientMidColor = '#653371';
+        const gradientEndColor = '#313C69';
 
-        // 霓虹粒子的顏色 (根據你提供的列表更新)
         const neonColors = [
-            '#53B4FF', '#00CFFF', '#2F7FFF', '#40A9FF', // 藍色
-            '#15FFD0', '#0FFFC0', '#40FFD6',           // 青綠色
-            '#51FF2B', '#13FF49', '#71FF40',           // 綠色
-            '#FF1B54', '#FF4545', '#FF4D4D',           // 紅色
-            '#FF45DD', '#FF80EC',                       // 粉紅色
-            '#F3FF55', '#FFFF60',                       // 黃色
-            '#FFAB4D', '#FFB354',                       // 橙色
-            '#BC48FF'                                   // 紫色
+            '#53B4FF', '#00CFFF', '#2F7FFF', '#40A9FF',
+            '#15FFD0', '#0FFFC0', '#40FFD6',
+            '#51FF2B', '#13FF49', '#71FF40',
+            '#FF1B54', '#FF4545', '#FF4D4D',
+            '#FF45DD', '#FF80EC',
+            '#F3FF55', '#FFFF60',
+            '#FFAB4D', '#FFB354',
+            '#BC48FF'
         ];
 
-        // 調整 Canvas 大小以適應視窗
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            drawGradient(); // 視窗大小改變時重新繪製漸層
-            initParticles(); // 重新初始化粒子以適應新尺寸
+            drawGradient();
+            initParticles();
         }
 
-        // 繪製背景漸層的函數 (根據新 prompt 調整)
         function drawGradient() {
-            // 建立線性漸層 (從左下角 (0, canvas.height) 到右上角 (canvas.width, 0))
             const gradient = ctx.createLinearGradient(0, canvas.height, canvas.width, 0);
-            gradient.addColorStop(0, gradientStartColor); // 左下角
-            gradient.addColorStop(0.5, gradientMidColor);   // 中間
-            gradient.addColorStop(1, gradientEndColor);     // 右上角
-
+            gradient.addColorStop(0, gradientStartColor);
+            gradient.addColorStop(0.5, gradientMidColor);
+            gradient.addColorStop(1, gradientEndColor);
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        // 基礎粒子類別 (用於線條軌跡)
         class Particle {
             constructor(x, y, color, size, speedX, speedY) {
                 this.x = x;
@@ -211,29 +392,25 @@
                 this.size = size;
                 this.speedX = speedX;
                 this.speedY = speedY;
-                this.opacity = 0.05 + Math.random() * 0.15; // 初始透明度提高
-                this.life = 100 + Math.random() * 150; // 粒子生命週期延長
-                this.history = [{x: this.x, y: this.y}]; // 用於繪製尾巴
+                this.opacity = 0.05 + Math.random() * 0.15;
+                this.life = 100 + Math.random() * 150;
+                this.history = [{x: this.x, y: this.y}];
                 this.type = 'line';
             }
-
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
                 this.life--;
-                this.opacity = Math.max(0, this.opacity - 0.001); // 逐漸減弱透明度，速度稍快讓它消失
+                this.opacity = Math.max(0, this.opacity - 0.001);
                 
-                // 邊界反彈
                 if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
                 if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
 
-                // 更新歷史軌跡
                 this.history.push({x: this.x, y: this.y});
-                if (this.history.length > 20) { // 限制軌跡長度，稍長
+                if (this.history.length > 20) {
                     this.history.shift();
                 }
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -241,7 +418,6 @@
                 ctx.globalAlpha = this.opacity;
                 ctx.fill();
 
-                // 繪製軌跡
                 if (this.history.length > 1) {
                     ctx.beginPath();
                     ctx.moveTo(this.history[0].x, this.history[0].y);
@@ -249,132 +425,109 @@
                         ctx.lineTo(this.history[i].x, this.history[i].y);
                     }
                     ctx.strokeStyle = this.color;
-                    ctx.lineWidth = this.size * 0.4; // 軌跡更明顯
-                    ctx.globalAlpha = this.opacity * 0.4; // 軌跡透明度略低
+                    ctx.lineWidth = this.size * 0.4;
+                    ctx.globalAlpha = this.opacity * 0.4;
                     ctx.stroke();
                 }
             }
         }
 
-        // 節點粒子類別 (用於圓形光點和連接線)
         class NodeParticle extends Particle {
             constructor(x, y, color, size, speedX, speedY) {
                 super(x, y, color, size, speedX, speedY);
                 this.type = 'node';
                 this.baseSize = size;
-                this.pulseFactor = 0; // 脈衝因子
-                this.pulseSpeed = 0.03 + Math.random() * 0.03; // 脈衝速度稍快
+                this.pulseFactor = 0;
+                this.pulseSpeed = 0.03 + Math.random() * 0.03;
             }
-
             update() {
-                super.update(); // 調用父類的更新邏輯
-
-                // 脈衝效果
+                super.update();
                 this.pulseFactor += this.pulseSpeed;
-                this.size = this.baseSize + Math.sin(this.pulseFactor) * (this.baseSize * 0.6); // 大小脈衝更明顯
-                this.opacity = Math.max(0, 0.1 + Math.sin(this.pulseFactor * 0.5) * 0.1); // 透明度脈衝更明顯
+                this.size = this.baseSize + Math.sin(this.pulseFactor) * (this.baseSize * 0.6);
+                this.opacity = Math.max(0, 0.1 + Math.sin(this.pulseFactor * 0.5) * 0.1);
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 
-                // 創建徑向漸變作為發光效果
                 const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                gradient.addColorStop(0, this.color); // 中心亮
-                gradient.addColorStop(0.8, this.color + 'A0'); // 邊緣半透明度提高
-                gradient.addColorStop(1, this.color + '00'); // 完全透明
-
+                gradient.addColorStop(0, this.color);
+                gradient.addColorStop(0.8, this.color + 'A0');
+                gradient.addColorStop(1, this.color + '00');
                 ctx.fillStyle = gradient;
                 ctx.globalAlpha = this.opacity;
                 ctx.fill();
             }
         }
 
-        // 初始化粒子
         function initParticles() {
             particles = [];
-            // 調整粒子數量以獲得「零星細微」的感覺，但整體數量增加
-            const baseNum = Math.floor((canvas.width * canvas.height) / 80000); // 增加基礎數量
-            const numLineParticles = baseNum * 1.5; // 線條粒子多一點
-            const numNodeParticles = baseNum * 0.5; // 節點粒子也多一點
+            const baseNum = Math.floor((canvas.width * canvas.height) / 80000);
+            const numLineParticles = baseNum * 1.5;
+            const numNodeParticles = baseNum * 0.5;
 
-            // 生成線條粒子
             for (let i = 0; i < numLineParticles; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
                 const color = neonColors[Math.floor(Math.random() * neonColors.length)];
-                const size = 0.5 + Math.random() * 0.8; // 線條粒子稍大
-                const speedX = (Math.random() - 0.5) * 0.3; // 速度適中
+                const size = 0.5 + Math.random() * 0.8;
+                const speedX = (Math.random() - 0.5) * 0.3;
                 const speedY = (Math.random() - 0.5) * 0.3;
                 particles.push(new Particle(x, y, color, size, speedX, speedY));
             }
 
-            // 生成節點粒子
             for (let i = 0; i < numNodeParticles; i++) {
                 const x = Math.random() * canvas.width;
                 const y = Math.random() * canvas.height;
                 const color = neonColors[Math.floor(Math.random() * neonColors.length)];
-                const size = 1.5 + Math.random() * 2.5; // 節點粒子稍大
-                const speedX = (Math.random() - 0.5) * 0.15; // 節點粒子速度更慢
+                const size = 1.5 + Math.random() * 2.5;
+                const speedX = (Math.random() - 0.5) * 0.15;
                 const speedY = (Math.random() - 0.5) * 0.15;
                 particles.push(new NodeParticle(x, y, color, size, speedX, speedY));
             }
         }
 
-        // 繪製節點之間的連接線
         function drawConnections() {
             const nodeParticles = particles.filter(p => p.type === 'node');
-            const maxDistance = 80; // 連接線的最大距離 (增加距離，線條會更長更明顯)
+            const maxDistance = 80;
 
             for (let i = 0; i < nodeParticles.length; i++) {
                 for (let j = i + 1; j < nodeParticles.length; j++) {
                     const p1 = nodeParticles[i];
                     const p2 = nodeParticles[j];
-
                     const dist = Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 
                     if (dist < maxDistance) {
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
-                        ctx.strokeStyle = p1.color; // 使用其中一個節點的顏色
-                        ctx.lineWidth = 0.3; // 連接線更粗
-                        ctx.globalAlpha = (1 - (dist / maxDistance)) * 0.1; // 距離越遠透明度越低，整體更明顯
+                        ctx.strokeStyle = p1.color;
+                        ctx.lineWidth = 0.3;
+                        ctx.globalAlpha = (1 - (dist / maxDistance)) * 0.1;
                         ctx.stroke();
                     }
                 }
             }
         }
 
-        // 動畫循環
         function animate() {
-            // 不再清除整個 Canvas，而是直接繪製漸層背景，這樣可以避免閃爍
-            drawGradient(); // 繪製漸層背景 (作為底層，會覆蓋上一幀的粒子)
-
-            // 重置透明度，防止影響後續繪製
-            ctx.globalAlpha = 1; 
+            drawGradient();
+            ctx.globalAlpha = 1;
             ctx.shadowBlur = 0;
             ctx.shadowColor = 'transparent';
-
-            drawConnections(); // 先繪製連接線，使其在粒子下方
+            drawConnections();
             
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
 
-                // 如果粒子生命週期結束，重新生成
                 if (particles[i].life <= 0 || particles[i].opacity <= 0) {
                     particles.splice(i, 1);
-                    i--; // 調整索引
-
-                    // 根據類型重新生成粒子
+                    i--;
                     const x = Math.random() * canvas.width;
                     const y = Math.random() * canvas.height;
                     const color = neonColors[Math.floor(Math.random() * neonColors.length)];
-                    
-                    // 調整重新生成時的粒子大小和速度，使其符合零星細微的感覺
-                    const isNode = Math.random() < 0.1; // 節點粒子的生成機率稍高 (例如 30%)
+                    const isNode = Math.random() < 0.1;
                     const size = isNode ? (1.5 + Math.random() * 2.5) : (0.5 + Math.random() * 0.8);
                     const speedX = (Math.random() - 0.5) * (isNode ? 0.15 : 0.3);
                     const speedY = (Math.random() - 0.5) * (isNode ? 0.15 : 0.3);
@@ -389,21 +542,179 @@
             requestAnimationFrame(animate);
         }
 
-        // 處理視窗大小改變
         window.addEventListener('resize', resizeCanvas);
-
-        // 初始化並啟動動畫
-        resizeCanvas(); // 首次載入時調整 Canvas 大小並初始化粒子
+        resizeCanvas();
         animate();
 
-        // 以下是原 Login 頁面的 JavaScript 邏輯 (僅為示範，實際會從 Python 注入)
+        // 儲存所有需要翻譯的文本對象
+        const translations = {
+            'en': {
+                'loginTitle': 'Mad Grad',
+                'usernameLabel': 'Username:',
+                'passwordLabel': 'Password:',
+                'loginButton': 'Log in',
+                'registerButton': 'Register',
+                'errorMessage': 'The Username or Password is incorrect.',
+                'registerAccountTitle': 'Register Account',
+                'nicknameLabel': 'Nickname:',
+                'regUsernameLabel': 'Username:',
+                'regPasswordLabel': 'Password:',
+                'regConfirmPasswordLabel': 'Confirm Password:',
+                'regEmailLabel': 'Email:',
+                'submitButton': 'Submit',
+                'registerErrorMessage': 'Please fill in all fields.',
+                'passwordMismatch': 'Passwords do not match.',
+                'passwordLength': 'Password must be at least 6 characters long.',
+                'invalidEmail': 'Please enter a valid email address.',
+                'submissionError': 'An error occurred during submission. Please try again.',
+                'successMessageText': 'Received!<br>Activation will be notified by email.',
+                'successOkButton': 'OK!',
+                'languageToggleText': '⇄ 繁體中文'
+            },
+            'zh': {
+                'loginTitle': '瘋生',
+                'usernameLabel': '帳號:',
+                'passwordLabel': '密碼:',
+                'loginButton': '登入',
+                'registerButton': '註冊',
+                'errorMessage': '帳號或密碼不正確。',
+                'registerAccountTitle': '註冊帳號',
+                'nicknameLabel': '暱稱:',
+                'regUsernameLabel': '帳號:',
+                'regPasswordLabel': '密碼:',
+                'regConfirmPasswordLabel': '確認密碼:',
+                'regEmailLabel': '電子郵件:',
+                'submitButton': '送出',
+                'registerErrorMessage': '請填寫所有欄位',
+                'passwordMismatch': '密碼不相符',
+                'passwordLength': '登入密碼至少需要6個字元',
+                'invalidEmail': '請輸入有效的電子郵件地址',
+                'submissionError': '送出時發生錯誤，請重試',
+                'successMessageText': '收到！<br>透過電子郵件通知啟用',
+                'successOkButton': '好！',
+                'languageToggleText': '⇄ English'
+            }
+        };
+
+        // 獲取所有需要翻譯的元素 (現在使用 data-lang-key)
+        const translatableElements = document.querySelectorAll('[data-lang-key]');
+        const languageToggleButton = document.getElementById('languageToggleButton');
+
+        // 【修正點 1】將 currentLanguage 聲明為全局變數
+        let currentLanguage;
+
+        // 函數：應用翻譯
+        function applyTranslations(lang) {
+            console.log(`Applying translations for: ${lang}`); // Debug log
+            currentLanguage = lang; 
+            document.querySelectorAll('[data-lang-key]').forEach(element => { // 直接使用 querySelectorAll
+                const key = element.getAttribute('data-lang-key');
+                // 修正: 處理 translations 物件中直接以鍵名為語言代碼的情況 (例如 'cancel_button_modal')
+                // 這裡假設所有鍵都在 'en' 或 'zh' 下，所以簡化邏輯
+                let translatedText = translations[lang] ? translations[lang][key] : undefined;
+
+                if (translatedText !== undefined) {
+                    if (key === 'successMessageText') { 
+                        element.innerHTML = translatedText;
+                    } else {
+                        element.textContent = translatedText;
+                    }
+                } else {
+                    console.warn(`Translation key '${key}' not found for language '${lang}'.`); // Debug log
+                }
+            });
+
+            // 更新語言切換按鈕的文本
+            const languageToggleButton = document.getElementById('languageToggleButton'); // 確保在這裡獲取
+            if (languageToggleButton) {
+                languageToggleButton.textContent = translations[lang]['languageToggleText'];
+                console.log(`Language toggle button text updated to: ${languageToggleButton.textContent}`); // Debug log
+            } else {
+                console.error("languageToggleButton not found when trying to update its text."); // Debug log
+            }
+
+            // 將當前語言儲存到 localStorage
+            localStorage.setItem('currentLanguage', lang);
+            console.log(`Language saved to localStorage: ${lang}`); // Debug log
+        }
+
+        // 以下是原 Login 頁面的 JavaScript 邏輯
         document.addEventListener('DOMContentLoaded', function() {
             const loginForm = document.getElementById('loginForm');
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
             const errorMessage = document.getElementById('errorMessage');
+            
+            // --- 註冊功能相關 JavaScript 邏輯 ---
+            const registerButton = document.getElementById('registerButton');
+            const registerModal = document.getElementById('registerModal');
+            const closeButton = registerModal.querySelector('.close-button');
+            const registerForm = document.getElementById('registerForm');
+            const regNicknameInput = document.getElementById('regNickname');
+            const regUsernameInput = document.getElementById('regUsername');
+            const regPasswordInput = document.getElementById('regPassword'); // HTML 欄位 ID
+            const regConfirmPasswordInput = document.getElementById('regConfirmPassword');
+            const regEmailInput = document.getElementById('regEmail');
+            const registerErrorMessage = document.getElementById('registerErrorMessage');
+            // 移除對 registerSuccessMessage 的引用，因為現在使用新的 successModal
+            
+            // 新增：獲取成功提示模態框的元素
+            const successModal = document.getElementById('successModal');
+            const successOkButton = document.getElementById('successOkButton');
 
-            // 在 JavaScript 中定義 SHA-256 哈希函數
+            // 語言切換相關元素和邏輯
+            // const languageToggleButton = document.getElementById('languageToggleButton');
+
+            // let currentLanguage = localStorage.getItem('currentLanguage') || 'en'; // 默認語言或上次選擇的語言
+
+            // function applyTranslations(lang) {
+            //     // 更新語言切換按鈕文本
+            //     languageToggleButton.textContent = translations[lang]['languageToggleText'];
+
+            //     // 更新頁面所有帶有 data-lang-key 的元素
+            //     document.querySelectorAll('[data-lang-key]').forEach(element => {
+            //         const key = element.getAttribute('data-lang-key');
+            //         if (translations[lang] && translations[lang][key]) {
+            //             // 對於包含 HTML (如 <br>) 的文本，使用 innerHTML
+            //             if (key === 'successMessageText') {
+            //                 element.innerHTML = translations[lang][key];
+            //             } else {
+            //                 element.textContent = translations[lang][key];
+            //             }
+            //         }
+            //     });
+            // }
+
+            // // 初始化頁面語言
+            // applyTranslations(currentLanguage);
+
+            // // 切換按鈕的事件監聽器
+            // languageToggleButton.addEventListener('click', function() {
+            //     currentLanguage = (currentLanguage === 'en') ? 'zh' : 'en';
+            //     localStorage.setItem('currentLanguage', currentLanguage); // 保存語言偏好
+            //     applyTranslations(currentLanguage); // 更新頁面內容
+            // });
+
+
+            // 【修正點】將 languageToggleButton 的獲取和事件監聽器綁定移到 DOMContentLoaded 內部
+            const languageToggleButton = document.getElementById('languageToggleButton');
+            if (languageToggleButton) {
+                console.log("Language toggle button found in DOMContentLoaded. Attaching listener."); // Debug log
+                languageToggleButton.addEventListener('click', function() {
+                    console.log("Language toggle button clicked!"); // Debug log
+                    let currentLangFromStorage = localStorage.getItem('currentLanguage') || 'en'; 
+                    let newLang = (currentLangFromStorage === 'zh') ? 'en' : 'zh'; 
+                    console.log(`Switching from ${currentLangFromStorage} to ${newLang}`); // Debug log
+                    applyTranslations(newLang); 
+                });
+            } else {
+                console.error("Language toggle button NOT found in DOMContentLoaded."); // Debug log
+            }
+
+            // 頁面載入時，檢查 localStorage 或預設為英文
+            const savedLanguage = localStorage.getItem('currentLanguage');
+            applyTranslations(savedLanguage || 'en'); // 預設為英文
+
             async function sha256(message) {
                 const msgBuffer = new TextEncoder().encode(message); 
                 const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -418,16 +729,13 @@
     { username: "Evelyn", password_hashed: "b3a8e0e1f9ab1bfe3a36f231f676f78bb30a519d2b21e6c530c0eee8ebb4a5d0", user_id: "Azhu" },
     { username: "Test", password_hashed: "35a9e381b1a27567549b5f8a6f783c167ebf809f1c4d6a9e367240484d8ce281", user_id: "Tester" }
 ]; 
-
+            
             loginForm.addEventListener('submit', async function(event) {
-                event.preventDefault(); // 阻止表單默認提交行為
+                event.preventDefault();
 
                 const username = usernameInput.value;
                 const password = passwordInput.value;
-
-                // 【重要】在客戶端對輸入密碼進行哈希
                 const hashedInputPassword = await sha256(password);
-
                 
                 let authenticatedUser = null;
                 for (const user of users) {
@@ -438,16 +746,102 @@
                 }
 
                 if (authenticatedUser) {
-                    // 登入成功，設置登入標誌和用戶 ID 到 sessionStorage
                     sessionStorage.setItem('loggedIn', 'true');
                     sessionStorage.setItem('currentUserId', authenticatedUser.user_id); 
-                    // 重定向到 MENU.html
                     window.location.href = 'MENU.html';
                 } else {
-                    errorMessage.textContent = 'The account or password is incorrect.';
+                    errorMessage.textContent = translations[currentLanguage]['errorMessage'];
                     errorMessage.style.display = 'block';
                 }
+            });
 
+            // 點擊註冊按鈕，顯示模態框
+            registerButton.addEventListener('click', function() {
+                registerModal.style.display = 'flex';
+                registerErrorMessage.style.display = 'none';
+                registerForm.reset();
+            });
+
+            // 點擊註冊模態框關閉按鈕，隱藏模態框
+            closeButton.addEventListener('click', function() {
+                registerModal.style.display = 'none';
+            });
+
+            // 點擊模態框背景，隱藏模態框
+            window.addEventListener('click', function(event) {
+                if (event.target == registerModal) {
+                    registerModal.style.display = 'none';
+                } else if (event.target == successModal) { // 也處理成功提示模態框的背景點擊
+                    successModal.style.display = 'none';
+                }
+            });
+
+            // 處理註冊表單提交
+            registerForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+
+                registerErrorMessage.style.display = 'none';
+                // 隱藏成功的文字訊息，改用模態框
+                // registerSuccessMessage.style.display = 'none'; 
+
+                const nickname = regNicknameInput.value.trim();
+                const username = regUsernameInput.value.trim();
+                const answer = regPasswordInput.value;
+                const confirmPassword = regConfirmPasswordInput.value;
+                const email = regEmailInput.value.trim();
+
+                // 簡單的前端驗證
+                if (nickname === '' || username === '' || answer === '' || confirmPassword === '' || email === '') {
+                    registerErrorMessage.textContent = translations[currentLanguage]['registerErrorMessage'];
+                    registerErrorMessage.style.display = 'block';
+                    return;
+                }
+                if (answer !== confirmPassword) {
+                    registerErrorMessage.textContent = translations[currentLanguage]['passwordMismatch'];
+                    registerErrorMessage.style.display = 'block';
+                    return;
+                }
+                if (answer.length < 6) {
+                    registerErrorMessage.textContent = translations[currentLanguage]['passwordLength'];
+                    registerErrorMessage.style.display = 'block';
+                    return;
+                }
+                if (!/\S+@\S+\.\S+/.test(email)) {
+                    registerErrorMessage.textContent = translations[currentLanguage]['invalidEmail'];
+                    registerErrorMessage.style.display = 'block';
+                    return;
+                }
+
+                // Google 表單的 action URL 和欄位 ID (請再次確認您的 ID 是否正確)
+                const googleFormUrl = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeAwlPTY8AXMIK6-m-WYSi7hetmvt_4tGXti6hahvRYqRgueA/formResponse';
+                const formData = new FormData();
+                formData.append('entry.69131785', nickname);
+                formData.append('entry.574060034', username);
+                formData.append('entry.1012256431', answer);
+                formData.append('entry.2043582051', email);     
+
+                try {
+                    const response = await fetch(googleFormUrl, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors'
+                    });
+
+                    console.log('Registration data sent to Google Form.');
+                    registerModal.style.display = 'none'; // 成功後關閉註冊模態框
+                    successModal.style.display = 'flex'; // 顯示成功提示模態框
+                    registerForm.reset(); // 清空註冊表單
+
+                } catch (error) {
+                    console.error('Error submitting registration:', error);
+                    registerErrorMessage.textContent = 'An error occurred during submission. Please try again.';
+                    registerErrorMessage.style.display = 'block';
+                }
+            });
+
+            // 新增：點擊成功提示模態框的 OK 按鈕，隱藏模態框
+            successOkButton.addEventListener('click', function() {
+                successModal.style.display = 'none';
             });
         });
     </script>

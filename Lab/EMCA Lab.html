@@ -53,7 +53,7 @@
             margin: 0;
             padding: 40px 0; /* 為內容提供上下邊距 */
             background-color: #0F0F0F; /* 非常深的藍黑色背景，作為圖片加載前的 fallback */
-            background-image: url('../Illustration/Background.png'); /* 背景圖片路徑已修正 */
+            background-image: url('../Illustration/Background.png');
             background-size: cover; /* 圖片完全填滿，超出剪裁 */
             background-position: center center; /* 圖片置中 */
             background-repeat: no-repeat; /* 不重複 */
@@ -106,11 +106,6 @@
             text-align: left; /* 主標題置左對齊 */
             position: relative; /* 為了 ::after 偽元素定位 */
             overflow: hidden; /* 隱藏超出部分的偽元素 */
-            /* color: #ffffff; */
-            /* background-image: none; */
-            /* -webkit-background-clip: border-box; */
-            /* background-clip: border-box; */
-            /* -webkit-text-fill-color: initial; */
             
             /* 金屬光澤效果 */
             color: transparent; /* 使文字透明 */
@@ -191,9 +186,9 @@
             margin-bottom: 1.2em;
         }
         ul li {
-                position: relative;
-                padding-left: 25px; /* 為自定義點留出空間 */
-                margin-bottom: 0.8em;
+            position: relative;
+            padding-left: 25px; /* 為自定義點留出空間 */
+            margin-bottom: 0.8em;
         }
         ul li::before {
             content: '◆'; /* 自定義列表點為菱形 */
@@ -310,6 +305,48 @@
             color: #C0C0C0; /* 鼠標懸停時變為銀色 */
             text-decoration: underline; /* 鼠標懸停時顯示下劃線 */
         }
+
+        /* 新增：回到頂部按鈕樣式 */
+        #backToTopBtn {
+            display: none; /* 預設隱藏 */
+            position: fixed; /* 固定在視窗中 */
+            bottom: 30px; /* 距離底部 30px */
+            right: 30px; /* 【修改】距離右側 30px */
+            z-index: 99; /* 確保在其他元素之上 */
+            /* border: none; */
+            /* outline: none; */
+            /* 【修改】金屬光澤背景 */
+            /* background-image: linear-gradient(to right, #A07800 0%, #FFEB3B 25%, #D4AF37 50%, #FFEB3B 75%, #A07800 100%); */
+            background: none;
+            border: 1px solid #FFDC6D; /* 輕微邊框 */
+            color: rgb(255, 220, 109); /* 【修改】文字顏色為深灰色 */
+            cursor: pointer; /* 鼠標指針 */
+            padding: 15px; /* 內邊距 */
+            border-radius: 10px; /* 圓角 */
+            font-size: 18px; /* 字體大小 */
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(255, 220, 109, 0.5); /* 陰影，與金屬感搭配 */
+            transition: background-image 0.3s, box-shadow 0.3s, opacity 0.5s ease-in-out; /* 平滑過渡 */
+            font-family: 'GenJyuuGothic', sans-serif; /* 使用自定義字體 */
+            opacity: 0; /* 初始完全透明 */
+            pointer-events: none; /* 初始禁用點擊事件 */
+            text-shadow: none; /* 【新增】移除文字發光 */
+        }
+
+        #backToTopBtn:hover {
+            color: rgb(253, 238, 187);
+            background-color: rgba(255, 234, 112, 0.3);
+            border: 1px solid #fde48f; /* 懸停時邊框變亮 */
+            box-shadow: 0 4px 12px rgba(253, 228, 145, 0.5); /* 陰影，與金屬感搭配 */
+
+        }
+
+        #backToTopBtn.show {
+            display: block; /* 顯示時設定為 block */
+            opacity: 1; /* 顯示時完全不透明 */
+            pointer-events: auto; /* 顯示時啟用點擊事件 */
+        }
+
         /* 響應式調整 */
         @media (max-width: 768px) {
             .content-container {
@@ -324,26 +361,57 @@
             p {
                 font-size: 1em;
             }
+            #backToTopBtn { /* 手機版調整按鈕位置和大小 */
+                bottom: 20px;
+                right: 20px; /* 【修改】手機版也在右下角 */
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Canvas 元素已移除 -->
-
     <div class="content-container">
         <div class="header-container">
             <h1>EMCA Lab</h1>
-            <a href="..\MENU.html" class="back-to-menu-link">Back to MENU</a>
+            <a href="../MENU.html" class="back-to-menu-link">Back to MENU</a>
         </div>
         <h1>Undergrads</h1>
+<h3>Year 111</h3>
 <h5><a href="..\EMCA Lab\金門王.html">金門王</a></h5>
 <h5><a href="..\EMCA Lab\海神巨獸.html">海神巨獸</a></h5>
     </div>
 
-    <script>
-        // 所有 Canvas 相關的 JavaScript 程式碼已移除
+    <!-- 新增：回到頂部按鈕 -->
+    <button id="backToTopBtn" title="Go to top">⇑ Top</button>
 
-        // 你原有的 JavaScript 邏輯
+    <script>
+        // 獲取「回到頂部」按鈕元素
+        const backToTopBtn = document.getElementById("backToTopBtn");
+
+        // 函數：根據滾動位置顯示或隱藏按鈕
+        function toggleBackToTopButton() {
+            // 當用戶滾動超過 200px 時顯示按鈕
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        }
+
+        // 當用戶滾動頁面時，執行 toggleBackToTopButton 函數
+        window.addEventListener('scroll', toggleBackToTopButton);
+
+        // 當用戶點擊按鈕時，平滑滾動到頁面頂部
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 啟用平滑滾動
+            });
+        });
+
+        // 你原有的 JavaScript 邏輯 (請確保這部分是您當前的程式碼)
         document.addEventListener('DOMContentLoaded', function() {
             const isLoggedIn = sessionStorage.getItem('loggedIn');
             if (isLoggedIn !== 'true') {
@@ -351,6 +419,8 @@
                 const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
                 window.location.href = currentDirPath + 'Login.html'; 
             }
+            // 在頁面載入時也執行一次，以確保按鈕的初始狀態正確
+            toggleBackToTopButton();
         });
     </script>
 </body>
