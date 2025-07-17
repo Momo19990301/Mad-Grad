@@ -1,0 +1,153 @@
+
+        /* Custom Fonts - 使用相對路徑佔位符 */
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-ExtraLight.ttf') format('truetype');
+            font-weight: 200; /* ExtraLight */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Light.ttf') format('truetype');
+            font-weight: 300; /* Light */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Normal.ttf') format('truetype');
+            font-weight: 400; /* Normal/Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Regular.ttf') format('truetype');
+            font-weight: 400; /* Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Medium.ttf') format('truetype');
+            font-weight: 500; /* Medium */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Bold.ttf') format('truetype');
+            font-weight: 700; /* Bold */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Heavy.ttf') format('truetype');
+            font-weight: 900; /* Heavy */
+            font-style: normal;
+        }
+        body {
+            margin: 0;
+            overflow: hidden; /* 防止滾動條 */
+            background-color: #1a1a2e; /* 深色背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e0e0;
+        }
+        #backgroundCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1;
+        }
+        #nodeCanvas {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: block;
+            z-index: 3; /* 在圖片之上 */
+            background-color: transparent; /* 讓背景透明 */
+            cursor: default;
+        }
+        .fixed-background-image-layer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2; /* 在兩個 Canvas 之間 */
+            pointer-events: none; /* 允許點擊穿透 */
+            opacity: 0.5;
+        }
+        .fixed-background-image-layer img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.0);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1.5em;
+            color: #ccc;
+            z-index: 10; /* 確保資訊面板在最上層 */
+            font-family: 'GenJyuuGothic', sans-serif;
+        }
+        .top-right-buttons {
+            position: absolute; /* 仍然使用絕對定位來將整個容器放在左上角 */
+            top: 20px;
+            right: 20px;
+            display: flex; /* 啟用 Flexbox 佈局 */
+            align-items: center; /* 垂直居中對齊子元素 */
+            justify-content: flex-end; /* 預設就是 flex-start，如果沒有其他元素，這行可省略 */
+            gap: 10px; /* 按鈕之間的間距 */
+            z-index: 15; /* 確保在其他元素之上 */
+        }
+        .backToMENU {
+            padding: 8px 12px; /* 內邊距 */
+            background: none;
+            border: 1px solid #FFDC6D; /* 輕微邊框 */
+            border-radius: 5px; /* 圓角 */
+            color: rgb(255, 220, 109); /* 【修改】文字顏色為深灰色 */
+            cursor: pointer; /* 鼠標指針 */
+            font-size: 0.9em; /* 字體大小 */
+            font-family: 'GenJyuuGothic', sans-serif; /* 使用自定義字體 */
+            text-decoration: none;
+            transition: background-image 0.3s, box-shadow 0.3s, opacity 0.5s ease-in-out; /* 平滑過渡 */
+            box-shadow: 0 4px 12px rgba(255, 220, 109, 0.5); /* 陰影，與金屬感搭配 */
+            text-shadow: none; /* 移除文字發光 */
+        }
+        .backToMENU:hover {
+            background-color: rgba(255, 234, 112, 0.3);
+            color: rgb(253, 238, 187);
+            border: 1px solid #fde48f; /* 懸停時邊框變亮 */
+            box-shadow: 0 4px 12px rgba(253, 228, 145, 0.5); /* 陰影，與金屬感搭配 */
+        }
+        #languageToggleButton {
+            padding: 8px 12px;
+            background: none; /* 文字按鈕，無實心背景 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 5px;
+            color: #e0e0e0; /* 淺色文字 */
+            cursor: pointer;
+            font-size: 0.9em;
+            font-family: 'GenJyuuGothic', sans-serif;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        #languageToggleButton:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* 懸停時輕微的背景效果 */
+            border-color: rgba(255, 255, 255, 0.5); /* 懸停時邊框變亮 */
+        }
+    

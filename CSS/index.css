@@ -1,0 +1,279 @@
+
+        /* --- 1. Custom Fonts (自訂字體) --- */
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-ExtraLight.ttf') format('truetype');
+            font-weight: 200; /* ExtraLight */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Light.ttf') format('truetype');
+            font-weight: 300; /* Light */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Normal.ttf') format('truetype'); /* 如果有 Normal, 用這個 */
+            font-weight: 400; /* Normal/Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Regular.ttf') format('truetype'); /* 如果 Regular 和 Normal 是同一個，可以只留一個 */
+            font-weight: 400; /* Normal/Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Medium.ttf') format('truetype');
+            font-weight: 500; /* Medium */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Bold.ttf') format('truetype');
+            font-weight: 700; /* Bold */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Heavy.ttf') format('truetype');
+            font-weight: 900; /* Heavy */
+            font-style: normal;
+        }
+        /* --- 2. Base & Global Styles (基礎與全域樣式) --- */
+        body {
+            font-family: 'GenJyuuGothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            background-color: #1a1a2e; /* 深色背景 */
+            color: #e0e0e0; /* 淺色文字 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* 防止滾動條出現 */
+            position: relative; /* 為了讓子元素的 absolute 定位能參考 body */
+        }
+        canvas {
+            position: absolute; /* 讓 Canvas 填滿整個視窗 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block; /* 移除 Canvas 下方的額外空間 */
+            z-index: 1; /* 確保 Canvas 在背景層 */
+        }
+        /* --- 3. Layout & Container Styles (排版與容器樣式) --- */
+        .login-container {
+            position: relative;
+            background-color: rgba(42, 42, 74, 0.85); /* 比背景稍淺的容器 */
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* 更明顯的陰影 */
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative; /* 確保 z-index 生效 */
+            z-index: 10; /* 確保登入介面在 Canvas 上方 */
+            box-sizing: border-box; /* 確保 padding 不會增加總寬度 */
+        }
+        h2 {
+            color: #fff;
+            margin-bottom: 30px;
+            font-family: 'GenJyuuGothic', sans-serif; /* 確保標題也應用字體 */
+        }
+        /* --- 4. Form Elements (表單元素) --- */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-weight: bold;
+            font-family: 'GenJyuuGothic', sans-serif; /* 確保 label 也應用字體 */
+        }
+        .input-group input[type="text"],
+        .input-group input[type="password"],
+        .input-group input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #3e2f5b;
+            border-radius: 5px;
+            background-color: #3e2f5b;
+            color: #e0e0e0;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+            font-family: 'GenJyuuGothic', sans-serif; /* 確保輸入框也應用字體 */
+        }
+        .input-group input:focus {
+            border-color: #8ab4f8;
+        }
+        /* --- 6. Specific Buttons (特定按鈕樣式) --- */
+        .base-button {
+            width: 100%;
+            padding: 12px;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold; /* 或使用 font-weight: 700; */
+            cursor: pointer;
+            transition: background-image 0.3s ease, background-color 0.3s ease; /* 確保過渡效果涵蓋兩種情況 */
+            font-family: 'GenJyuuGothic', sans-serif;
+            font-weight: 700; /* 明確使用字體的 Bold */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .login-button {
+            background-image: linear-gradient(to right, #FF00FF, #8A2BE2);
+        }
+        .login-button:hover {
+            background-image: linear-gradient(to right, #CC00CC, #6A1E9E);
+        }
+        .register-button {
+            background-image: linear-gradient(to right, #8afccc, #169bb3); /* Register 按鈕漸層 */
+            margin-top: 15px; /* 與登入按鈕的間距 */
+        }
+        .register-button:hover {
+            background-image: linear-gradient(to right, #62b492, #0e6a7a); /* Register 按鈕懸停效果 */
+        }
+        /* .submit-button {
+            background-image: linear-gradient(to right, #FF00FF, #8A2BE2);
+        }
+        .submit-button:hover {
+            background-image: linear-gradient(to right, #CC00CC, #6A1E9E);
+        } */
+        #languageToggleButton {
+            position: absolute;
+            top: 20px; /* 調整位置 */
+            right: 20px; /* 調整位置 */
+            padding: 8px 12px;
+            background: none; /* 文字按鈕，無實心背景 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 5px;
+            color: #e0e0e0; /* 淺色文字 */
+            cursor: pointer;
+            font-size: 0.9em;
+            font-family: 'GenJyuuGothic', sans-serif;
+            z-index: 15; /* 確保在登入容器上方 */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        #languageToggleButton:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* 懸停時輕微的背景效果 */
+            border-color: rgba(255, 255, 255, 0.5); /* 懸停時邊框變亮 */
+        }
+        #successOkButton {
+            background-image: linear-gradient(to right, #bff891, #01a70f);
+            width: 60%; /* 這是它獨有的 */
+            max-width: 200px; /* 這是它獨有的 */
+            padding: 10px; /* 略有不同 */
+            font-size: 1em; /* 略有不同 */
+            margin-top: 0; /* 這是它獨有的 */
+        }
+        #successOkButton:hover {
+            background-image: linear-gradient(to right, #9ac775, #01750a);
+        }
+        /* --- 7. Messages (訊息樣式) --- */
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 15px;
+            display: none;
+            font-size: 0.9em;
+            font-family: 'GenJyuuGothic', sans-serif;
+        }
+        /* --- 8. Modals (模態框) --- */
+        .modal {
+            display: none; /* 默認隱藏 */
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: rgba(42, 42, 74, 0.95);
+            margin: auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            animation: fadeIn 0.5s;
+            box-sizing: border-box;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #fff;
+            text-decoration: none;
+        }
+        .modal-content .input-group label {
+            color: #ccc;
+        }
+        .modal-content .input-group input {
+            background-color: #3e2f5b;
+            color: #e0e0e0;
+            border: 1px solid #3e2f5b;
+        }
+        .modal-content .input-group input:focus {
+            border-color: #8ab4f8;
+        }
+        .modal-content button[type="submit"] {
+            background-image: linear-gradient(to right, #fce878, #ddbc01);
+            margin-top: 20px;
+        }
+        .modal-content button[type="submit"]:hover {
+            background-image: linear-gradient(to right, #c7b75e, #998200);
+        }
+        /* --- 9. Success Modal Specific Styles (成功提示模態框特定樣式) --- */
+        #successModal .modal-content {
+            text-align: center; /* 讓內容居中 */
+            padding: 40px 30px; /* 增加上下內距 */
+        }
+        .success-icon {
+            width: 80px; /* 調整圖案大小 */
+            height: 80px;
+            background-color: #28a745; /* 綠色背景 */
+            border-radius: 50%; /* 圓形 */
+            display: inline-flex; /* 讓圖案和文字居中 */
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.6); /* 綠色光暈 */
+        }
+        .success-icon svg {
+            fill: #fff; /* 打勾顏色白色 */
+            width: 50px; /* 打勾大小 */
+            height: 50px;
+        }
+        #successMessageText {
+            color: #ffffff;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        /* --- 10. Animations (動畫) --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    
