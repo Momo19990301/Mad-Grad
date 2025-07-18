@@ -42,316 +42,151 @@
             font-weight: 900; /* Heavy */
             font-style: normal;
         }
+        /* 全局字體和背景 */
         body {
-            margin: 0;
-            padding: 40px 0; /* 為內容提供上下邊距 */
-            background-color: #0F0F0F; /* 非常深的藍黑色背景，作為圖片加載前的 fallback */
-            background-image: url('../../Illustration/Background.png');
-            background-size: cover; /* 圖片完全填滿，超出剪裁 */
-            background-position: center center; /* 圖片置中 */
-            background-repeat: no-repeat; /* 不重複 */
-            background-attachment: fixed; /* 背景固定，不隨滾動條移動 */
-            width: 100%; /* 確保 body 佔滿整個視窗寬度 */
-            min-height: 100vh; /* 確保 body 至少佔滿視窗高度 */
+            font-family: 'GenJyuuGothic', sans-serif;
+            background: linear-gradient(to bottom right, #cff2fd, #ffffff, #f3f3cb, #ffd6b3, #e7cdac);
+            min-height: 100vh; /* 確保至少佔據視窗高度 */
+            display: flex; /* Flexbox 居中容器 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            padding: 20px; /* 與網頁邊界間隔 */
+            box-sizing: border-box; /* 避免 padding 導致溢出 */
+            /* overflow: hidden; */
+            color: #333; /* 亮色文字 */
+            overflow-x: hidden;
+            /* background-color: #c7c7c7; */
+        }
+        /* 主要內容容器，模擬圖片中的深色半透明效果 */
+        .main-content-container {
+            background-color: rgba(0, 0, 0, 0.6); /* 較深的半透明背景 */
+            border-radius: 1rem; /* 圓角，相當於 Tailwind 的 rounded-2xl */
+            padding: 1.5rem; /* 內部填充，相當於 Tailwind 的 p-6 */
+            position: relative; /* 相對定位，供子元素絕對定位使用 */
+            margin: 20px; /* 與網頁邊界有間隔 */
+            max-width: 1200px; /* 限制最大寬度 */
+            width: 100%; /* 確保在容器內佔滿可用寬度 */
+            backdrop-filter: blur(2px); /* 輕微霧面效果 */
+            -webkit-backdrop-filter: blur(2px); /* 兼容 Safari */
+            border: 1px solid rgba(255, 255, 255, 0.05); /* 極輕微的邊框 */
+        }
+        /* Medium 螢幕尺寸以上的 padding */
+        @media (min-width: 768px) { /* 相當於 Tailwind 的 md: */
+            .main-content-container {
+                padding: 2rem; /* 相當於 Tailwind 的 md:p-8 */
+            }
+        }
+        .header-section {
             display: flex; /* 啟用 Flexbox 佈局 */
-            flex-direction: column; /* 子元素垂直堆疊 */
-            justify-content: center; /* 垂直居中內容 */
-            align-items: center; /* 水平居中內容 */
-            box-sizing: border-box; /* 確保 padding 不會增加總寬度/高度 */
-            font-family: 'GenJyuuGothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            color: #E0E0E0; /* 淺色字體 */
-            line-height: 1.6;
-            text-shadow: none; /* 移除文字發光 */
-            /* 不設置 overflow: hidden; 允許頁面滾動 */
+            justify-content: space-between; /* 讓子元素兩端對齊，將 h1 推到左邊，連結推到右邊 */
+            align-items: center; /* 垂直居中對齊子元素 */
+            margin-bottom: 2rem; /* 在標題區塊下方增加一些間距 */
+            position: relative; /* 確保內部絕對定位的連結相對於此容器 */
         }
-        /* 內容容器樣式 */
-        .content-container {
-            position: relative; /* 確保在背景圖片上方 */
-            z-index: 10; /* 在背景圖片上方 */
-            background-color: rgba(15, 15, 15, 0.9); /* 更不透明的深色背景 */
-            border: 1px solid rgba(255, 215, 0, 0.1); /* 柔和的金色邊框 */
-            max-width: 900px; 
-            width: 90%; 
-            padding: 30px; /* 增加內邊距 */
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.3); /* 金色光暈陰影 */
-            border-radius: 8px; /* 簡潔的邊角 */
-            box-sizing: border-box; 
+        /* 調整 Lab 標題的樣式 */
+        .lab-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block; /* 讓底線只在文字下方 */
+            color: #ffffff;
+            border-bottom: 3px solid #ffffff;
+            padding-bottom: 0.25rem; /* 底線與文字的間距 */
         }
-        /* 所有標題的通用樣式 */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'GenJyuuGothic', sans-serif;
-            color: #ffffff; /* 標題顏色，將由背景漸變覆蓋 */
-            margin-top: 1.5em; /* 增加標題上方間距 */
-            margin-bottom: 0.8em;
-            text-shadow: none; /* 移除標題發光 */
-            text-align: left; /* 所有標題置左對齊 */
+        .text-primary {
+            color: #d0fdbe; /* 主要文字顏色 */
+            font-size: 2.65rem;
         }
-        /* 頁面最上面的 h1 標題 (動畫底線) */
-        .header-container h1 { 
-            font-size: 2.8em; /* 增大主標題字體 */
-            margin: 0; /* 移除 h1 默認的 margin */
-            padding-bottom: 15px; /* 文本與底線之間的間距 */
-            text-align: left; /* 主標題置左對齊 */
-            position: relative; /* 為了 ::after 偽元素定位 */
-            overflow: hidden; /* 隱藏超出部分的偽元素 */
-            
-            /* 金屬光澤文本效果 (保持不變) */
-            color: transparent; /* 使文字透明 */
-            background-image: linear-gradient(to right, #A07800 0%, #FFEB3B 25%, #D4AF37 50%, #FFEB3B 75%, #A07800 100%);
-            -webkit-background-clip: text; /* 將背景裁剪到文字形狀 */
-            background-clip: text;
-            -webkit-text-fill-color: transparent; /* 使文字填充顏色透明 */
+        /* 動態生成區塊標題樣式 (例如 Professor, Undergrads, Multiverse of 依渟) */
+        .dynamic-section-title {
+            font-size: 2.75rem; /* 與 text-primary 的 font-size 一致 */
+            font-weight: 600; /* 與 text-primary 的 font-weight 一致 */
+            margin-top: 2.5rem; /* 區塊間的間距 */
+            margin-bottom: 1.5rem; /* 標題與內容的間距 */
+            text-align: start;
+            width: 100%; /* 確保佔滿寬度 */
         }
-        /* 大標題的動畫底線 */
-        /* 大標題的動畫底線 (使用多層背景實現靜態底線 + 滑動光澤) */
-        .header-container h1::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0; /* 定位在 h1 的底部 */
-            width: 100%;
-            height: 3px; /* 底線的總高度 */
-            
-            /* 多層背景：
-               第一層 (最上層，動畫光澤)：半透明亮金色漸變，會滑動
-               第二層 (底層，靜態金色線)：純色金色，覆蓋整個偽元素
-            */
-            background: 
-                linear-gradient(to right, 
-                    transparent 0%, 
-                    rgba(255, 241, 196, 0.8) 25%, /* 亮金色光澤 (半透明) */
-                    transparent 50%, 
-                    rgba(255, 241, 196, 0.8) 75%, /* 亮金色光澤 (半透明) */
-                    transparent 100%),
-                linear-gradient(to right, #ac8e2c, #ac8e2c); /* 靜態金色背景 */ /* <--- 這裡 */
-            
-            /* 分別控制兩層背景的尺寸和位置 */
-            background-size: 
-                200% 100%, /* 第一層 (動畫光澤) 的寬度是元素兩倍，高度是 100% */
-                100% 100%; /* 第二層 (靜態金色線) 的寬度是元素 100%，高度是 100% */
-            
-            background-repeat: no-repeat; /* 兩層都不重複 */
-            
-            /* 初始位置：
-               第一層 (動畫光澤) 從左邊完全移出
-               第二層 (靜態金色線) 保持在原位 (0% 0%)
-            */
-            background-position: 
-                -100% 0%, /* 動畫光澤的初始位置 */
-                0% 0%;    /* 靜態金色線的初始位置 */
-            
-            animation: shine 4s linear infinite; /* 動畫名稱、時長、速度曲線、無限循環 */
-            pointer-events: none; /* 確保不阻擋任何可能的互動 */
-            z-index: 1; /* 確保它在 h1 內容之上 */
+        /* 碩士生年份標題樣式 (現在也由 JS 動態生成，但保持特定樣式) */
+        .sub-section-title {
+            color: hsl(212, 100%,90%); /* 保持您現有的顏色，不涉及色彩調整 */
+            font-size: 2.4rem;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            text-align: center;
         }
-        /* 定義動畫 */
-        @keyframes shine {
-            0% {
-                background-position: -100% 0%; /* 從左邊完全移出 */
-            }
-            100% {
-                background-position: 200% 0%; /* 移動到右邊完全移出 */
-            }
+        /* 特定文字高亮樣式 */
+        .highlight-red {
+            color: #FF0000;
         }
-        h1 {
-            /* 銀色金屬光澤效果 */
-            color: transparent; /* 使文字透明 */
-            background-image: linear-gradient(to right, #C0C0C0 0%, #FFFFFF 25%, #A0A0A0 50%, #FFFFFF 75%, #C0C0C0 100%);
-            -webkit-background-clip: text; /* 將背景裁剪到文字形狀 */
-            background-clip: text;
-            -webkit-text-fill-color: transparent; /* 使文字填充顏色透明 */
-            font-size: 2.2em;
+        .highlight-blue {
+            color: #4472C4;
         }
-        h2 {
-            font-size: 1.95em;
+        .highlight-green {
+            color: #70AD47;
         }
-        h3 {
-            font-size: 1.7em; /* 調整這裡的數值 */
-        }
-        h4 {
-            font-size: 1.45em;
-        }
-        h5 {
-            font-size: 1.2em; /* 調整這裡的數值 */
-        }
-        h6 {
-            font-size: 1.0em;
-        }
-        a {
-            color: #FFD700; /* 金色連結 */
-            text-decoration: none;
-            text-shadow: none; /* 移除連結發光 */
-            transition: color 0.3s ease; /* 添加過渡效果 */
-        }
-        a:hover {
-            color: #C0C0C0; /* 懸停時變為銀色 */
-            text-decoration: underline;
-        }
-        p {
-            margin-bottom: 1.2em; /* 增加段落間距 */
-            font-size: 1.1em; /* 增大段落字體 */
-        }
-        ul {
-            list-style-type: none; /* 移除預設列表點 */
-            padding-left: 0; 
-            margin-bottom: 1.2em;
-        }
-        ul li {
-            position: relative;
-            padding-left: 25px; /* 為自定義點留出空間 */
-            margin-bottom: 0.8em;
-        }
-        ul li::before {
-            content: '◆'; /* 自定義列表點為菱形 */
-            position: absolute;
-            left: 0;
-            color: #C0C0C0; /* 銀色點 */
-            text-shadow: none; /* 移除列表點發光 */
-            font-weight: bold;
-        }
-        /* 確保有序列表也使用新字體 */
-        ol {
-            font-family: 'GenJyuuGothic', sans-serif;
-            margin-bottom: 1em;
-            padding-left: 20px;
-        }
-        code {
-            font-family: 'GenJyuuGothic', "Fira Code", "Cascadia Code", "JetBrains Mono", monospace; /* 字體優先級，優先使用自定義字體，若無則使用等寬字體 */
-            background-color: #1A1A1A; /* 更深的程式碼背景 */
-            padding: 2px 4px;
-            border-radius: 4px;
-            color: #e6edfa;
-        }
-        pre {
-            background-color: #1A1A1A; /* 更深的程式碼區塊背景 */
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin-bottom: 1.5em;
-            border: 1px solid rgba(255, 215, 0, 0.15); /* 柔和的金色邊框 */
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.08); /* 程式碼區塊發光效果 */
-        }
-        pre code {
-            background-color: transparent;
-            padding: 0;
-            color: inherit;
-        }
-        blockquote {
-            font-family: 'GenJyuuGothic', sans-serif; /* 確保引用塊使用新字體 */
-            border-left: 4px solid #C0C0C0; /* 銀色引言邊框 */
-            padding-left: 20px; /* 增加內邊距 */
-            margin-left: 0;
-            color: #b0b8c2; /* 引言文字顏色稍淺 */
-            font-style: italic; /* 引言文字斜體 */
-            background-color: rgba(30, 30, 30, 0.3); /* 引言背景稍有顏色 */
-            padding: 15px 20px; /* 調整 padding */
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1em;
-        }
-        th, td {
-            font-family: 'GenJyuuGothic', sans-serif; /* 確保表格文字使用新字體 */
-            border: 1px solid #30363d;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #30363d;
-            color: #c9d1d9;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        /* 自定義 Hashtag 樣式 */
-        .hashtag {
-            font-family: 'GenJyuuGothic', sans-serif; /* 確保表格文字使用新字體 */
-            color: #ddd; 
-            background-color: #4a3e6b; 
-            padding: 3px 8px; 
-            border-radius: 6px; 
-            font-size: 0.85em; 
-            margin-right: 6px; 
-            white-space: nowrap;
-            display: inline-block; 
-        }
-        /* 返回 MENU 連結樣式 */
-        .header-container {
-            display: flex;
-            justify-content: space-between; /* 標題左對齊，連結右對齊 */
-            align-items: center; /* 垂直居中對齊 */
-            margin-bottom: 20px; /* 與下方內容保持距離 */
-        }
-        .header-container h1 {
-            /* 這裡的 h1 樣式已在上方更具體的選擇器中定義，此處僅作為通用 h1 樣式的補充 */
-            margin: 0; /* 移除 h1 默認的 margin */
-            padding: 0; /* 移除 h1 默認的 padding */
-            color: #fff; /* 確保標題顏色為白色 */
-        }
-        .back-to-menu-link {
-            font-family: 'GenJyuuGothic', sans-serif; /* 確保表格文字使用新字體 */
-            color: #FFD700; /* 金色連結 */
+        /* Back to MENU 連結樣式 */
+        .back-to-menu {
+            /* position: absolute; */
+            /* top: 1.5rem; */
+            /* right: 1.5rem; */
+            color: hsl(34, 100%, 79%); /* 較深的灰色 */
             text-decoration: none; /* 移除下劃線 */
-            font-size: 1.1em; /* 與內文相同大小 */
-            font-weight: bold;
-            transition: color 0.3s ease; /* 添加過渡效果 */
+            font-size: 1.2rem; /* 相當於 Tailwind 的 text-sm */
+            font-weight: 600; /* 相當於 Tailwind 的 font-semibold */
+            transition: color 0.2s ease; /* 添加過渡效果 */
+            margin-left: 1rem; /* 讓它與左側元素有些間距，但 Flexbox 會主要控制 */
         }
-        .back-to-menu-link:hover {
-            color: #C0C0C0; /* 鼠標懸停時變為銀色 */
-            text-decoration: underline; /* 鼠標懸停時顯示下劃線 */
+        .back-to-menu:hover {
+            color: #fff; /* 滑鼠懸停時變白 */
+        }
+        /* 各區塊標題下邊距 */
+        section h2 {
+            margin-bottom: 1rem;
+        }
+        /* Grid 佈局樣式 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr; /* 預設為單欄 */
+            gap: 1.5rem; /* 間距，相當於 Tailwind 的 gap-6 */
         }
         /* 新增：回到頂部按鈕樣式 */
         #backToTopBtn {
             display: none; /* 預設隱藏 */
             position: fixed; /* 固定在視窗中 */
             bottom: 30px; /* 距離底部 30px */
-            right: 30px; /* 【修改】距離右側 30px */
+            right: 30px; /* 距離右側 30px */
             z-index: 99; /* 確保在其他元素之上 */
-            background: none;
-            border: 1px solid #FFDC6D; /* 輕微邊框 */
-            color: rgb(255, 220, 109); /* 【修改】文字顏色為深灰色 */
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #d0fdbe; /* 輕微邊框 */
+            color: #d0fdbe; /* 文字顏色為深灰色 */
             cursor: pointer; /* 鼠標指針 */
             padding: 15px; /* 內邊距 */
             border-radius: 10px; /* 圓角 */
             font-size: 18px; /* 字體大小 */
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(255, 220, 109, 0.5); /* 陰影，與金屬感搭配 */
+            box-shadow: 0 4px 12px #d0fdbe80;
             transition: background-image 0.3s, box-shadow 0.3s, opacity 0.5s ease-in-out; /* 平滑過渡 */
             font-family: 'GenJyuuGothic', sans-serif; /* 使用自定義字體 */
             opacity: 0; /* 初始完全透明 */
             pointer-events: none; /* 初始禁用點擊事件 */
-            text-shadow: none; /* 【新增】移除文字發光 */
+            text-shadow: none; /* 移除文字發光 */
         }
         #backToTopBtn:hover {
-            color: rgb(253, 238, 187);
-            background-color: rgba(255, 234, 112, 0.3);
-            border: 1px solid #fde48f; /* 懸停時邊框變亮 */
-            box-shadow: 0 4px 12px rgba(253, 228, 145, 0.5); /* 陰影，與金屬感搭配 */
+            color: #baff9e;
+            background-color: hsla(103, 100%, 20%, 0.4);
+            border: 1px solid #baff9e; /* 懸停時邊框變亮 */
+            box-shadow: 0 4px 12px #baff9e80; /* 陰影，與金屬感搭配 */
         }
         #backToTopBtn.show {
             display: block; /* 顯示時設定為 block */
             opacity: 1; /* 顯示時完全不透明 */
             pointer-events: auto; /* 顯示時啟用點擊事件 */
         }
-        /* 響應式調整 */
-        @media (max-width: 768px) {
-            .content-container {
-                padding: 20px;
-            }
-            .header-container h1 { /* 響應式時也保持左對齊 */
-                font-size: 2em;
-            }
-            h2 {
-                font-size: 1.6em;
-            }
-            p {
-                font-size: 1em;
+        /* Medium 螢幕尺寸以上的雙欄佈局 */
+        @media (min-width: 768px) { /* 相當於 Tailwind 的 md: */
+            .grid-container {
+                grid-template-columns: 1fr 1fr; /* 雙欄 */
             }
             #backToTopBtn { /* 手機版調整按鈕位置和大小 */
                 bottom: 20px;
@@ -361,4 +196,115 @@
                 border-radius: 8px;
             }
         }
+
+        /* 卡片組件樣式 */
+        .person-card {
+            background: linear-gradient(to bottom right, #cff2fdc0, #ffffffc0, #f3f3cbc0, #ffd6b3c0, #e7cdacc0);
+            /* background-color: rgba(255, 255, 255, 0.6); */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 輕微陰影 */
+            display: flex; /* Flexbox 佈局 */
+            flex-direction: column; /* 垂直堆疊 */
+            align-items: center; /* 水平居中 */
+            text-align: center; /* 文字居中 */
+            border: 2px solid rgba(255, 255, 255, 0.9); /* 輕微的邊框 */
+            min-width: 250px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* 添加過渡效果 */
+
+        }
+        .person-card > div { /* 卡片內文字資訊區塊的間距 */
+            /* transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2); */
+            margin-top: 0.5rem;
+        }
+        /* 確保卡片內的圖片圓形顯示 */
+        .person-card img {
+            border-radius: 50%;
+            object-fit: cover;
+            width: 20rem; /* 12 * 16px = 192px */
+            height: 20rem; /* 保持方形 */
+            /* 確保圖片是區塊元素，避免一些行內元素的影響 */
+            display: block;
+            /* max-width: 80%; */
+            /* border: 4px solid #e7cdac; */
+            border: 4px solid #ffffff;
+            box-shadow: 0 0 10px #e7cdac80; /* 輕微金色光暈 */
+            transition: opacity 0.2s ease, transform 0.2s ease; /* 添加過渡效果 */
+            margin-bottom: 0.5rem; /* 新增：圖片下方與名稱的間距 */
+        }
+        .person-card:hover {
+            transform: translateY(-5px); /* 懸停時輕微上浮 */
+            box-shadow: 0 8px 20px #e7cdac80; /* 懸停時金色陰影 */
+            color: linear-gradient(to right, #FFFFFF, #f3f3cb, #ffd6b3, #e7cdac);
+        }
+        /* 針對小螢幕的圖片調整 */
+        @media (max-width: 768px) {
+            .person-card img {
+                width: 10rem; /* 較小螢幕時圖片稍微縮小 */
+                height: 10rem;
+            }
+        }
+        /* 段落和標題文字顏色 */
+        .person-card h3 {
+            /* color: #FFD700; */
+            color: hsl(215, 30%, 30%);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem; /* 小間距 */
+            transition: text-decoration 0.2s ease; /* 添加過渡效果 */
+        }
+        /* 系所/職稱樣式 (##### 對應的文字) */
+        .person-card .person-department {
+            color: hsl(30, 50%, 20%); /* 您可以調整顏色 */
+            font-size: 1.75rem; /* 您可以調整字體大小 */
+            font-weight: 600;
+            margin-top: 0.5rem; /* 與上方名稱的間距 */
+            margin-bottom: 0.25rem; /* 與下方研究題目的間距 */
+            text-align: center; /* 根據您的要求，這裡文字置中 */
+            width: 100%; /* 確保其佔據可用寬度以便置中 */
+        }
+        .person-card p {
+            color: rgba(50, 50, 50, 0.8); /* 淺灰色 */
+            font-size: 1.25rem;
+            margin-bottom: 0; /* 詳細資訊下方無額外間距 */
+            text-align: left; /* 新增此行，使文字置左對齊 */
+            width: 100%; /* 確保 p 元素佔據所有可用寬度，以便置左對齊生效 */
+            padding: 0 1rem; /* 增加左右內邊距，避免文字緊貼卡片邊緣 */
+            box-sizing: border-box; /* 確保 padding 不會增加總寬度 */
+        }
+        /* 超連結樣式 */
+        .person-card a {
+            text-decoration: none; /* 移除下劃線 */
+            color: inherit; /* 繼承父元素的顏色 */
+            display: block; /* 讓整個區塊可點擊 */
+            cursor: pointer; /* 顯示手型游標 */
+        }
+        .person-card a:hover h3 {
+            text-decoration: underline; /* 滑鼠懸停時名稱加底線 */
+        }
+        .person-card a:hover img {
+            opacity: 0.8; /* 滑鼠懸停時圖片稍微變暗 */
+            transform: scale(1.02); /* 輕微放大效果 */
+            transition: opacity 0.2s ease, transform 0.2s ease; /* 平滑過渡 */
+        }
+        /* 圖片超連結樣式 */
+        .person-image-link {
+            display: block; /* 確保連結佔據一行，方便點擊 */
+            text-decoration: none; /* 移除下劃線 */
+            cursor: pointer; /* 顯示手型游標 */
+        }
+        .person-image-link:hover img { /* 圖片懸停效果 */
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+        /* 名稱超連結樣式 */
+        .person-name-link {
+            text-decoration: none; /* 移除下劃線 */
+            color: rgba(0, 0, 0, 1);
+            cursor: pointer; /* 顯示手型游標 */
+        }
+        .person-name-link:hover h3 { /* 名稱懸停效果 */
+            text-decoration: underline;
+        }        
     

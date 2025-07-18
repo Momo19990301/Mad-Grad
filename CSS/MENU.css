@@ -372,11 +372,11 @@
             align-items: center;
             width: 40px; /* 按鈕寬度 */
             height: 40px; /* 按鈕高度，使其成為正方形 */
-            background-color: #ffcd38;
+            background-color: hsl(45, 100%, 50%);
             border-radius: 8px; /* 圓角 */
             text-decoration: none; /* 移除連結下劃線 */
             transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 過渡效果 */
-            border: 1px solid #ffce3a;
+            border: 2px solid hsl(45, 100%, 60%);
             cursor: pointer; /* 指針樣式 */
             box-shadow: 0 0 5px #ffdd77, 0 0 10px #ffdd7780;
             margin-right: 15px; /* 與右側元素 (user-info) 的間距 */
@@ -384,7 +384,7 @@
             position: relative; /* 新增：為內部絕對定位的文字提供參考點 */
         }
         .network-button:hover {
-            background-color: #ffffff00;
+            background-color: hsla(45, 100%, 60%, 0.502);
         }
         /* Network Button 內部 SVG 圖標的樣式 */
         .network-button svg {
