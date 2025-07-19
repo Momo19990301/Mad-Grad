@@ -1,6 +1,6 @@
 
         // 原始 Markdown 內容，這裡直接嵌入，實際應用中可以從文件讀取
-        const markdownContent = `# Multiverse of 依渟
+        const markdownContent = `# Multiverse of ET
 #### [[渟渟急轉彎]]
 ##### 香香妹紙
 #### [[懶惰小依 & 賴床小依]]
@@ -9,7 +9,7 @@
 ##### 網紅直播主
 # Variants
 #### [[紀崴]]
-##### 工程師
+##### 製作技術員
 #### [[憑拳大將軍]]
 ##### 平權鬥士
 # Administration

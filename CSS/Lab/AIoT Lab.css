@@ -86,7 +86,7 @@
             justify-content: space-between; /* 讓子元素兩端對齊，將 h1 推到左邊，連結推到右邊 */
             align-items: center; /* 垂直居中對齊子元素 */
             /* margin-bottom: 2rem; */
-            padding-bottom: 1.5rem; /* 增加底部內邊距，與下方內容區塊分開 */
+            padding-bottom: 1rem; /* 增加底部內邊距，與下方內容區塊分開 */
             position: relative; /* 確保內部絕對定位的連結相對於此容器 */
             /* 新增：允許 Flex 項目在空間不足時換行，這對於長標題很重要 */
             flex-wrap: wrap; /* 允許項目換行 */
@@ -148,13 +148,13 @@
             /* right: 1.5rem; */
             color: hsl(34, 100%, 79%); /* 較深的灰色 */
             text-decoration: none; /* 移除下劃線 */
-            font-size: 1.2rem; /* 相當於 Tailwind 的 text-sm */
+            font-size: 1.75rem; /* 相當於 Tailwind 的 text-sm */
             font-weight: 600; /* 相當於 Tailwind 的 font-semibold */
             transition: color 0.2s ease; /* 添加過渡效果 */
             margin-left: 1rem; /* 讓它與左側元素有些間距，但 Flexbox 會主要控制 */
         }
         .back-to-menu:hover {
-            color: #fff; /* 滑鼠懸停時變白 */
+            color: #cff2fd; /* 滑鼠懸停時變白 */
         }
         /* 各區塊標題下邊距 */
         section h2 {
@@ -225,7 +225,7 @@
             align-items: center; /* 水平居中 */
             text-align: center; /* 文字居中 */
             border: 2px solid rgba(255, 255, 255, 0.9); /* 輕微的邊框 */
-            min-width: 250px;
+            min-width: 0; /* 關鍵：允許卡片在網格中完全收縮，其最小寬度由網格單元格決定 */
             transition: transform 0.2s ease, box-shadow 0.2s ease; /* 添加過渡效果 */
 
         }
@@ -238,16 +238,20 @@
         .person-card img {
             border-radius: 50%;
             object-fit: cover;
-            width: 20rem; /* 12 * 16px = 192px */
-            height: 20rem; /* 保持方形 */
-            /* 確保圖片是區塊元素，避免一些行內元素的影響 */
+            /* width: 20rem; */
+            width: calc(100% - 2rem);
+            /* max-width: 200px; */
+            /* min-width: 120px; */
+            /* height: 20rem; */
+            height: auto;
+            aspect-ratio: 1 / 1; /* 確保寬高比為 1:1，保持正方形 */
             display: block;
-            /* max-width: 80%; */
+            margin: 0 auto 1rem auto; /* 水平居中圖片，並設置底部間距 */
             /* border: 4px solid #e7cdac; */
             border: 4px solid #ffffff;
             box-shadow: 0 0 10px #e7cdac80; /* 輕微金色光暈 */
             transition: opacity 0.2s ease, transform 0.2s ease; /* 添加過渡效果 */
-            margin-bottom: 0.5rem; /* 新增：圖片下方與名稱的間距 */
+            /* margin-bottom: 0.5rem; */
         }
         .person-card:hover {
             transform: translateY(-5px); /* 懸停時輕微上浮 */
@@ -255,12 +259,18 @@
             color: linear-gradient(to right, #FFFFFF, #f3f3cb, #ffd6b3, #e7cdac);
         }
         /* 針對小螢幕的圖片調整 */
-        @media (max-width: 768px) {
+        /* @media (max-width: 768px) {
             .person-card img {
-                width: 10rem; /* 較小螢幕時圖片稍微縮小 */
+                width: 10rem;
                 height: 10rem;
             }
-        }
+        } */
+        /* @media (max-width: 400px) {
+            .person-card img {
+                width: calc(100% - 1.5rem);
+                min-width: 80px;
+            }
+        } */
         /* 段落和標題文字顏色 */
         .person-card h3 {
             /* color: #FFD700; */
@@ -307,6 +317,8 @@
         /* 圖片超連結樣式 */
         .person-image-link {
             display: block; /* 確保連結佔據一行，方便點擊 */
+            /* width: 100%; */
+            /* text-align: center; */
             text-decoration: none; /* 移除下劃線 */
             cursor: pointer; /* 顯示手型游標 */
         }
