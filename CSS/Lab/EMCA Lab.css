@@ -151,7 +151,7 @@
             font-size: 1.75rem; /* 相當於 Tailwind 的 text-sm */
             font-weight: 600; /* 相當於 Tailwind 的 font-semibold */
             transition: color 0.2s ease; /* 添加過渡效果 */
-            margin-left: 1rem; /* 讓它與左側元素有些間距，但 Flexbox 會主要控制 */
+            /* margin-left: 1rem; */
         }
         .back-to-menu:hover {
             color: #cff2fd; /* 滑鼠懸停時變白 */

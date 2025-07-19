@@ -8,7 +8,7 @@
         // --- 背景呼吸燈相關變數 ---
         const baseGradientColors = {
             start: '#000000',
-            end: '#323232'
+            end: 'rgb(125, 125, 125)'
         };
         const breathingLightColors = [
             { r: 255, g:   0, b:   0 },   // 紅色
@@ -40,10 +40,27 @@
         const TEXT_ANIMATION_SMOOTHING = 0.2; // 新增：文字動畫平滑度 (0.1 較慢，0.5 較快)
         const TEXT_ANIMATION_THRESHOLD = 0.1; // 新增：文字動畫停止的閾值
         
+        // 新增：縮放拖曳條相關變數和元素
+        const zoomSliderContainer = document.querySelector('.zoom-slider-container');
+        const zoomSliderHandle = document.getElementById('zoomSliderHandle');
+        let isSliderDragging = false;
+        let sliderStartX = 0; // 滑塊拖曳開始時的滑鼠/觸摸 X 座標
+        let sliderHandleInitialLeft = 0; // 滑塊拖曳開始時手柄的 left 屬性值
+
+        // 新增：縮放按鈕元素
+        const zoomOutBtn = document.getElementById('zoomOutBtn');
+        const zoomInBtn = document.getElementById('zoomInBtn');
+
         // 新增：點擊與拖曳判斷相關變數
         let mouseDownPos = { x: 0, y: 0 }; // 記錄滑鼠按下時的螢幕座標
         let isClicking = false; // 標記是否處於潛在的點擊狀態
         const CLICK_THRESHOLD = 5; // 滑鼠移動超過這個距離則視為拖曳，否則為點擊 (像素)        
+
+        // 新增：手機端激活節點變數
+        let activatedNode = null; // 當前被點擊激活的節點 (用於手機端模擬懸浮)
+
+        // 新增：設備類型判斷變數
+        let isTouchDevice = false; // 判斷是否為觸摸設備
 
         // --- 動畫控制變數 ---
         let nodeAnimationFrameId = null; // 節點動畫的 ID
@@ -121,46 +138,46 @@
 
             // 節點半徑，使其看起來更像「點」
             nodes = [
-{ id: 'Rocky', name: 'Rocky', x: nodeCanvas.width * 0.4043234750285757, y: nodeCanvas.height * 0.31854232565007473, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/Rocky.html' },
-{ id: '小瓜', name: '小瓜', x: nodeCanvas.width * 0.6220392510968884, y: nodeCanvas.height * 0.47476653746182473, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/小瓜.html' },
-{ id: '慈慈', name: '慈慈', x: nodeCanvas.width * 0.6717188360456628, y: nodeCanvas.height * 0.5436775815218543, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/慈慈.html' },
-{ id: '牛仔褲寶貝', name: '牛仔褲寶貝', x: nodeCanvas.width * 0.33992940449443587, y: nodeCanvas.height * 0.7011758634946486, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/牛仔褲寶貝.html' },
-{ id: '老人與狗', name: '老人與狗', x: nodeCanvas.width * 0.47133207581997727, y: nodeCanvas.height * 0.7487173237165695, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/老人與狗.html' },
-{ id: '裘萌 & 首蒙元', name: '裘萌 & 首蒙元', x: nodeCanvas.width * 0.7829304738279032, y: nodeCanvas.height * 0.49560910035467, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/裘萌 & 首蒙元.html' },
-{ id: '阿詠', name: '阿詠', x: nodeCanvas.width * 0.2976015235704329, y: nodeCanvas.height * 0.6227178383758251, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/阿詠.html' },
-{ id: 'Rock', name: 'Rock', x: nodeCanvas.width * 0.5803365228298308, y: nodeCanvas.height * 0.3967450310322096, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/Rock.html' },
-{ id: '深淵', name: '深淵', x: nodeCanvas.width * 0.5874676580731417, y: nodeCanvas.height * 0.7720362478284202, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/深淵.html' },
-{ id: '球球', name: '球球', x: nodeCanvas.width * 0.4607408143100001, y: nodeCanvas.height * 0.3720100592757271, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/球球.html' },
-{ id: '穢土轉生研究生', name: '穢土轉生研究生', x: nodeCanvas.width * 0.43181580544042514, y: nodeCanvas.height * 0.5677823647325599, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/穢土轉生研究生.html' },
-{ id: '憑拳大將軍', name: '憑拳大將軍', x: nodeCanvas.width * 0.4462369284799837, y: nodeCanvas.height * 0.47002241898942176, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/憑拳大將軍.html' },
-{ id: '懶惰小依 & 賴床小依', name: '懶惰小依 & 賴床小依', x: nodeCanvas.width * 0.5305792989679975, y: nodeCanvas.height * 0.7027805569716847, radius: 9.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/懶惰小依 & 賴床小依.html' },
-{ id: '渟渟急轉彎', name: '渟渟急轉彎', x: nodeCanvas.width * 0.5942167788031508, y: nodeCanvas.height * 0.6725075518638587, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/渟渟急轉彎.html' },
-{ id: '王依渟', name: '王依渟', x: nodeCanvas.width * 0.6441945920477135, y: nodeCanvas.height * 0.367905659750572, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/王依渟.html' },
-{ id: '紀崴', name: '紀崴', x: nodeCanvas.width * 0.5269274094951358, y: nodeCanvas.height * 0.24195063808599765, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/紀崴.html' },
-{ id: '蒂娜', name: '蒂娜', x: nodeCanvas.width * 0.7904409314563812, y: nodeCanvas.height * 0.6005059754363559, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/蒂娜.html' },
-{ id: '海神巨獸', name: '海神巨獸', x: nodeCanvas.width * 0.7225330000492229, y: nodeCanvas.height * 0.6084096847294181, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/海神巨獸.html' },
-{ id: '金門王', name: '金門王', x: nodeCanvas.width * 0.6083189772413601, y: nodeCanvas.height * 0.5746991563649232, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/金門王.html' },
-{ id: 'AIoT Lab', name: 'AIoT Lab', x: nodeCanvas.width * 0.6858852061769621, y: nodeCanvas.height * 0.4459420694520139, radius: 8.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/AIoT Lab.html' },
-{ id: 'Badass', name: 'Badass', x: nodeCanvas.width * 0.6579490628166086, y: nodeCanvas.height * 0.6415639134328543, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/Badass.html' },
-{ id: 'EMCA Lab', name: 'EMCA Lab', x: nodeCanvas.width * 0.5956479152548617, y: nodeCanvas.height * 0.29929927881143614, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/EMCA Lab.html' },
-{ id: 'SoC Lab', name: 'SoC Lab', x: nodeCanvas.width * 0.38999409142207536, y: nodeCanvas.height * 0.41633675765977224, radius: 13.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/SoC Lab.html' },
-{ id: 'Prof. 蛋頭博士', name: 'Prof. 蛋頭博士', x: nodeCanvas.width * 0.3891587895518584, y: nodeCanvas.height * 0.7686613044920091, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/Prof. 蛋頭博士.html' },
-{ id: '余十三', name: '余十三', x: nodeCanvas.width * 0.5589912419031203, y: nodeCanvas.height * 0.507343051455896, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/余十三.html' },
-{ id: '小南瓜', name: '小南瓜', x: nodeCanvas.width * 0.4954101247789255, y: nodeCanvas.height * 0.5375498002813738, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/小南瓜.html' },
-{ id: '徐丞丞', name: '徐丞丞', x: nodeCanvas.width * 0.33794185986465514, y: nodeCanvas.height * 0.3280458298016564, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/徐丞丞.html' },
-{ id: '心碎小狗', name: '心碎小狗', x: nodeCanvas.width * 0.4632197060410015, y: nodeCanvas.height * 0.27156457649197663, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/心碎小狗.html' },
-{ id: '應葛格', name: '應葛格', x: nodeCanvas.width * 0.5447677363786559, y: nodeCanvas.height * 0.60505150500626, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/應葛格.html' },
-{ id: '敦敦', name: '敦敦', x: nodeCanvas.width * 0.2711954780916341, y: nodeCanvas.height * 0.3308227742595974, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/敦敦.html' },
-{ id: '梵楓霖', name: '梵楓霖', x: nodeCanvas.width * 0.4811297774477863, y: nodeCanvas.height * 0.6353590014441419, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/梵楓霖.html' },
-{ id: '橋牌社長', name: '橋牌社長', x: nodeCanvas.width * 0.4244506539000429, y: nodeCanvas.height * 0.19018727353383208, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/橋牌社長.html' },
-{ id: '湖口砲兵連連長', name: '湖口砲兵連連長', x: nodeCanvas.width * 0.3755802448997007, y: nodeCanvas.height * 0.5140273571406798, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/湖口砲兵連連長.html' },
-{ id: '焦糖o彤兒', name: '焦糖o彤兒', x: nodeCanvas.width * 0.30905004975301287, y: nodeCanvas.height * 0.520561485780196, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/焦糖o彤兒.html' },
-{ id: '珊珊姊', name: '珊珊姊', x: nodeCanvas.width * 0.5243988024194743, y: nodeCanvas.height * 0.34223925836203806, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/珊珊姊.html' },
-{ id: '色彩學大師', name: '色彩學大師', x: nodeCanvas.width * 0.4219439341319805, y: nodeCanvas.height * 0.6815072274070155, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/色彩學大師.html' },
-{ id: '諸葛小劉', name: '諸葛小劉', x: nodeCanvas.width * 0.3116692030310831, y: nodeCanvas.height * 0.42062160127200476, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/諸葛小劉.html' },
-{ id: '陳大帥帥', name: '陳大帥帥', x: nodeCanvas.width * 0.37270067710615706, y: nodeCanvas.height * 0.6140690252121154, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/陳大帥帥.html' },
-{ id: '馬華', name: '馬華', x: nodeCanvas.width * 0.36543357613321137, y: nodeCanvas.height * 0.23687081408771257, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/馬華.html' },
-{ id: '黃老二', name: '黃老二', x: nodeCanvas.width * 0.5097981118189809, y: nodeCanvas.height * 0.4398141789788061, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/黃老二.html' }
+{ id: 'Rocky', name: 'Rocky', x: nodeCanvas.width * 0.3433189312824611, y: nodeCanvas.height * 0.23736901092787227, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/Rocky.html' },
+{ id: '小瓜', name: '小瓜', x: nodeCanvas.width * 0.7356048201075237, y: nodeCanvas.height * 0.6069513949248218, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/小瓜.html' },
+{ id: '慈慈', name: '慈慈', x: nodeCanvas.width * 0.4794754990186024, y: nodeCanvas.height * 0.6863207922904624, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/慈慈.html' },
+{ id: '牛仔褲寶貝', name: '牛仔褲寶貝', x: nodeCanvas.width * 0.48808278514873926, y: nodeCanvas.height * 0.27915066838199143, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/牛仔褲寶貝.html' },
+{ id: '老人與狗', name: '老人與狗', x: nodeCanvas.width * 0.6597485048885376, y: nodeCanvas.height * 0.32615843410970785, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/老人與狗.html' },
+{ id: '裘萌 & 首蒙元', name: '裘萌 & 首蒙元', x: nodeCanvas.width * 0.42333308231086875, y: nodeCanvas.height * 0.6323792048182453, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/裘萌 & 首蒙元.html' },
+{ id: '阿詠', name: '阿詠', x: nodeCanvas.width * 0.5461494856073595, y: nodeCanvas.height * 0.328463439357367, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/阿詠.html' },
+{ id: 'Rock', name: 'Rock', x: nodeCanvas.width * 0.4668604977406564, y: nodeCanvas.height * 0.183296616180696, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/Rock.html' },
+{ id: '深淵', name: '深淵', x: nodeCanvas.width * 0.6025216940185331, y: nodeCanvas.height * 0.27480720925304686, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/深淵.html' },
+{ id: '球球', name: '球球', x: nodeCanvas.width * 0.6601633614948371, y: nodeCanvas.height * 0.5253748548656942, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/球球.html' },
+{ id: '穢土轉生研究生', name: '穢土轉生研究生', x: nodeCanvas.width * 0.6026017368887121, y: nodeCanvas.height * 0.5796633464484064, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/穢土轉生研究生.html' },
+{ id: '憑拳大將軍', name: '憑拳大將軍', x: nodeCanvas.width * 0.5459661787468741, y: nodeCanvas.height * 0.6785825703812072, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/憑拳大將軍.html' },
+{ id: '懶惰小依 & 賴床小依', name: '懶惰小依 & 賴床小依', x: nodeCanvas.width * 0.3374399648272836, y: nodeCanvas.height * 0.6666674200290927, radius: 9.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/懶惰小依 & 賴床小依.html' },
+{ id: '渟渟急轉彎', name: '渟渟急轉彎', x: nodeCanvas.width * 0.6034104078517714, y: nodeCanvas.height * 0.3797320456758036, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/渟渟急轉彎.html' },
+{ id: '王依渟', name: '王依渟', x: nodeCanvas.width * 0.25786469030541365, y: nodeCanvas.height * 0.5063181104535842, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/王依渟.html' },
+{ id: '紀崴', name: '紀崴', x: nodeCanvas.width * 0.42881703894310325, y: nodeCanvas.height * 0.4325095608807693, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/紀崴.html' },
+{ id: '蒂娜', name: '蒂娜', x: nodeCanvas.width * 0.8006785284605006, y: nodeCanvas.height * 0.6288513951751515, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/蒂娜.html' },
+{ id: '海神巨獸', name: '海神巨獸', x: nodeCanvas.width * 0.5826646285564511, y: nodeCanvas.height * 0.7678442454765512, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/海神巨獸.html' },
+{ id: '金門王', name: '金門王', x: nodeCanvas.width * 0.6661423808462245, y: nodeCanvas.height * 0.4257540872436158, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/金門王.html' },
+{ id: 'AIoT Lab', name: 'AIoT Lab', x: nodeCanvas.width * 0.6126638895103126, y: nodeCanvas.height * 0.6785319206774798, radius: 8.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/AIoT Lab.html' },
+{ id: 'Badass', name: 'Badass', x: nodeCanvas.width * 0.6687858943948731, y: nodeCanvas.height * 0.624567683360909, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/Badass.html' },
+{ id: 'EMCA Lab', name: 'EMCA Lab', x: nodeCanvas.width * 0.7258396354924049, y: nodeCanvas.height * 0.50802756135325, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/EMCA Lab.html' },
+{ id: 'SoC Lab', name: 'SoC Lab', x: nodeCanvas.width * 0.427133943108182, y: nodeCanvas.height * 0.5325348169634174, radius: 13.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/SoC Lab.html' },
+{ id: 'Prof. 蛋頭博士', name: 'Prof. 蛋頭博士', x: nodeCanvas.width * 0.41000386950576645, y: nodeCanvas.height * 0.235550930244109, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/Prof. 蛋頭博士.html' },
+{ id: '余十三', name: '余十三', x: nodeCanvas.width * 0.3675882136891937, y: nodeCanvas.height * 0.5774528340701987, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/余十三.html' },
+{ id: '小南瓜', name: '小南瓜', x: nodeCanvas.width * 0.4265453297312639, y: nodeCanvas.height * 0.332429483184421, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/小南瓜.html' },
+{ id: '徐丞丞', name: '徐丞丞', x: nodeCanvas.width * 0.3152827795568254, y: nodeCanvas.height * 0.328109918087147, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/徐丞丞.html' },
+{ id: '心碎小狗', name: '心碎小狗', x: nodeCanvas.width * 0.5431400697807829, y: nodeCanvas.height * 0.429556979810876, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/心碎小狗.html' },
+{ id: '應葛格', name: '應葛格', x: nodeCanvas.width * 0.6008334829280263, y: nodeCanvas.height * 0.4796936851965258, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/應葛格.html' },
+{ id: '敦敦', name: '敦敦', x: nodeCanvas.width * 0.5418707067982871, y: nodeCanvas.height * 0.538381459457533, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/敦敦.html' },
+{ id: '梵楓霖', name: '梵楓霖', x: nodeCanvas.width * 0.30028087243695106, y: nodeCanvas.height * 0.583476071885482, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/梵楓霖.html' },
+{ id: '橋牌社長', name: '橋牌社長', x: nodeCanvas.width * 0.48654054266810287, y: nodeCanvas.height * 0.48255835288383936, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/橋牌社長.html' },
+{ id: '湖口砲兵連連長', name: '湖口砲兵連連長', x: nodeCanvas.width * 0.48335490445460927, y: nodeCanvas.height * 0.5863372377842208, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/湖口砲兵連連長.html' },
+{ id: '焦糖o彤兒', name: '焦糖o彤兒', x: nodeCanvas.width * 0.3931629920850048, y: nodeCanvas.height * 0.721589402567107, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/焦糖o彤兒.html' },
+{ id: '珊珊姊', name: '珊珊姊', x: nodeCanvas.width * 0.4493039153956142, y: nodeCanvas.height * 0.7755716634158502, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/珊珊姊.html' },
+{ id: '色彩學大師', name: '色彩學大師', x: nodeCanvas.width * 0.4854800486815328, y: nodeCanvas.height * 0.3793477250556239, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/色彩學大師.html' },
+{ id: '諸葛小劉', name: '諸葛小劉', x: nodeCanvas.width * 0.29540121639957, y: nodeCanvas.height * 0.4235940638048173, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/諸葛小劉.html' },
+{ id: '陳大帥帥', name: '陳大帥帥', x: nodeCanvas.width * 0.3500430531081137, y: nodeCanvas.height * 0.4809483522581356, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/陳大帥帥.html' },
+{ id: '馬華', name: '馬華', x: nodeCanvas.width * 0.5159626499288835, y: nodeCanvas.height * 0.7701326856307403, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/馬華.html' },
+{ id: '黃老二', name: '黃老二', x: nodeCanvas.width * 0.3699377733012455, y: nodeCanvas.height * 0.38541276543422787, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/黃老二.html' }
 ]; 
             links = [
 { source: nodes[0], target: nodes[7], originalColor: '#FFFFFF50', color: '#FFFFFF', width: 2 },
@@ -372,26 +389,100 @@
             return totalDisplacement;
         }
 
+        // // 更新高亮狀態的函式 (包含光暈邏輯)
+        // function updateHighlight(newHoveredNode) {
+        //     let needsRedraw = false;
+
+        //     // 1. 遍歷所有節點，重置或設定高亮狀態和顏色
+        //     nodes.forEach(node => {
+        //         const isConnectedToHovered = (newHoveredNode && (links.some(link => (link.source === node && link.target === newHoveredNode) || (link.target === node && link.source === newHoveredNode))));
+        //         let targetColor;
+        //         let targetTextColor;
+        //         let targetIsHighlighted;
+
+        //         if (newHoveredNode === null) { // 沒有懸浮節點，全部恢復預設
+        //             targetColor = node.originalColor;
+        //             targetTextColor = node.originalTextColor;
+        //             targetIsHighlighted = false;
+        //         } else if (node === newHoveredNode) { // 懸浮節點本身
+        //             targetColor = '#fddc78'; // 亮黃色
+        //             targetTextColor = '#fddc78'; // 亮黃色
+        //             targetIsHighlighted = true;
+        //         } else if (isConnectedToHovered) { // 與懸浮節點相連的節點
+        //             targetColor = 'rgba(255, 255, 255, 1.0)'; // 亮白色點
+        //             targetTextColor = 'rgba(224, 224, 224, 1.0)'; // 亮文字
+        //             targetIsHighlighted = true;
+        //         } else { // 其他不相關的節點，變暗
+        //             targetColor = 'rgba(255, 255, 255, 0.2)'; // 暗白色點
+        //             targetTextColor = 'rgba(224, 224, 224, 0.2)'; // 暗文字
+        //             targetIsHighlighted = false;
+        //         }
+
+        //         if (node.color !== targetColor || node.textColor !== targetTextColor || node.isHighlighted !== targetIsHighlighted) {
+        //             node.color = targetColor;
+        //             node.textColor = targetTextColor;
+        //             node.isHighlighted = targetIsHighlighted;
+        //             needsRedraw = true;
+        //         }
+        //     });
+
+        //     // 2. 遍歷所有連線，重置或設定高亮狀態和顏色
+        //     links.forEach(link => {
+        //         let targetColor;
+        //         let targetIsHighlighted;
+
+        //         if (newHoveredNode === null) { // 沒有懸浮節點，全部恢復預設
+        //             targetColor = link.originalColor;
+        //             targetIsHighlighted = false;
+        //         } else if (link.source === newHoveredNode || link.target === newHoveredNode) { // 與懸浮節點相連的連線
+        //             targetColor = '#00FFFF80'; // 青綠色
+        //             targetIsHighlighted = true;
+        //         } else { // 其他不相關的連線，變暗
+        //             targetColor = 'rgba(204, 204, 204, 0.2)'; // 暗灰色線
+        //             targetIsHighlighted = false;
+        //         }
+
+        //         if (link.color !== targetColor || link.isHighlighted !== targetIsHighlighted) {
+        //             link.color = targetColor;
+        //             link.isHighlighted = targetIsHighlighted;
+        //             needsRedraw = true;
+        //         }
+        //     });
+
+        //     // 3. 如果有任何顏色或透明度變化，則請求重繪
+        //     if (needsRedraw) {
+        //         if (nodeAnimationFrameId === null) { // 如果節點動畫停止了，重新啟動它
+        //             isSystemStable = false;
+        //             networkAnimate();
+        //         }
+        //     }
+        // }
+
         // 新增：更新高亮狀態的函式 (包含光暈邏輯)
-        function updateHighlight(newHoveredNode) {
+        function updateHighlight(newHoveredOrActivatedNode) {
             let needsRedraw = false;
+
+            // 判斷當前真正應該高亮的節點
+            // 如果有鼠標懸浮，則以鼠標懸浮為準 (桌面優先)
+            // 否則，以觸摸激活的節點為準 (手機)
+            const activeNode = newHoveredOrActivatedNode || activatedNode; // 優先使用 newHoveredOrActivatedNode
 
             // 1. 遍歷所有節點，重置或設定高亮狀態和顏色
             nodes.forEach(node => {
-                const isConnectedToHovered = (newHoveredNode && (links.some(link => (link.source === node && link.target === newHoveredNode) || (link.target === node && link.source === newHoveredNode))));
+                const isConnectedToActive = (activeNode && (links.some(link => (link.source === node && link.target === activeNode) || (link.target === node && link.source === activeNode))));
                 let targetColor;
                 let targetTextColor;
                 let targetIsHighlighted;
 
-                if (newHoveredNode === null) { // 沒有懸浮節點，全部恢復預設
+                if (activeNode === null) { // 沒有任何激活或懸浮節點，全部恢復預設
                     targetColor = node.originalColor;
                     targetTextColor = node.originalTextColor;
                     targetIsHighlighted = false;
-                } else if (node === newHoveredNode) { // 懸浮節點本身
+                } else if (node === activeNode) { // 激活/懸浮節點本身
                     targetColor = '#fddc78'; // 亮黃色
                     targetTextColor = '#fddc78'; // 亮黃色
                     targetIsHighlighted = true;
-                } else if (isConnectedToHovered) { // 與懸浮節點相連的節點
+                } else if (isConnectedToActive) { // 與激活/懸浮節點相連的節點
                     targetColor = 'rgba(255, 255, 255, 1.0)'; // 亮白色點
                     targetTextColor = 'rgba(224, 224, 224, 1.0)'; // 亮文字
                     targetIsHighlighted = true;
@@ -414,10 +505,10 @@
                 let targetColor;
                 let targetIsHighlighted;
 
-                if (newHoveredNode === null) { // 沒有懸浮節點，全部恢復預設
+                if (activeNode === null) { // 沒有任何激活或懸浮節點，全部恢復預設
                     targetColor = link.originalColor;
                     targetIsHighlighted = false;
-                } else if (link.source === newHoveredNode || link.target === newHoveredNode) { // 與懸浮節點相連的連線
+                } else if (link.source === activeNode || link.target === activeNode) { // 與激活/懸浮節點相連的連線
                     targetColor = '#00FFFF80'; // 青綠色
                     targetIsHighlighted = true;
                 } else { // 其他不相關的連線，變暗
@@ -441,6 +532,50 @@
             }
         }
 
+        // function networkAnimate() {
+        //     nodeCtx.clearRect(0, 0, nodeCanvas.width, nodeCanvas.height); // 清空節點 Canvas
+
+        //     // --- 應用縮放和平移變換 ---
+        //     nodeCtx.save(); // 保存當前 Canvas 狀態
+        //     nodeCtx.translate(panX, panY); // 先平移
+        //     nodeCtx.scale(zoomScale, zoomScale); // 再縮放
+
+        //     // --- 文字下移動畫邏輯 ---
+        //     let textAnimationInProgress = false; // 追蹤文字動畫是否仍在進行
+        //     nodes.forEach(node => {
+        //         // 判斷目標偏移量：只有當前節點是直接懸浮的節點時，才設置為 HOVER_TEXT_OFFSET，否則為 0
+        //         const targetOffset = (node === hoveredNode) ? HOVER_TEXT_OFFSET : 0; // 目標偏移量
+        //         const delta = (targetOffset - node.currentTextYOffset) * TEXT_ANIMATION_SMOOTHING;
+
+        //         // 檢查是否接近目標，避免無限微小移動
+        //         if (Math.abs(delta) > TEXT_ANIMATION_THRESHOLD) { // 如果變化量足夠大
+        //             node.currentTextYOffset += delta;
+        //             textAnimationInProgress = true; // 標記文字動畫仍在進行
+        //         } else {
+        //             node.currentTextYOffset = targetOffset; // 直接設為目標值，防止微小抖動
+        //         }
+        //     });
+        //     // --- 文字下移動畫邏輯結束 ---
+
+        //     const totalMovement = updateGraph();
+        //     links.forEach(drawLink); // 先繪製連線
+        //     nodes.forEach(drawNode); // 再繪製節點，確保節點在連線之上
+
+        //     nodeCtx.restore(); // 恢復 Canvas 狀態，移除變換
+
+        //     // if (totalMovement < stabilityThreshold && !draggedNode && !isPanning) { // 新增：當沒有平移時才判斷穩定
+        //     if (!draggedNode && !isPanning && totalMovement < stabilityThreshold && hoveredNode === null && !textAnimationInProgress) {
+        //         isSystemStable = true;
+        //         console.log("節點系統已穩定，動畫暫停。");
+        //         nodeAnimationFrameId = null;
+        //     } else {
+        //         isSystemStable = false;
+        //         nodeAnimationFrameId = requestAnimationFrame(networkAnimate);
+        //     }
+        //     // 新增：每次動畫幀更新縮放手柄位置，以防外部滾輪縮放
+        //     updateSliderHandlePosition();
+        // }
+
         function networkAnimate() {
             nodeCtx.clearRect(0, 0, nodeCanvas.width, nodeCanvas.height); // 清空節點 Canvas
 
@@ -452,8 +587,9 @@
             // --- 文字下移動畫邏輯 ---
             let textAnimationInProgress = false; // 追蹤文字動畫是否仍在進行
             nodes.forEach(node => {
-                // 判斷目標偏移量：只有當前節點是直接懸浮的節點時，才設置為 HOVER_TEXT_OFFSET，否則為 0
-                const targetOffset = (node === hoveredNode) ? HOVER_TEXT_OFFSET : 0; // 目標偏移量
+                // 判斷目標偏移量：只有當前節點是直接懸浮的節點 (hoveredNode) 或激活的節點 (activatedNode) 時，
+                // 才設置為 HOVER_TEXT_OFFSET，否則為 0
+                const targetOffset = (node === hoveredNode || node === activatedNode) ? HOVER_TEXT_OFFSET : 0; // 目標偏移量
                 const delta = (targetOffset - node.currentTextYOffset) * TEXT_ANIMATION_SMOOTHING;
 
                 // 檢查是否接近目標，避免無限微小移動
@@ -472,8 +608,8 @@
 
             nodeCtx.restore(); // 恢復 Canvas 狀態，移除變換
 
-            // if (totalMovement < stabilityThreshold && !draggedNode && !isPanning) { // 新增：當沒有平移時才判斷穩定
-            if (!draggedNode && !isPanning && totalMovement < stabilityThreshold && hoveredNode === null && !textAnimationInProgress) {
+            // 節點系統穩定判斷：當沒有拖曳、沒有平移、沒有懸浮、沒有激活節點且沒有文字動畫時才穩定
+            if (!draggedNode && !isPanning && hoveredNode === null && activatedNode === null && totalMovement < stabilityThreshold && !textAnimationInProgress) {
                 isSystemStable = true;
                 console.log("節點系統已穩定，動畫暫停。");
                 nodeAnimationFrameId = null;
@@ -481,6 +617,7 @@
                 isSystemStable = false;
                 nodeAnimationFrameId = requestAnimationFrame(networkAnimate);
             }
+            updateSliderHandlePosition(); // 每次動畫幀更新縮放手柄位置
         }
 
         // --- 滑鼠互動事件 (現在針對 nodeCanvas) ---
@@ -504,6 +641,56 @@
                 y: event.clientY - rect.top
             };
         }
+
+        // nodeCanvas.addEventListener('mousedown', function(event) {
+        //     const mouseWorldPos = getMouseWorldPos(event); // 使用世界座標進行節點判斷
+        //     const mouseScreenPos = getMouseScreenPos(event); // 獲取螢幕座標用於平移
+
+        //     // 記錄滑鼠按下時的螢幕座標，用於判斷點擊或拖曳
+        //     mouseDownPos.x = event.clientX;
+        //     mouseDownPos.y = event.clientY;
+        //     isClicking = true; // 預設為潛在的點擊
+
+        //     let foundNode = null;
+        //     // 檢查是否點擊到節點
+        //     for (let i = nodes.length - 1; i >= 0; i--) {
+        //         const node = nodes[i];
+        //         const dx = mouseWorldPos.x - node.x;
+        //         const dy = mouseWorldPos.y - node.y;
+        //         const distance = Math.sqrt(dx * dx + dy * dy);
+        //         if (distance < node.radius) {
+        //             foundNode = node;
+        //             break;
+        //         }
+        //     }
+        //     if (foundNode) { // 只有當點擊到節點時才開始拖曳
+        //         draggedNode = foundNode;
+        //         draggedNode.isDragged = true;
+        //         offsetX = mouseWorldPos.x - draggedNode.x;
+        //         offsetY = mouseWorldPos.y - draggedNode.y;
+        //         // 將被拖曳的節點移到列表末尾，使其繪製在最上層
+        //         nodes.splice(nodes.indexOf(draggedNode), 1); // 使用 indexOf 找到正確索引
+        //         nodes.push(draggedNode);
+
+        //         // 拖曳時也觸發高亮更新，確保拖曳的節點被高亮
+        //         updateHighlight(draggedNode);
+        //         if (isSystemStable && nodeAnimationFrameId === null) {
+        //             isSystemStable = false;
+        //             networkAnimate(); // 重新啟動節點動畫
+        //         }
+        //         nodeCanvas.style.cursor = 'grabbing'; // 拖曳節點時游標變為拖曳中手
+        //     } else { // 沒有點擊到節點，開始平移背景
+        //         isPanning = true;
+        //         lastPanMouseX = mouseScreenPos.x;
+        //         lastPanMouseY = mouseScreenPos.y;
+        //         // 確保在平移時動畫持續運行
+        //         if (nodeAnimationFrameId === null) {
+        //             isSystemStable = false;
+        //             networkAnimate();
+        //         }
+        //         nodeCanvas.style.cursor = 'grabbing'; // 拖曳背景時游標變為拖曳中手
+        //     }
+        // });
 
         nodeCanvas.addEventListener('mousedown', function(event) {
             const mouseWorldPos = getMouseWorldPos(event); // 使用世界座標進行節點判斷
@@ -532,11 +719,14 @@
                 offsetX = mouseWorldPos.x - draggedNode.x;
                 offsetY = mouseWorldPos.y - draggedNode.y;
                 // 將被拖曳的節點移到列表末尾，使其繪製在最上層
-                nodes.splice(nodes.indexOf(draggedNode), 1); // 使用 indexOf 找到正確索引
+                nodes.splice(nodes.indexOf(draggedNode), 1);
                 nodes.push(draggedNode);
 
-                // 拖曳時也觸發高亮更新，確保拖曳的節點被高亮
+                // 拖曳時也觸發高亮更新，確保拖曳的節點被高亮 (這會覆蓋 activatedNode)
                 updateHighlight(draggedNode);
+                // 如果開始拖曳，則清除 activatedNode，因為這不是點擊激活
+                activatedNode = null;
+
                 if (isSystemStable && nodeAnimationFrameId === null) {
                     isSystemStable = false;
                     networkAnimate(); // 重新啟動節點動畫
@@ -552,161 +742,566 @@
                     networkAnimate();
                 }
                 nodeCanvas.style.cursor = 'grabbing'; // 拖曳背景時游標變為拖曳中手
+                // 如果點擊空白處開始平移，則清除任何激活的節點
+                if (activatedNode !== null) {
+                    activatedNode = null;
+                    updateHighlight(null); // 清除激活效果
+                }
             }
         });
 
-        nodeCanvas.addEventListener('mousemove', function(event) {
-            const mouseScreenPos = getMouseScreenPos(event); // 始終獲取螢幕座標
-            const mouseWorldPos = getMouseWorldPos(event); // 始終獲取世界座標
+        // nodeCanvas.addEventListener('mousemove', function(event) {
+        //     const mouseScreenPos = getMouseScreenPos(event); // 始終獲取螢幕座標
+        //     const mouseWorldPos = getMouseWorldPos(event); // 始終獲取世界座標
 
-            // 新增：判斷是否為拖曳，如果移動距離超過閾值，則取消點擊狀態
+        //     // 新增：判斷是否為拖曳，如果移動距離超過閾值，則取消點擊狀態
+        //     if (isClicking) {
+        //         const distMoved = Math.sqrt(
+        //             Math.pow(event.clientX - mouseDownPos.x, 2) +
+        //             Math.pow(event.clientY - mouseDownPos.y, 2)
+        //         );
+        //         if (distMoved > CLICK_THRESHOLD) {
+        //             isClicking = false; // 鼠標移動超過閾值，這是一個拖曳，不是點擊
+        //         }
+        //     }
+
+        //     if (draggedNode) { // 如果正在拖曳，則更新節點位置
+        //         draggedNode.x = mouseWorldPos.x - offsetX;
+        //         draggedNode.y = mouseWorldPos.y - offsetY;
+        //         draggedNode.vx = 0;
+        //         draggedNode.vy = 0;
+        //         nodeCanvas.style.cursor = 'grabbing';
+        //     } else if (isPanning) { // 正在平移背景
+        //         const dx = mouseScreenPos.x - lastPanMouseX;
+        //         const dy = mouseScreenPos.y - lastPanMouseY;
+        //         panX += dx;
+        //         panY += dy;
+        //         lastPanMouseX = mouseScreenPos.x;
+        //         lastPanMouseY = mouseScreenPos.y;
+        //         networkAnimate(); // 平移時強制重繪
+        //         nodeCanvas.style.cursor = 'grabbing';
+        //     } else { // 如果沒有拖曳，則檢查懸浮
+        //         let foundNode = null;
+        //         for (let i = nodes.length - 1; i >= 0; i--) {
+        //             const node = nodes[i];
+        //             const dx = mouseWorldPos.x - node.x;
+        //             const dy = mouseWorldPos.y - node.y;
+        //             const distance = Math.sqrt(dx * dx + dy * dy);
+        //             if (distance < node.radius) {
+        //                 foundNode = node;
+        //                 break;
+        //             }
+        //         }
+        //         if (foundNode !== hoveredNode) { // 只有當懸浮狀態改變時才更新
+        //             hoveredNode = foundNode;
+        //             updateHighlight(hoveredNode);
+        //         }
+        //         if (hoveredNode) {
+        //             nodeCanvas.style.cursor = 'pointer';
+        //         } else {
+        //             nodeCanvas.style.cursor = 'grab';
+        //         }
+        //     }
+        // });
+
+        nodeCanvas.addEventListener('mousemove', function(event) {
+            const mouseScreenPos = getMouseScreenPos(event);
+            const mouseWorldPos = getMouseWorldPos(event);
+
             if (isClicking) {
                 const distMoved = Math.sqrt(
                     Math.pow(event.clientX - mouseDownPos.x, 2) +
                     Math.pow(event.clientY - mouseDownPos.y, 2)
                 );
                 if (distMoved > CLICK_THRESHOLD) {
-                    isClicking = false; // 鼠標移動超過閾值，這是一個拖曳，不是點擊
+                    isClicking = false;
                 }
             }
 
-            if (draggedNode) { // 如果正在拖曳，則更新節點位置
+            if (draggedNode) {
                 draggedNode.x = mouseWorldPos.x - offsetX;
                 draggedNode.y = mouseWorldPos.y - offsetY;
                 draggedNode.vx = 0;
                 draggedNode.vy = 0;
                 nodeCanvas.style.cursor = 'grabbing';
-            } else if (isPanning) { // 正在平移背景
+                if (activatedNode !== null) { // 拖曳時清除激活狀態
+                    activatedNode = null;
+                    updateHighlight(hoveredNode);
+                }
+            } else if (isPanning) {
                 const dx = mouseScreenPos.x - lastPanMouseX;
                 const dy = mouseScreenPos.y - lastPanMouseY;
                 panX += dx;
                 panY += dy;
                 lastPanMouseX = mouseScreenPos.x;
-                lastPanMouseY = mouseScreenPos.y;
-                networkAnimate(); // 平移時強制重繪
+                lastPanMouseY = mouseScreenPos.y; // 修正：這裡應該是 lastPanMouseY
+                networkAnimate();
                 nodeCanvas.style.cursor = 'grabbing';
-            } else { // 如果沒有拖曳，則檢查懸浮
-                let foundNode = null;
-                for (let i = nodes.length - 1; i >= 0; i--) {
-                    const node = nodes[i];
-                    const dx = mouseWorldPos.x - node.x;
-                    const dy = mouseWorldPos.y - node.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < node.radius) {
-                        foundNode = node;
-                        break;
-                    }
-                }
-                if (foundNode !== hoveredNode) { // 只有當懸浮狀態改變時才更新
-                    hoveredNode = foundNode;
+                if (activatedNode !== null) { // 平移時清除激活狀態
+                    activatedNode = null;
                     updateHighlight(hoveredNode);
                 }
-                if (hoveredNode) {
-                    nodeCanvas.style.cursor = 'pointer';
-                } else {
-                    nodeCanvas.style.cursor = 'grab';
-                }
-            }
-        });
-
-        nodeCanvas.addEventListener('mouseup', function(event) { // 確保 event 參數存在
-            if (draggedNode) {
-                draggedNode.isDragged = false;
-                draggedNode = null;
-                // 拖曳結束後，重新評估懸浮狀態，並重置高亮
-                // 這裡需要重新檢查滑鼠是否仍在某個節點上，或者完全移開
-                // 最簡單的方式是再次觸發一次 mousemove 的判斷邏輯
-                const mouseWorldPos = getMouseWorldPos(event); // 注意：mouseup 的 event 可能沒有 clientX/Y，最好用一個全局變量存儲最後的鼠標位置
-                let foundNodeAfterDrag = null;
-                for (let i = nodes.length - 1; i >= 0; i--) {
-                    const node = nodes[i];
-                    const dx = mouseWorldPos.x - node.x;
-                    const dy = mouseWorldPos.y - node.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < node.radius) {
-                        foundNodeAfterDrag = node;
-                        break;
-                    }
-                }
-                hoveredNode = foundNodeAfterDrag; // 更新 hoveredNode 狀態
-                updateHighlight(hoveredNode); // 根據新的 hoveredNode 狀態更新高亮
-            } else if (isPanning) { // 結束背景平移
-                isPanning = false;
-                // 平移結束後，如果系統已穩定，可以停止動畫
-                // if (isSystemStable && nodeAnimationFrameId !== null) {
-                    // 這裡不需要額外呼叫 networkAnimate，因為 networkAnimate 內部會判斷是否停止
-                // }
-            }
-
-            // 新增：判斷是否為點擊，如果是，則執行連結跳轉
-            if (isClicking) {
-                const mouseWorldPos = getMouseWorldPos(event);
-                let clickedNode = null;
-                for (let i = nodes.length - 1; i >= 0; i--) {
-                    const node = nodes[i];
-                    const dx = mouseWorldPos.x - node.x;
-                    const dy = mouseWorldPos.y - node.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < node.radius) {
-                        clickedNode = node;
-                        break;
-                    }
-                }
-
-                if (clickedNode && clickedNode.link && clickedNode.link !== '#') {
-                    window.location.href = clickedNode.link; // 跳轉到節點的連結頁面
-                }
-            }
-            
-            // 重置 isClicking 旗標
-            isClicking = false;
-
-            if (hoveredNode) {
-                nodeCanvas.style.cursor = 'pointer';
             } else {
-                nodeCanvas.style.cursor = 'grab';
+                // 只有在非觸摸設備上才處理鼠標懸浮效果
+                if (!isTouchDevice) {
+                    let foundNode = null;
+                    for (let i = nodes.length - 1; i >= 0; i--) {
+                        const node = nodes[i];
+                        const dx = mouseWorldPos.x - node.x;
+                        const dy = mouseWorldPos.y - node.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < node.radius) {
+                            foundNode = node;
+                            break;
+                        }
+                    }
+                    if (foundNode !== hoveredNode) {
+                        hoveredNode = foundNode;
+                        updateHighlight(hoveredNode); // 傳遞 hoveredNode 給 updateHighlight
+                    }
+                    if (hoveredNode) {
+                        nodeCanvas.style.cursor = 'pointer';
+                    } else {
+                        nodeCanvas.style.cursor = 'grab';
+                    }
+                } else {
+                    // 在觸摸設備上，如果沒有拖曳或平移，且沒有激活節點，則顯示 grab 游標
+                    if (activatedNode === null) {
+                        nodeCanvas.style.cursor = 'grab';
+                    } else {
+                        nodeCanvas.style.cursor = 'default'; // 激活節點時，游標可以更中性
+                    }
+                }
             }
         });
+
+        // nodeCanvas.addEventListener('mouseup', function(event) { // 確保 event 參數存在
+        //     if (draggedNode) {
+        //         draggedNode.isDragged = false;
+        //         draggedNode = null;
+        //         // 拖曳結束後，重新評估懸浮狀態，並重置高亮
+        //         // 這裡需要重新檢查滑鼠是否仍在某個節點上，或者完全移開
+        //         // 最簡單的方式是再次觸發一次 mousemove 的判斷邏輯
+        //         const mouseWorldPos = getMouseWorldPos(event); // 注意：mouseup 的 event 可能沒有 clientX/Y，最好用一個全局變量存儲最後的鼠標位置
+        //         let foundNodeAfterDrag = null;
+        //         for (let i = nodes.length - 1; i >= 0; i--) {
+        //             const node = nodes[i];
+        //             const dx = mouseWorldPos.x - node.x;
+        //             const dy = mouseWorldPos.y - node.y;
+        //             const distance = Math.sqrt(dx * dx + dy * dy);
+        //             if (distance < node.radius) {
+        //                 foundNodeAfterDrag = node;
+        //                 break;
+        //             }
+        //         }
+        //         hoveredNode = foundNodeAfterDrag; // 更新 hoveredNode 狀態
+        //         updateHighlight(hoveredNode); // 根據新的 hoveredNode 狀態更新高亮
+        //     } else if (isPanning) { // 結束背景平移
+        //         isPanning = false;
+        //         // 平移結束後，如果系統已穩定，可以停止動畫
+        //         // if (isSystemStable && nodeAnimationFrameId !== null) {
+        //             // 這裡不需要額外呼叫 networkAnimate，因為 networkAnimate 內部會判斷是否停止
+        //         // }
+        //     }
+
+        //     // 新增：判斷是否為點擊，如果是，則執行連結跳轉
+        //     if (isClicking) {
+        //         const mouseWorldPos = getMouseWorldPos(event);
+        //         let clickedNode = null;
+        //         for (let i = nodes.length - 1; i >= 0; i--) {
+        //             const node = nodes[i];
+        //             const dx = mouseWorldPos.x - node.x;
+        //             const dy = mouseWorldPos.y - node.y;
+        //             const distance = Math.sqrt(dx * dx + dy * dy);
+        //             if (distance < node.radius) {
+        //                 clickedNode = node;
+        //                 break;
+        //             }
+        //         }
+
+        //         if (clickedNode && clickedNode.link && clickedNode.link !== '#') {
+        //             window.location.href = clickedNode.link; // 跳轉到節點的連結頁面
+        //         }
+        //     }
+            
+        //     // 重置 isClicking 旗標
+        //     isClicking = false;
+
+        //     if (hoveredNode) {
+        //         nodeCanvas.style.cursor = 'pointer';
+        //     } else {
+        //         nodeCanvas.style.cursor = 'grab';
+        //     }
+        // });
+
+        nodeCanvas.addEventListener('mouseup', function(event) {
+    if (draggedNode) {
+        draggedNode.isDragged = false;
+        draggedNode = null;
+        // 拖曳結束後，如果是非觸摸設備，重新評估懸浮狀態
+        if (!isTouchDevice) {
+            const mouseWorldPos = getMouseWorldPos(event);
+            let foundNodeAfterDrag = null;
+            for (let i = nodes.length - 1; i >= 0; i--) {
+                const node = nodes[i];
+                const dx = mouseWorldPos.x - node.x;
+                const dy = mouseWorldPos.y - node.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < node.radius) {
+                    foundNodeAfterDrag = node;
+                    break;
+                }
+            }
+            hoveredNode = foundNodeAfterDrag;
+            updateHighlight(hoveredNode);
+        }
+    } else if (isPanning) {
+        isPanning = false;
+    }
+
+    // 點擊邏輯：根據設備類型執行不同行為
+    if (isClicking) {
+        const mouseWorldPos = getMouseWorldPos(event);
+        let clickedNode = null;
+        for (let i = nodes.length - 1; i >= 0; i--) {
+            const node = nodes[i];
+            const dx = mouseWorldPos.x - node.x;
+            const dy = mouseWorldPos.y - node.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < node.radius) {
+                clickedNode = node;
+                break;
+            }
+        }
+
+        if (isTouchDevice) {
+            // 手機版：初次點擊激活，再次點擊跳轉
+            if (clickedNode) {
+                if (activatedNode === clickedNode) {
+                    // 第二次點擊同一個節點，執行連結跳轉
+                    if (clickedNode.link && clickedNode.link !== '#') {
+                        window.location.href = clickedNode.link;
+                    }
+                    activatedNode = null; // 跳轉後清除激活狀態
+                    updateHighlight(null); // 清除高亮
+                } else {
+                    // 第一次點擊或點擊不同節點，激活新節點並顯示懸浮效果
+                    activatedNode = clickedNode;
+                    updateHighlight(null); // 先清除所有高亮
+                    updateHighlight(activatedNode); // 再激活新節點的高亮
+                }
+            } else {
+                // 點擊空白處，清除所有激活狀態
+                if (activatedNode !== null) {
+                    activatedNode = null;
+                    updateHighlight(null); // 清除高亮
+                }
+            }
+        } else {
+            // 桌面版：直接點擊跳轉
+            if (clickedNode && clickedNode.link && clickedNode.link !== '#') {
+                window.location.href = clickedNode.link;
+            }
+            // 桌面版點擊後，hoveredNode 狀態會由 mousemove/mouseout 接管
+        }
+    }
+
+    // 重置 isClicking 旗標
+    isClicking = false;
+
+    // 更新鼠標樣式 (考慮到兩種設備類型)
+    if (!isTouchDevice) { // 桌面版
+        if (hoveredNode) {
+            nodeCanvas.style.cursor = 'pointer';
+        } else {
+            nodeCanvas.style.cursor = 'grab';
+        }
+    } else { // 手機版
+        if (activatedNode) {
+            nodeCanvas.style.cursor = 'default';
+        } else {
+            nodeCanvas.style.cursor = 'grab';
+        }
+    }
+});
+        
+        // nodeCanvas.addEventListener('mouseout', function() {
+        //     if (hoveredNode !== null) { // 只有當有節點被懸浮時才重置
+        //         hoveredNode = null;
+        //         updateHighlight(null); // 傳入 null 表示沒有節點懸浮，全部恢復預設
+        //     }
+        //     // 如果滑鼠移出 Canvas，也停止平移
+        //     if (isPanning) {
+        //         isPanning = false;
+        //     }
+        //     nodeCanvas.style.cursor = 'default';
+        // });
 
         nodeCanvas.addEventListener('mouseout', function() {
-            if (hoveredNode !== null) { // 只有當有節點被懸浮時才重置
-                hoveredNode = null;
-                updateHighlight(null); // 傳入 null 表示沒有節點懸浮，全部恢復預設
-            }
-            // 如果滑鼠移出 Canvas，也停止平移
-            if (isPanning) {
-                isPanning = false;
-            }
-            nodeCanvas.style.cursor = 'default';
-        });
+    if (!isTouchDevice) { // 只有在非觸摸設備上才清除鼠標懸浮狀態
+        if (hoveredNode !== null) {
+            hoveredNode = null;
+            updateHighlight(null);
+        }
+    }
+    // 如果滑鼠移出 Canvas，也停止平移
+    if (isPanning) {
+        isPanning = false;
+    }
+    // 在兩種設備上都清除激活節點狀態，以防萬一
+    if (activatedNode !== null) {
+        activatedNode = null;
+        updateHighlight(null);
+    }
+    nodeCanvas.style.cursor = 'default';
+});
 
         // 新增：滾輪事件監聽器
         nodeCanvas.addEventListener('wheel', function(event) {
             event.preventDefault(); // 阻止頁面滾動
 
-            const mouseScreenPos = getMouseScreenPos(event); // 獲取滑鼠在 Canvas 上的螢幕座標
+            // 縮放前的滑鼠在 Canvas 上的座標
+            const mouseX = event.clientX - nodeCanvas.getBoundingClientRect().left;
+            const mouseY = event.clientY - nodeCanvas.getBoundingClientRect().top;
 
-            // 計算新的縮放比例
-            const scaleFactor = 1 + event.deltaY * -ZOOM_SPEED; // deltaY 負值為向上滾動 (放大)
-            const newZoomScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, zoomScale * scaleFactor));
+            // 計算滑鼠在世界座標（圖形座標）中的位置
+            const worldX = (mouseX - panX) / zoomScale;
+            const worldY = (mouseY - panY) / zoomScale;
 
-            // 計算縮放後的平移偏移量，使滑鼠下的點保持不動
-            // 1. 獲取滑鼠點擊處的「世界座標」
-            const worldX = (mouseScreenPos.x - panX) / zoomScale;
-            const worldY = (mouseScreenPos.y - panY) / zoomScale;
+            const scaleAmount = event.deltaY * -ZOOM_SPEED;
+            let newZoomScale = zoomScale + scaleAmount;
+            newZoomScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoomScale));
 
-            // 2. 計算新的平移偏移量
-            panX = mouseScreenPos.x - worldX * newZoomScale;
-            panY = mouseScreenPos.y - worldY * newZoomScale;
+            if (newZoomScale !== zoomScale) {
+                // 計算新的平移量，使滑鼠在縮放後仍然指向相同的世界座標點
+                panX = mouseX - worldX * newZoomScale;
+                panY = mouseY - worldY * newZoomScale;
 
-            zoomScale = newZoomScale; // 更新縮放比例
-
-            // 重新繪製 Canvas
-            networkAnimate(); // 縮放時強制重繪
+                zoomScale = newZoomScale;
+                isSystemStable = false; // 發生縮放，系統不再穩定
+                networkAnimate(); // 觸發重繪
+                updateSliderHandlePosition(); // 同步更新拖曳條手柄位置
+            }
         });
+
+        // --- 縮放拖曳條事件 (滑鼠和觸摸) ---
+        zoomSliderHandle.addEventListener('mousedown', function(event) {
+            isSliderDragging = true;
+            sliderStartX = event.clientX;
+            sliderHandleInitialLeft = zoomSliderHandle.offsetLeft; // 獲取手柄當前 left 值
+            zoomSliderHandle.style.cursor = 'grabbing';
+            event.preventDefault(); // 阻止瀏覽器預設的拖曳行為
+        });
+
+        zoomSliderHandle.addEventListener('touchstart', function(event) {
+            isSliderDragging = true;
+            sliderStartX = event.touches[0].clientX;
+            sliderHandleInitialLeft = zoomSliderHandle.offsetLeft;
+            zoomSliderHandle.style.cursor = 'grabbing';
+            event.preventDefault(); // 阻止瀏覽器預設的滾動行為
+        }, { passive: false }); // 設置 passive: false 允許阻止滾動
+
+        // 監聽整個文檔的 mousemove/touchmove，確保拖曳時即使滑鼠/觸摸移出按鈕也能繼續
+        document.addEventListener('mousemove', function(event) {
+            if (!isSliderDragging) return;
+
+            const sliderWidth = zoomSliderContainer.offsetWidth;
+            const handleWidth = zoomSliderHandle.offsetWidth;
+
+            // 計算滑鼠移動的距離
+            const deltaX = event.clientX - sliderStartX;
+
+            // 計算手柄的新位置 (考慮到手柄的中心點)
+            let newHandleLeft = sliderHandleInitialLeft + deltaX;
+
+            // 限制手柄在拖曳條範圍內
+            const minLeft = handleWidth / 2;
+            const maxLeft = sliderWidth - (handleWidth / 2);
+            newHandleLeft = Math.max(minLeft, Math.min(maxLeft, newHandleLeft));
+
+            // 將手柄位置映射回 zoomScale
+            const normalizedPosition = (newHandleLeft - minLeft) / (maxLeft - minLeft);
+            const zoomRange = MAX_ZOOM - MIN_ZOOM;
+            const newZoomScale = MIN_ZOOM + normalizedPosition * zoomRange;
+
+            // // 更新 zoomScale 並觸發重繪
+            // if (newZoomScale !== zoomScale) {
+            //     zoomScale = newZoomScale;
+            //     // 由於縮放會改變節點位置，需要重新計算節點佈局
+            //     // 但為了平滑，我們只更新 scale，讓 networkAnimate 處理佈局更新
+            //     // 這裡不需要重新計算 panX/panY，因為拖曳條只控制縮放，不改變中心點
+            //     networkAnimate(); // 強制重繪
+            // }
+
+            if (newZoomScale !== zoomScale) {
+                // 計算畫面中心點
+                const centerX = nodeCanvas.width / 2;
+                const centerY = nodeCanvas.height / 2;
+
+                // 計算中心點在世界座標（圖形座標）中的位置
+                const worldCenterX = (centerX - panX) / zoomScale;
+                const worldCenterY = (centerY - panY) / zoomScale;
+
+                // 計算新的平移量，使中心點在縮放後仍然保持在畫面中心
+                panX = centerX - worldCenterX * newZoomScale;
+                panY = centerY - worldCenterY * newZoomScale;
+
+                zoomScale = newZoomScale;
+                isSystemStable = false; // 發生縮放，系統不再穩定
+                networkAnimate(); // 強制重繪
+            }
+
+            // 更新手柄的視覺位置
+            zoomSliderHandle.style.left = `${newHandleLeft}px`;
+        });
+
+        document.addEventListener('touchmove', function(event) {
+            if (!isSliderDragging) return;
+
+            const sliderWidth = zoomSliderContainer.offsetWidth;
+            const handleWidth = zoomSliderHandle.offsetWidth;
+
+            const deltaX = event.touches[0].clientX - sliderStartX;
+            let newHandleLeft = sliderHandleInitialLeft + deltaX;
+
+            const minLeft = handleWidth / 2;
+            const maxLeft = sliderWidth - (handleWidth / 2);
+            newHandleLeft = Math.max(minLeft, Math.min(maxLeft, newHandleLeft));
+
+            const normalizedPosition = (newHandleLeft - minLeft) / (maxLeft - minLeft);
+            const zoomRange = MAX_ZOOM - MIN_ZOOM;
+            const newZoomScale = MIN_ZOOM + normalizedPosition * zoomRange;
+
+            // if (newZoomScale !== zoomScale) {
+            //     zoomScale = newZoomScale;
+            //     networkAnimate();
+            // }
+
+            if (newZoomScale !== zoomScale) {
+                // 計算畫面中心點
+                const centerX = nodeCanvas.width / 2;
+                const centerY = nodeCanvas.height / 2;
+
+                // 計算中心點在世界座標（圖形座標）中的位置
+                const worldCenterX = (centerX - panX) / zoomScale;
+                const worldCenterY = (centerY - panY) / zoomScale;
+
+                // 計算新的平移量，使中心點在縮放後仍然保持在畫面中心
+                panX = centerX - worldCenterX * newZoomScale;
+                panY = centerY - worldCenterY * newZoomScale;
+
+                zoomScale = newZoomScale;
+                isSystemStable = false; // 發生縮放，系統不再穩定
+                networkAnimate();
+            }
+
+            zoomSliderHandle.style.left = `${newHandleLeft}px`;
+            event.preventDefault(); // 阻止瀏覽器預設的滾動行為
+        }, { passive: false });
+
+        document.addEventListener('mouseup', function() {
+            isSliderDragging = false;
+            if (zoomSliderHandle) {
+                zoomSliderHandle.style.cursor = 'grab';
+            }
+        });
+
+        document.addEventListener('touchend', function() {
+            isSliderDragging = false;
+            if (zoomSliderHandle) {
+                zoomSliderHandle.style.cursor = 'grab';
+            }
+        });
+
+        // --- 縮放按鈕事件 ---
+        zoomOutBtn.addEventListener('click', function() {
+            adjustZoom(-1); // 點擊減號按鈕，縮小
+        });
+
+        zoomInBtn.addEventListener('click', function() {
+            adjustZoom(1); // 點擊加號按鈕，放大
+        });
+
+        // 根據 zoomScale 更新拖曳手柄的位置
+        function updateSliderHandlePosition() {
+            if (!zoomSliderHandle || !zoomSliderContainer) return;
+
+            const sliderWidth = zoomSliderContainer.offsetWidth; // 拖曳條的總寬度
+            const handleWidth = zoomSliderHandle.offsetWidth; // 手柄的寬度
+
+            // 將 zoomScale 從 [MIN_ZOOM, MAX_ZOOM] 映射到 [0, sliderWidth - handleWidth]
+            const zoomRange = MAX_ZOOM - MIN_ZOOM;
+            const normalizedZoom = (zoomScale - MIN_ZOOM) / zoomRange; // 0 到 1 之間的值
+
+            // 計算手柄的 left 位置 (考慮到手柄的中心點)
+            const newLeft = normalizedZoom * (sliderWidth - handleWidth) + (handleWidth / 2);
+
+            zoomSliderHandle.style.left = `${newLeft}px`;
+        }
+
+        // 調整縮放比例的通用函數
+        function adjustZoom(delta) {
+            const scaleAmount = delta * ZOOM_SPEED * 100; // 調整步長，讓按鈕縮放更明顯
+            let newZoomScale = zoomScale + scaleAmount;
+            newZoomScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newZoomScale));
+
+            if (newZoomScale !== zoomScale) {
+                // 以畫面中心點進行縮放
+                const centerX = nodeCanvas.width / 2;
+                const centerY = nodeCanvas.height / 2;
+
+                const worldCenterX = (centerX - panX) / zoomScale;
+                const worldCenterY = (centerY - panY) / zoomScale;
+
+                panX = centerX - worldCenterX * newZoomScale;
+                panY = centerY - worldCenterY * newZoomScale;
+
+                zoomScale = newZoomScale;
+                isSystemStable = false; // 發生縮放，系統不再穩定
+                networkAnimate(); // 觸發重繪
+                updateSliderHandlePosition(); // 同步更新拖曳條手柄位置
+            }
+        }
+
+        // // 統一的 resize 函式
+        // function handleCanvasResize() {
+        //     // 設定背景 Canvas 尺寸為視窗全寬高
+        //     backgroundCanvas.width = window.innerWidth;
+        //     backgroundCanvas.height = window.innerHeight;
+        //     backgroundCanvas.style.width = window.innerWidth + 'px';
+        //     backgroundCanvas.style.height = window.innerHeight + 'px';
+        //     initBreathingLights(); // 重新初始化背景光暈
+
+        //     // 設定節點 Canvas 尺寸為視窗的 80% (與之前保持一致)
+        //     nodeCanvas.width = window.innerWidth * 1;
+        //     nodeCanvas.height = window.innerHeight * 1;
+        //     nodeCanvas.style.width = (window.innerWidth * 1) + 'px';
+        //     nodeCanvas.style.height = (window.innerHeight * 1) + 'px';
+            
+        //     // 重置縮放和平移，並將圖形中心移到 Canvas 中心
+        //     zoomScale = 1.0;
+        //     panX = 0; // 初始平移為0，因為節點會根據 nodeCanvas 尺寸初始化位置
+        //     panY = 0;
+        //     initGraph(); // 重新初始化網路圖形數據
+
+        //     // 確保兩個動畫都運行 (背景動畫始終運行，節點動畫根據穩定性運行)
+        //     backgroundAnimate(); // 背景動畫始終運行
+        //     if (nodeAnimationFrameId === null) { // 如果節點動畫停止了，則重新啟動
+        //         isSystemStable = false;
+        //         networkAnimate();
+        //     }
+        //     updateHighlight(null); // 重新載入或調整大小後，重置高亮狀態
+
+        //     // 新增：調整大小後更新縮放手柄位置
+        //     updateSliderHandlePosition();
+        // }
 
         // 統一的 resize 函式
         function handleCanvasResize() {
+            // 判斷是否為觸摸設備
+            isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            console.log("DEBUG: Is Touch Device:", isTouchDevice); // 調試用
+
             // 設定背景 Canvas 尺寸為視窗全寬高
             backgroundCanvas.width = window.innerWidth;
             backgroundCanvas.height = window.innerHeight;
@@ -719,10 +1314,10 @@
             nodeCanvas.height = window.innerHeight * 1;
             nodeCanvas.style.width = (window.innerWidth * 1) + 'px';
             nodeCanvas.style.height = (window.innerHeight * 1) + 'px';
-            
+
             // 重置縮放和平移，並將圖形中心移到 Canvas 中心
             zoomScale = 1.0;
-            panX = 0; // 初始平移為0，因為節點會根據 nodeCanvas 尺寸初始化位置
+            panX = 0;
             panY = 0;
             initGraph(); // 重新初始化網路圖形數據
 
@@ -732,7 +1327,9 @@
                 isSystemStable = false;
                 networkAnimate();
             }
+            updateSliderHandlePosition(); // 調整大小後更新縮放手柄位置
             updateHighlight(null); // 重新載入或調整大小後，重置高亮狀態
+            activatedNode = null; // 新增：調整大小後清除激活節點狀態
         }
 
         // 初始化和啟動動畫

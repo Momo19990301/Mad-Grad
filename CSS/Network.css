@@ -114,6 +114,20 @@
             justify-content: flex-end; /* 預設就是 flex-start，如果沒有其他元素，這行可省略 */
             gap: 10px; /* 按鈕之間的間距 */
             z-index: 15; /* 確保在其他元素之上 */
+            /* 新增：允許按鈕在空間不足時換行 */
+            flex-wrap: wrap;
+            /* 新增：當換行時，讓按鈕從右側開始排列 */
+            align-content: flex-end;
+            /* 新增：在小螢幕下，給按鈕組一個最大寬度，防止其過度擴展 */
+            max-width: calc(100% - 40px); /* 視窗寬度減去左右各 20px 的間距 */
+        }
+        /* 新增：針對手機螢幕進一步調整按鈕佈局 */
+        @media (max-width: 767px) { /* 假設 767px 及以下為手機版 */
+            .top-right-buttons {
+                flex-direction: column; /* 在手機上將按鈕垂直堆疊 */
+                align-items: flex-end; /* 垂直堆疊時，讓按鈕右對齊 */
+                gap: 5px; /* 垂直堆疊時，間距可以小一點 */
+            }
         }
         .backToMENU {
             padding: 8px 12px; /* 內邊距 */
@@ -128,6 +142,8 @@
             transition: background-image 0.3s, box-shadow 0.3s, opacity 0.5s ease-in-out; /* 平滑過渡 */
             box-shadow: 0 4px 12px rgba(255, 220, 109, 0.5); /* 陰影，與金屬感搭配 */
             text-shadow: none; /* 移除文字發光 */
+            flex-shrink: 1; /* 允許按鈕在空間不足時收縮 */
+            min-width: 0; /* 允許按鈕內容在必要時斷行 */
         }
         .backToMENU:hover {
             background-color: rgba(255, 234, 112, 0.3);
@@ -145,9 +161,86 @@
             font-size: 0.9em;
             font-family: 'GenJyuuGothic', sans-serif;
             transition: background-color 0.3s ease, border-color 0.3s ease;
+            flex-shrink: 1; /* 允許按鈕在空間不足時收縮 */
+            min-width: 0; /* 允許按鈕內容在必要時斷行 */
         }
         #languageToggleButton:hover {
             background-color: rgba(255, 255, 255, 0.1); /* 懸停時輕微的背景效果 */
             border-color: rgba(255, 255, 255, 0.5); /* 懸停時邊框變亮 */
+        }
+        /* 縮放控制組件的整體容器 */
+        .zoom-controls {
+            position: fixed; /* 固定位置 */
+            bottom: 30px; /* 距離底部 30px */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 精確居中 */
+            display: flex; /* 啟用 Flexbox 佈局 */
+            align-items: center; /* 垂直居中對齊子元素 */
+            gap: 10px; /* 按鈕與拖曳條之間的間距 */
+            z-index: 100; /* 確保在最上層 */
+            /* background-color: rgba(0, 0, 0, 0.2); */
+            padding: 8px 15px; /* 內部填充 */
+            /* border-radius: 20px; */
+            /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); */
+        }
+        /* 縮放按鈕樣式 */
+        .zoom-btn {
+            background: none; /* 無背景 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 50%; /* 圓形按鈕 */
+            width: 36px; /* 寬度 */
+            height: 36px; /* 高度 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em; /* 字體大小 */
+            color: #e0e0e0; /* 金色文字 */
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+            font-family: 'GenJyuuGothic', sans-serif; /* 確保字體一致 */
+        }
+        .zoom-btn:hover {
+            background-color: #FFD70040; /* 懸停時輕微金色背景 */
+            border-color: #FFDC6D; /* 懸停時邊框變亮 */
+            box-shadow: 0 4px 12px rgba(255, 220, 109, 0.5);
+        }
+
+        .zoom-btn:active {
+            background-color: rgba(255, 215, 0, 0.2); /* 點擊時更明顯的背景 */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3); /* 內陰影效果 */
+        }
+
+        /* 縮放拖曳條容器樣式 */
+        .zoom-slider-container {
+            /* position: fixed; */
+            /* bottom: 30px; */
+            /* left: 50%; */
+            /* transform: translateX(-50%); */
+            position: relative;
+            width: 200px; /* 拖曳條的寬度 */
+            height: 8px; /* 拖曳條的高度 */
+            background-color: rgba(255, 255, 255, 0.1); /* 半透明背景軌道 */
+            border-radius: 4px; /* 圓角 */
+            /* z-index: 100; */
+            cursor: ew-resize; /* 左右拖曳游標 */
+            display: flex; /* 啟用 Flexbox 讓手柄可以放置在內部 */
+            align-items: center; /* 垂直居中手柄 */
+        }
+        /* 縮放拖曳手柄樣式 */
+        .zoom-slider-handle {
+            width: 24px; /* 手柄寬度 */
+            height: 24px; /* 手柄高度 */
+            background-color: #FFD70040; /* 金色手柄 */
+            border: 1px solid #FFDC6D;
+            border-radius: 50%; /* 圓形 */
+            cursor: grab; /* 拖曳游標 */
+            box-shadow: 0 4px 12px rgba(255, 220, 109, 0.5); /* 陰影效果 */
+            position: absolute; /* 絕對定位，以便在容器內精確移動 */
+            left: 0; /* 初始位置 */
+            transform: translateX(-50%); /* 讓手柄中心對齊其 left 位置 */
+        }
+        .zoom-slider-handle:active {
+            cursor: grabbing; /* 拖曳時的游標 */
         }
     

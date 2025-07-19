@@ -117,13 +117,25 @@
                第二層 (底層，靜態金色線)：純色金色，覆蓋整個偽元素
             */
             background: 
+                /* linear-gradient(to right, 
+                    transparent 0%, 
+                    rgba(255, 241, 196, 0.8) 25%,
+                    transparent 50%, 
+                    rgba(255, 241, 196, 0.8) 75%,
+                    transparent 100%), */
                 linear-gradient(to right, 
                     transparent 0%, 
-                    rgba(255, 241, 196, 0.8) 25%, /* 亮金色光澤 (半透明) */
+                    #FFEB3B 25%,
                     transparent 50%, 
-                    rgba(255, 241, 196, 0.8) 75%, /* 亮金色光澤 (半透明) */
+                    #FFEB3B 75%,
                     transparent 100%),
-                linear-gradient(to right, #ac8e2c, #ac8e2c); /* 靜態金色背景 */ /* <--- 這裡 */
+                /* linear-gradient(to right, 
+                    #A07800 0%, 
+                    #FFEB3B 25%, 
+                    #D4AF37 50%, 
+                    #FFEB3B 75%, 
+                    #A07800 100%),  */
+                linear-gradient(to right, #A07800, #A07800); /* 靜態金色背景 */ /* <--- 這裡 */
             
             /* 分別控制兩層背景的尺寸和位置 */
             background-size: 
