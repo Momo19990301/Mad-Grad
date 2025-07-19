@@ -121,14 +121,7 @@
             /* 新增：在小螢幕下，給按鈕組一個最大寬度，防止其過度擴展 */
             max-width: calc(100% - 40px); /* 視窗寬度減去左右各 20px 的間距 */
         }
-        /* 新增：針對手機螢幕進一步調整按鈕佈局 */
-        @media (max-width: 767px) { /* 假設 767px 及以下為手機版 */
-            .top-right-buttons {
-                flex-direction: column; /* 在手機上將按鈕垂直堆疊 */
-                align-items: flex-end; /* 垂直堆疊時，讓按鈕右對齊 */
-                gap: 5px; /* 垂直堆疊時，間距可以小一點 */
-            }
-        }
+
         .backToMENU {
             padding: 8px 12px; /* 內邊距 */
             background: none;
@@ -144,6 +137,8 @@
             text-shadow: none; /* 移除文字發光 */
             flex-shrink: 1; /* 允許按鈕在空間不足時收縮 */
             min-width: 0; /* 允許按鈕內容在必要時斷行 */
+            order: 2; /* 新增：預設順序為 2 (在右邊/下方) */
+            margin-top: 10px;
         }
         .backToMENU:hover {
             background-color: rgba(255, 234, 112, 0.3);
@@ -163,6 +158,8 @@
             transition: background-color 0.3s ease, border-color 0.3s ease;
             flex-shrink: 1; /* 允許按鈕在空間不足時收縮 */
             min-width: 0; /* 允許按鈕內容在必要時斷行 */
+            order: 1; /* 新增：預設順序為 1 (在左邊/上方) */
+            margin-top: 10px;
         }
         #languageToggleButton:hover {
             background-color: rgba(255, 255, 255, 0.1); /* 懸停時輕微的背景效果 */
@@ -242,5 +239,21 @@
         }
         .zoom-slider-handle:active {
             cursor: grabbing; /* 拖曳時的游標 */
+        }
+        /* 新增：針對手機螢幕進一步調整按鈕佈局 */
+        @media (max-width: 767px) { /* 假設 767px 及以下為手機版 */
+            .top-right-buttons {
+                flex-direction: column; /* 在手機上將按鈕垂直堆疊 */
+                align-items: flex-end; /* 垂直堆疊時，讓按鈕右對齊 */
+                gap: 5px; /* 垂直堆疊時，間距可以小一點 */
+            }
+            /* 新增：在小螢幕下，反轉按鈕的順序 */
+            #languageToggleButton {
+                order: 2; /* 在小螢幕時，將語言切換按鈕排在下方 */
+            }
+
+            .backToMENU {
+                order: 1; /* 在小螢幕時，將回到選單按鈕排在上方 */
+            }
         }
     
