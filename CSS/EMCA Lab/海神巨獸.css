@@ -81,8 +81,8 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: 'GenJyuuGothic', sans-serif;
             color: #ffffff; /* 標題顏色，將由背景漸變覆蓋 */
-            margin-top: 1.5em; /* 增加標題上方間距 */
-            margin-bottom: 0.8em;
+            margin-top: 0.75em; /* 增加標題上方間距 */
+            margin-bottom: 0.75em;
             text-shadow: none; /* 移除標題發光 */
             text-align: left; /* 所有標題置左對齊 */
         }
@@ -101,6 +101,12 @@
             -webkit-background-clip: text; /* 將背景裁剪到文字形狀 */
             background-clip: text;
             -webkit-text-fill-color: transparent; /* 使文字填充顏色透明 */
+
+            /* 新增：精確控制 Flex 項目行為 */
+            flex-grow: 1; /* 允許它在有額外空間時增長 */
+            flex-shrink: 1; /* 允許它在空間不足時收縮 */
+            min-width: 0; /* 允許它收縮到小於其內容的寬度，防止溢出 */
+            word-break: break-word; /* 確保長單詞在必要時斷開換行 */
         }
         /* 大標題的動畫底線 */
         /* 大標題的動畫底線 (使用多層背景實現靜態底線 + 滑動光澤) */
@@ -299,20 +305,21 @@
             justify-content: space-between; /* 標題左對齊，連結右對齊 */
             align-items: center; /* 垂直居中對齊 */
             margin-bottom: 20px; /* 與下方內容保持距離 */
+            /* 新增：允許 Flex 項目在空間不足時換行，這對於長標題很重要 */
+            flex-wrap: wrap; /* 允許項目換行 */
+            /* 新增：在項目換行時，調整它們在垂直方向上的對齊方式 */
+            align-content: center; /* 當有多行時，將行居中對齊 */
         }
-        .header-container h1 {
-            /* 這裡的 h1 樣式已在上方更具體的選擇器中定義，此處僅作為通用 h1 樣式的補充 */
-            margin: 0; /* 移除 h1 默認的 margin */
-            padding: 0; /* 移除 h1 默認的 padding */
-            color: #fff; /* 確保標題顏色為白色 */
-        }
+
         .back-to-menu-link {
-            font-family: 'GenJyuuGothic', sans-serif; /* 確保表格文字使用新字體 */
             color: #FFD700; /* 金色連結 */
             text-decoration: none; /* 移除下劃線 */
-            font-size: 1.1em; /* 與內文相同大小 */
+            font-size: 1.5em; /* 與內文相同大小 */
             font-weight: bold;
             transition: color 0.3s ease; /* 添加過渡效果 */
+            font-family: 'GenJyuuGothic', sans-serif; /* 確保表格文字使用新字體 */
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
         }
         .back-to-menu-link:hover {
             color: #C0C0C0; /* 鼠標懸停時變為銀色 */
