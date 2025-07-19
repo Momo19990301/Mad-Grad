@@ -138,46 +138,46 @@
 
             // 節點半徑，使其看起來更像「點」
             nodes = [
-{ id: 'Rocky', name: 'Rocky', x: nodeCanvas.width * 0.5615043513005804, y: nodeCanvas.height * 0.2802726261943883, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/Rocky.html' },
-{ id: '小瓜', name: '小瓜', x: nodeCanvas.width * 0.8216724473367891, y: nodeCanvas.height * 0.5829951254228254, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/小瓜.html' },
-{ id: '慈慈', name: '慈慈', x: nodeCanvas.width * 0.6090453151066669, y: nodeCanvas.height * 0.6840904098416308, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/慈慈.html' },
-{ id: '牛仔褲寶貝', name: '牛仔褲寶貝', x: nodeCanvas.width * 0.31744508108142283, y: nodeCanvas.height * 0.6842858552207156, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/牛仔褲寶貝.html' },
-{ id: '老人與狗', name: '老人與狗', x: nodeCanvas.width * 0.43940187894104277, y: nodeCanvas.height * 0.6113287213199996, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/老人與狗.html' },
-{ id: '裘萌 & 首蒙元', name: '裘萌 & 首蒙元', x: nodeCanvas.width * 0.5831019933427579, y: nodeCanvas.height * 0.8118667408697524, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/裘萌 & 首蒙元.html' },
-{ id: '阿詠', name: '阿詠', x: nodeCanvas.width * 0.273322812546267, y: nodeCanvas.height * 0.4979081517686654, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/阿詠.html' },
-{ id: 'Rock', name: 'Rock', x: nodeCanvas.width * 0.6768412337317852, y: nodeCanvas.height * 0.32601957200684856, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/Rock.html' },
-{ id: '深淵', name: '深淵', x: nodeCanvas.width * 0.42687956514073033, y: nodeCanvas.height * 0.8084471875987381, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/深淵.html' },
-{ id: '球球', name: '球球', x: nodeCanvas.width * 0.6082146600896162, y: nodeCanvas.height * 0.5674531965618882, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/球球.html' },
-{ id: '穢土轉生研究生', name: '穢土轉生研究生', x: nodeCanvas.width * 0.49898623979590107, y: nodeCanvas.height * 0.4523736744292676, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/穢土轉生研究生.html' },
-{ id: '憑拳大將軍', name: '憑拳大將軍', x: nodeCanvas.width * 0.6265005376864138, y: nodeCanvas.height * 0.2579706133440521, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/憑拳大將軍.html' },
-{ id: '懶惰小依 & 賴床小依', name: '懶惰小依 & 賴床小依', x: nodeCanvas.width * 0.4452771027573472, y: nodeCanvas.height * 0.5116602156836786, radius: 9.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/懶惰小依 & 賴床小依.html' },
-{ id: '渟渟急轉彎', name: '渟渟急轉彎', x: nodeCanvas.width * 0.5485309415126984, y: nodeCanvas.height * 0.726265380329339, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/渟渟急轉彎.html' },
-{ id: '王依渟', name: '王依渟', x: nodeCanvas.width * 0.2917152793239298, y: nodeCanvas.height * 0.36028961377234375, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/王依渟.html' },
-{ id: '紀崴', name: '紀崴', x: nodeCanvas.width * 0.4537152025072077, y: nodeCanvas.height * 0.37899756109928345, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/紀崴.html' },
-{ id: '蒂娜', name: '蒂娜', x: nodeCanvas.width * 0.7550043700035579, y: nodeCanvas.height * 0.579912494726997, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/蒂娜.html' },
-{ id: '海神巨獸', name: '海神巨獸', x: nodeCanvas.width * 0.6729052922723282, y: nodeCanvas.height * 0.4261027230760571, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/海神巨獸.html' },
-{ id: '金門王', name: '金門王', x: nodeCanvas.width * 0.499859226269645, y: nodeCanvas.height * 0.5691254268374799, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/金門王.html' },
-{ id: 'AIoT Lab', name: 'AIoT Lab', x: nodeCanvas.width * 0.6688841558758378, y: nodeCanvas.height * 0.5259811366746334, radius: 8.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/AIoT Lab.html' },
-{ id: 'Badass', name: 'Badass', x: nodeCanvas.width * 0.6631582920523849, y: nodeCanvas.height * 0.6256408504305884, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/Badass.html' },
-{ id: 'EMCA Lab', name: 'EMCA Lab', x: nodeCanvas.width * 0.412216973814166, y: nodeCanvas.height * 0.3007268733215436, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/EMCA Lab.html' },
-{ id: 'SoC Lab', name: 'SoC Lab', x: nodeCanvas.width * 0.39999084214701547, y: nodeCanvas.height * 0.43824320406713063, radius: 13.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/SoC Lab.html' },
-{ id: 'Prof. 蛋頭博士', name: 'Prof. 蛋頭博士', x: nodeCanvas.width * 0.31481678486261516, y: nodeCanvas.height * 0.5762487384447942, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/Prof. 蛋頭博士.html' },
-{ id: '余十三', name: '余十三', x: nodeCanvas.width * 0.488093242955422, y: nodeCanvas.height * 0.7685444614176805, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/余十三.html' },
-{ id: '小南瓜', name: '小南瓜', x: nodeCanvas.width * 0.6088181492405802, y: nodeCanvas.height * 0.453741185641319, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/小南瓜.html' },
-{ id: '徐丞丞', name: '徐丞丞', x: nodeCanvas.width * 0.3340196345278101, y: nodeCanvas.height * 0.45305900643858976, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/徐丞丞.html' },
-{ id: '心碎小狗', name: '心碎小狗', x: nodeCanvas.width * 0.3740705637864817, y: nodeCanvas.height * 0.6314359557115028, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/心碎小狗.html' },
-{ id: '應葛格', name: '應葛格', x: nodeCanvas.width * 0.37549272840209547, y: nodeCanvas.height * 0.5314158446555933, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/應葛格.html' },
-{ id: '敦敦', name: '敦敦', x: nodeCanvas.width * 0.4939598169593548, y: nodeCanvas.height * 0.6688200952766306, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/敦敦.html' },
-{ id: '梵楓霖', name: '梵楓霖', x: nodeCanvas.width * 0.4719752969854263, y: nodeCanvas.height * 0.20913619278425, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/梵楓霖.html' },
-{ id: '橋牌社長', name: '橋牌社長', x: nodeCanvas.width * 0.5535600823620764, y: nodeCanvas.height * 0.5098438280460251, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/橋牌社長.html' },
-{ id: '湖口砲兵連連長', name: '湖口砲兵連連長', x: nodeCanvas.width * 0.35842195374762764, y: nodeCanvas.height * 0.359984631851463, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/湖口砲兵連連長.html' },
-{ id: '焦糖o彤兒', name: '焦糖o彤兒', x: nodeCanvas.width * 0.542065325670728, y: nodeCanvas.height * 0.3759748386735243, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/焦糖o彤兒.html' },
-{ id: '珊珊姊', name: '珊珊姊', x: nodeCanvas.width * 0.40551746335955435, y: nodeCanvas.height * 0.20119783539469868, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/珊珊姊.html' },
-{ id: '色彩學大師', name: '色彩學大師', x: nodeCanvas.width * 0.41591605198691145, y: nodeCanvas.height * 0.7096218258371217, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/色彩學大師.html' },
-{ id: '諸葛小劉', name: '諸葛小劉', x: nodeCanvas.width * 0.49642130258046574, y: nodeCanvas.height * 0.30218135724474515, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/諸葛小劉.html' },
-{ id: '陳大帥帥', name: '陳大帥帥', x: nodeCanvas.width * 0.6070764769480312, y: nodeCanvas.height * 0.35365504579544427, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/陳大帥帥.html' },
-{ id: '馬華', name: '馬華', x: nodeCanvas.width * 0.5544481345419764, y: nodeCanvas.height * 0.6266503119417555, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/馬華.html' },
-{ id: '黃老二', name: '黃老二', x: nodeCanvas.width * 0.3511531964467488, y: nodeCanvas.height * 0.2605314902470134, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/黃老二.html' }
+{ id: 'Rocky', name: 'Rocky', x: nodeCanvas.width * 0.3158259562508378, y: nodeCanvas.height * 0.35146445861457165, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/Rocky.html' },
+{ id: '小瓜', name: '小瓜', x: nodeCanvas.width * 0.5801348026358031, y: nodeCanvas.height * 0.8037334801123913, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/小瓜.html' },
+{ id: '慈慈', name: '慈慈', x: nodeCanvas.width * 0.49809378469394594, y: nodeCanvas.height * 0.6353071477780265, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/慈慈.html' },
+{ id: '牛仔褲寶貝', name: '牛仔褲寶貝', x: nodeCanvas.width * 0.48945850980955563, y: nodeCanvas.height * 0.45267074436869004, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/牛仔褲寶貝.html' },
+{ id: '老人與狗', name: '老人與狗', x: nodeCanvas.width * 0.6202826488153336, y: nodeCanvas.height * 0.41389853315962055, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/老人與狗.html' },
+{ id: '裘萌 & 首蒙元', name: '裘萌 & 首蒙元', x: nodeCanvas.width * 0.7615959762191761, y: nodeCanvas.height * 0.5879088612287908, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/裘萌 & 首蒙元.html' },
+{ id: '阿詠', name: '阿詠', x: nodeCanvas.width * 0.6140812970613863, y: nodeCanvas.height * 0.6998111097567825, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'AIoT Lab/阿詠.html' },
+{ id: 'Rock', name: 'Rock', x: nodeCanvas.width * 0.4349174810515479, y: nodeCanvas.height * 0.3701514281140455, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/Rock.html' },
+{ id: '深淵', name: '深淵', x: nodeCanvas.width * 0.36567951292481915, y: nodeCanvas.height * 0.21886521423914038, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/深淵.html' },
+{ id: '球球', name: '球球', x: nodeCanvas.width * 0.5482726618439735, y: nodeCanvas.height * 0.7158349929236733, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/球球.html' },
+{ id: '穢土轉生研究生', name: '穢土轉生研究生', x: nodeCanvas.width * 0.6297294839621286, y: nodeCanvas.height * 0.602572233919534, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Appendix/穢土轉生研究生.html' },
+{ id: '憑拳大將軍', name: '憑拳大將軍', x: nodeCanvas.width * 0.6295746629290778, y: nodeCanvas.height * 0.3051267130631263, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/憑拳大將軍.html' },
+{ id: '懶惰小依 & 賴床小依', name: '懶惰小依 & 賴床小依', x: nodeCanvas.width * 0.3398683081155957, y: nodeCanvas.height * 0.6170477154394781, radius: 9.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/懶惰小依 & 賴床小依.html' },
+{ id: '渟渟急轉彎', name: '渟渟急轉彎', x: nodeCanvas.width * 0.24642873577179586, y: nodeCanvas.height * 0.4746419476532917, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/渟渟急轉彎.html' },
+{ id: '王依渟', name: '王依渟', x: nodeCanvas.width * 0.575897687209278, y: nodeCanvas.height * 0.23891071003104275, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/王依渟.html' },
+{ id: '紀崴', name: '紀崴', x: nodeCanvas.width * 0.6560868694044452, y: nodeCanvas.height * 0.498298725074996, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/紀崴.html' },
+{ id: '蒂娜', name: '蒂娜', x: nodeCanvas.width * 0.817104561065847, y: nodeCanvas.height * 0.5021545193629285, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Badass/蒂娜.html' },
+{ id: '海神巨獸', name: '海神巨獸', x: nodeCanvas.width * 0.37854108890648075, y: nodeCanvas.height * 0.7050420795625172, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/海神巨獸.html' },
+{ id: '金門王', name: '金門王', x: nodeCanvas.width * 0.45943772628435703, y: nodeCanvas.height * 0.5531798305097279, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'EMCA Lab/金門王.html' },
+{ id: 'AIoT Lab', name: 'AIoT Lab', x: nodeCanvas.width * 0.6946367158469823, y: nodeCanvas.height * 0.6255000812289484, radius: 8.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/AIoT Lab.html' },
+{ id: 'Badass', name: 'Badass', x: nodeCanvas.width * 0.7217903021679016, y: nodeCanvas.height * 0.48126879588443033, radius: 8.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/Badass.html' },
+{ id: 'EMCA Lab', name: 'EMCA Lab', x: nodeCanvas.width * 0.5911234973624836, y: nodeCanvas.height * 0.5209335778239567, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/EMCA Lab.html' },
+{ id: 'SoC Lab', name: 'SoC Lab', x: nodeCanvas.width * 0.42365102802589455, y: nodeCanvas.height * 0.46875902356057614, radius: 13.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'Lab/SoC Lab.html' },
+{ id: 'Prof. 蛋頭博士', name: 'Prof. 蛋頭博士', x: nodeCanvas.width * 0.4265572870402621, y: nodeCanvas.height * 0.7918965148923384, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/Prof. 蛋頭博士.html' },
+{ id: '余十三', name: '余十三', x: nodeCanvas.width * 0.4065187964239283, y: nodeCanvas.height * 0.6140230834446031, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/余十三.html' },
+{ id: '小南瓜', name: '小南瓜', x: nodeCanvas.width * 0.36710488532222063, y: nodeCanvas.height * 0.41574950041485004, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/小南瓜.html' },
+{ id: '徐丞丞', name: '徐丞丞', x: nodeCanvas.width * 0.5552697617841438, y: nodeCanvas.height * 0.4365972161707941, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/徐丞丞.html' },
+{ id: '心碎小狗', name: '心碎小狗', x: nodeCanvas.width * 0.3784293655216245, y: nodeCanvas.height * 0.3170349293689517, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/心碎小狗.html' },
+{ id: '應葛格', name: '應葛格', x: nodeCanvas.width * 0.2833299311585758, y: nodeCanvas.height * 0.5639672142510461, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/應葛格.html' },
+{ id: '敦敦', name: '敦敦', x: nodeCanvas.width * 0.44497231593650277, y: nodeCanvas.height * 0.6957227283093088, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/敦敦.html' },
+{ id: '梵楓霖', name: '梵楓霖', x: nodeCanvas.width * 0.5639173412625909, y: nodeCanvas.height * 0.6186138823156234, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/梵楓霖.html' },
+{ id: '橋牌社長', name: '橋牌社長', x: nodeCanvas.width * 0.36967684986501986, y: nodeCanvas.height * 0.5275293439201532, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/橋牌社長.html' },
+{ id: '湖口砲兵連連長', name: '湖口砲兵連連長', x: nodeCanvas.width * 0.49129788921050854, y: nodeCanvas.height * 0.7677613706752112, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/湖口砲兵連連長.html' },
+{ id: '焦糖o彤兒', name: '焦糖o彤兒', x: nodeCanvas.width * 0.5100776237734707, y: nodeCanvas.height * 0.2549370041001335, radius: 6.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/焦糖o彤兒.html' },
+{ id: '珊珊姊', name: '珊珊姊', x: nodeCanvas.width * 0.46631354572010963, y: nodeCanvas.height * 0.17934714776347402, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/珊珊姊.html' },
+{ id: '色彩學大師', name: '色彩學大師', x: nodeCanvas.width * 0.3131293853804456, y: nodeCanvas.height * 0.4744774802020681, radius: 7.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/色彩學大師.html' },
+{ id: '諸葛小劉', name: '諸葛小劉', x: nodeCanvas.width * 0.5253179311006142, y: nodeCanvas.height * 0.5370061066075315, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/諸葛小劉.html' },
+{ id: '陳大帥帥', name: '陳大帥帥', x: nodeCanvas.width * 0.5007317236745015, y: nodeCanvas.height * 0.3540595673504219, radius: 6.0, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/陳大帥帥.html' },
+{ id: '馬華', name: '馬華', x: nodeCanvas.width * 0.5665875611511773, y: nodeCanvas.height * 0.33795055237691196, radius: 5.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/馬華.html' },
+{ id: '黃老二', name: '黃老二', x: nodeCanvas.width * 0.4385545073156632, y: nodeCanvas.height * 0.2702444344262876, radius: 7.5, originalColor: '#FFFFFF', color: '#FFFFFF', originalTextColor: '#FFFFFF', textColor: '#FFFFFF', vx: 0, vy: 0, isDragged: false, isHighlighted: false, currentTextYOffset: 0, link: 'SoC Lab/黃老二.html' }
 ]; 
             links = [
 { source: nodes[0], target: nodes[7], originalColor: '#FFFFFF50', color: '#FFFFFF', width: 2 },
@@ -978,10 +978,10 @@
 
         // 新增：處理點擊或觸摸結束時的邏輯
         function processClickOrTap(event, isTouchEvent) {
-            // 如果正在拖曳節點或平移背景，則不處理為點擊
-            if (draggedNode || isPanning) {
-                return;
-            }
+            // // 如果正在拖曳節點或平移背景，則不處理為點擊
+            // if (draggedNode || isPanning) {
+            //     return;
+            // }
 
             // 獲取事件結束時的客戶端座標
             let clientX, clientY;
@@ -998,16 +998,16 @@
                 clientY = event.clientY;
             }
 
-            // 判斷是否為點擊 (檢查移動距離)
-            const distMoved = Math.sqrt(
-                Math.pow(clientX - mouseDownPos.x, 2) +
-                Math.pow(clientY - mouseDownPos.y, 2)
-            );
+            // // 判斷是否為點擊 (檢查移動距離)
+            // const distMoved = Math.sqrt(
+            //     Math.pow(clientX - mouseDownPos.x, 2) +
+            //     Math.pow(clientY - mouseDownPos.y, 2)
+            // );
 
-            if (distMoved > CLICK_THRESHOLD) {
-                // 移動距離超過閾值，視為拖曳，不處理為點擊
-                return;
-            }
+            // if (distMoved > CLICK_THRESHOLD) {
+            //     // 移動距離超過閾值，視為拖曳，不處理為點擊
+            //     return;
+            // }
 
             // 確定點擊到的節點
             const mouseWorldPos = getMouseWorldPos({ clientX: clientX, clientY: clientY });
@@ -1142,9 +1142,14 @@
         nodeCanvas.addEventListener('touchstart', function(event) {
             if (!isTouchDevice) return;
 
-            // 記錄觸摸按下時的螢幕座標
+            // 記錄觸摸按下時的螢幕座標，用於後續判斷點擊或拖曳
             mouseDownPos.x = event.touches[0].clientX;
             mouseDownPos.y = event.touches[0].clientY;
+
+            // 重置拖曳和平移狀態，因為這是新的觸摸開始
+            // 這些旗標只在 touchmove 中被確認為拖曳/平移時才設置為 true
+            draggedNode = null;
+            isPanning = false;
 
             const touchWorldPos = getMouseWorldPos(event.touches[0]);
             let foundNode = null;
@@ -1159,31 +1164,20 @@
                 }
             }
 
+            // 這裡不再立即設置 draggedNode 或 isPanning
+            // 這些會根據 touchmove 中的移動距離來決定
+            // 但如果觸摸到一個節點，可以暫時記住它可能被拖曳
             if (foundNode) {
-                // 如果觸摸到節點，則潛在為拖曳節點
-                draggedNode = foundNode; // 暫時設置 draggedNode，如果移動距離小，touchend 會取消
-                offsetX = touchWorldPos.x - draggedNode.x;
-                offsetY = touchWorldPos.y - draggedNode.y;
-                nodes.splice(nodes.indexOf(draggedNode), 1);
-                nodes.push(draggedNode); // 將被拖曳的節點移到最上層
-
-                // 如果觸摸到一個節點，且該節點不是當前激活的節點，則清除舊的激活狀態
-                if (activatedNode !== foundNode) {
-                    activatedNode = null;
-                    updateHighlight(null);
-                }
+                // 不在這裡將 foundNode 賦值給 draggedNode，避免點擊時也被視為拖曳。
+                // 讓 touchmove 根據移動距離來決定
             } else {
-                // 如果觸摸到空白處，則潛在為平移背景
-                isPanning = true; // 暫時設置為平移模式
-                lastPanMouseX = event.touches[0].clientX;
-                lastPanMouseY = event.touches[0].clientY;
-                // 觸摸空白處時，清除任何激活狀態
+                // 觸摸到空白處，清除任何激活狀態
                 if (activatedNode !== null) {
                     activatedNode = null;
                     updateHighlight(null);
                 }
             }
-            // 不在這裡阻止默認行為，讓瀏覽器判斷是否滾動，直到確認是拖曳或平移
+            // 不在這裡阻止默認行為，因為可能只是點擊或輕微滑動
         }, { passive: false });
 
         // nodeCanvas.addEventListener('touchmove', function(event) {
@@ -1236,61 +1230,6 @@
         //     // 在觸摸設備上，mousemove 不處理懸浮效果
         // }, { passive: false }); // 設置 passive: false 允許阻止滾動
 
-        nodeCanvas.addEventListener('touchmove', function(event) {
-            if (!isTouchDevice) return;
-
-            const touchScreenPos = getMouseScreenPos(event.touches[0]);
-            const touchWorldPos = getMouseWorldPos(event.touches[0]);
-
-            // 判斷移動距離，用於區分點擊和拖曳/平移
-            const distMoved = Math.sqrt(
-                Math.pow(event.touches[0].clientX - mouseDownPos.x, 2) +
-                Math.pow(event.touches[0].clientY - mouseDownPos.y, 2)
-            );
-
-            // 只有當移動距離超過閾值時，才確認為拖曳或平移，並阻止默認行為
-            if (distMoved > CLICK_THRESHOLD) {
-                // 如果之前設置了 draggedNode (表示觸摸到節點)
-                if (draggedNode) {
-                    draggedNode.x = touchWorldPos.x - offsetX;
-                    draggedNode.y = touchWorldPos.y - offsetY;
-                    draggedNode.vx = 0;
-                    draggedNode.vy = 0;
-                    nodeCanvas.style.cursor = 'grabbing';
-                    if (activatedNode !== null) { // 拖曳時清除激活狀態
-                        activatedNode = null;
-                        updateHighlight(hoveredNode);
-                    }
-                    event.preventDefault(); // 拖曳節點時阻止頁面滾動
-                }
-                // 如果之前設置了 isPanning (表示觸摸到空白處)
-                else if (isPanning) {
-                    const dx = touchScreenPos.x - lastPanMouseX;
-                    const dy = touchScreenPos.y - lastPanMouseY;
-                    panX += dx;
-                    panY += dy;
-                    lastPanMouseX = touchScreenPos.x;
-                    lastPanMouseY = touchScreenPos.y;
-                    networkAnimate();
-                    nodeCanvas.style.cursor = 'grabbing';
-                    if (activatedNode !== null) { // 平移時清除激活狀態
-                        activatedNode = null;
-                        updateHighlight(hoveredNode);
-                    }
-                    event.preventDefault(); // 平移背景時阻止頁面滾動
-                }
-                // 如果既沒有 draggedNode 也沒有 isPanning，但移動距離很大，則將其視為平移
-                else {
-                    isPanning = true; // 轉為平移模式 (處理從未設置拖曳/平移但有大移動的情況)
-                    lastPanMouseX = event.touches[0].clientX;
-                    lastPanMouseY = event.touches[0].clientY;
-                    networkAnimate();
-                    nodeCanvas.style.cursor = 'grabbing';
-                    event.preventDefault(); // 阻止頁面滾動
-                }
-            }
-            // 在觸摸設備上，mousemove 不處理懸浮效果
-        }, { passive: false });
 
         // nodeCanvas.addEventListener('touchend', function(event) {
         //     // 確保只在觸摸設備上執行觸摸事件的 touchend 邏輯
@@ -1317,21 +1256,100 @@
         //     }
         // });
 
+        nodeCanvas.addEventListener('touchmove', function(event) {
+            if (!isTouchDevice) return;
+
+            const touchScreenPos = getMouseScreenPos(event.touches[0]);
+            const touchWorldPos = getMouseWorldPos(event.touches[0]);
+
+            // 計算從觸摸開始到當前的移動距離
+            const distMoved = Math.sqrt(
+                Math.pow(event.touches[0].clientX - mouseDownPos.x, 2) +
+                Math.pow(event.touches[0].clientY - mouseDownPos.y, 2)
+            );
+
+            // 只有當移動距離超過閾值時，才確認為拖曳或平移，並阻止默認行為
+            if (distMoved > CLICK_THRESHOLD) {
+                event.preventDefault(); // 確定是拖曳/平移時才阻止頁面滾動
+
+                // 如果 draggedNode 還沒有被設定，且這次移動是從一個節點開始的，
+                // 則將其設為 draggedNode
+                if (draggedNode === null) {
+                    let foundNode = null;
+                    for (let i = nodes.length - 1; i >= 0; i--) {
+                        const node = nodes[i];
+                        const dx = touchWorldPos.x - node.x;
+                        const dy = touchWorldPos.y - node.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < node.radius) {
+                            foundNode = node;
+                            break;
+                        }
+                    }
+                    if (foundNode) {
+                        draggedNode = foundNode;
+                        offsetX = touchWorldPos.x - draggedNode.x;
+                        offsetY = touchWorldPos.y - draggedNode.y;
+                        nodes.splice(nodes.indexOf(draggedNode), 1);
+                        nodes.push(draggedNode); // 將被拖曳的節點移到最上層
+                        activatedNode = null; // 開始拖曳時清除激活狀態
+                        updateHighlight(hoveredNode);
+                        nodeCanvas.style.cursor = 'grabbing';
+                    }
+                }
+
+                // 如果 draggedNode 已經設定，則移動它
+                if (draggedNode) {
+                    draggedNode.x = touchWorldPos.x - offsetX;
+                    draggedNode.y = touchWorldPos.y - offsetY;
+                    draggedNode.vx = 0;
+                    draggedNode.vy = 0;
+                    nodeCanvas.style.cursor = 'grabbing';
+                }
+                // 如果不是拖曳節點，但已超過閾值，則啟動平移
+                else if (!isPanning) { // 確保只設定一次
+                    isPanning = true;
+                    lastPanMouseX = touchScreenPos.x;
+                    lastPanMouseY = touchScreenPos.y;
+                    nodeCanvas.style.cursor = 'grabbing';
+                    // 平移時也清除激活狀態
+                    if (activatedNode !== null) {
+                        activatedNode = null;
+                        updateHighlight(null);
+                    }
+                }
+
+                // 如果正在平移，則更新 panX/Y
+                if (isPanning) {
+                    const dx = touchScreenPos.x - lastPanMouseX;
+                    const dy = touchScreenPos.y - lastPanMouseY;
+                    panX += dx;
+                    panY += dy;
+                    lastPanMouseX = touchScreenPos.x;
+                    lastPanMouseY = touchScreenPos.y;
+                    networkAnimate();
+                }
+            }
+            // 如果移動距離未超過閾值，不阻止默認行為，允許瀏覽器處理輕微滾動，
+            // 這樣可以更好地捕獲點擊事件。
+        }, { passive: false });
+
         nodeCanvas.addEventListener('touchend', function(event) {
             if (!isTouchDevice) return;
 
-            // 判斷觸摸結束時的總移動距離
+            // 計算觸摸結束時的總移動距離
             const distMoved = Math.sqrt(
                 Math.pow(event.changedTouches[0].clientX - mouseDownPos.x, 2) +
                 Math.pow(event.changedTouches[0].clientY - mouseDownPos.y, 2)
             );
 
-            // 如果移動距離小於閾值，則視為點擊
-            if (distMoved <= CLICK_THRESHOLD) {
+            // 如果移動距離小於閾值，且沒有發生拖曳或平移，則視為點擊
+            // 這是最關鍵的判斷，確保沒有大移動才處理點擊
+            if (distMoved <= CLICK_THRESHOLD && draggedNode === null && isPanning === false) {
                 // 調用通用點擊處理函數 (手機版)
                 processClickOrTap(event, true); // true 表示這是觸摸事件
             }
-            // 否則，如果移動距離大於閾值，則視為拖曳或平移結束
+            // 否則，如果發生了拖曳或平移，則清除相關狀態
             else {
                 if (draggedNode) {
                     draggedNode.isDragged = false;
