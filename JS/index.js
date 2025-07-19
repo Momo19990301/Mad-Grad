@@ -378,7 +378,8 @@
             const users = [
     { username: "Momo", password_hashed: "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3", user_id: "MOMO" },
     { username: "Evelyn", password_hashed: "b3a8e0e1f9ab1bfe3a36f231f676f78bb30a519d2b21e6c530c0eee8ebb4a5d0", user_id: "Azhu" },
-    { username: "Test", password_hashed: "35a9e381b1a27567549b5f8a6f783c167ebf809f1c4d6a9e367240484d8ce281", user_id: "Tester" }
+    { username: "Test", password_hashed: "35a9e381b1a27567549b5f8a6f783c167ebf809f1c4d6a9e367240484d8ce281", user_id: "Tester" },
+    { username: "Flydoco", password_hashed: "8810a72f30d555b9d74d145d3ad3408bf3e54155be2f5769a981db30c13e6566", user_id: "南瓜" }
 ]; 
             
             loginForm.addEventListener('submit', async function(event) {

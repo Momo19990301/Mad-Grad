@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Network</title>
+    <link rel="stylesheet" href="CSS/Network.css">
+</head>
+<body>
+    <div class="info-panel" data-lang-key="info_panel">
+        Social Network
+    </div>
+    <div class="top-right-buttons">
+        <button type="button" id="languageToggleButton">⇄ 繁體中文</button>
+        <a href="MENU.html" class="backToMENU" data-lang-key="back_to_menu">Back to MENU</a>    
+    </div>
+    <canvas id="backgroundCanvas"></canvas>
+    <div class="fixed-background-image-layer">
+        <img src="Illustration/New_Cover.png" alt="Cover Image">
+    </div>
+    <canvas id="nodeCanvas"></canvas>
+
+    <!-- 新增：顯示觸摸設備狀態的診斷元素 -->
+    <!-- <div id="touchDeviceStatus" style="position: fixed; bottom: 10px; left: 10px; background-color: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8em; z-index: 9999;">
+        偵測觸摸設備: <span id="isTouchDeviceValue">N/A</span>
+    </div> -->
+
+    <!-- 新增：縮放拖曳條容器 -->
+    <div class="zoom-controls">
+        <button id="zoomOutBtn" class="zoom-btn">-</button>
+        <!-- 縮放拖曳條容器 -->
+        <div class="zoom-slider-container">
+            <div id="zoomSliderHandle" class="zoom-slider-handle"></div>
+        </div>
+        <button id="zoomInBtn" class="zoom-btn">+</button>
+    </div>
+
+
+    <script src="JS/Network.js"></script>
+</body>
+</html>

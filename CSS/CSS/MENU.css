@@ -1,0 +1,463 @@
+
+        /* Custom Fonts - 確保字體路徑正確 */
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-ExtraLight.ttf') format('truetype');
+            font-weight: 200; /* ExtraLight */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Light.ttf') format('truetype');
+            font-weight: 300; /* Light */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Normal.ttf') format('truetype');
+            font-weight: 400; /* Normal/Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Regular.ttf') format('truetype');
+            font-weight: 400; /* Normal/Regular */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Medium.ttf') format('truetype');
+            font-weight: 500; /* Medium */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Bold.ttf') format('truetype');
+            font-weight: 700; /* Bold */
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'GenJyuuGothic';
+            src: url('../Fonts/GenJyuuGothic-Heavy.ttf') format('truetype');
+            font-weight: 900; /* Heavy */
+            font-style: normal;
+        }
+        body {
+            margin: 0;
+            /* 讓 body 根據內容自然增長高度，並允許滾動 */
+            background-color: #161b22; /* 深色背景，作為 fallback */
+            width: 100%; /* 確保 body 佔滿整個視窗寬度 */
+            position: relative; /* 讓 body 成為定位上下文，以便絕對定位的子元素可以相對於它定位 */
+            font-family: 'GenJyuuGothic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            color: #c9d1d9; /* 淺色字體，模擬深色模式 */
+            line-height: 1.6;
+            /* 所有文字的通用發光效果，非常微妙 */
+            text-shadow: 0 0 2px rgba(255,255,255,0.2);
+            min-height: 100vh; /* 新增：確保 body 至少佔滿視窗高度 */
+            display: flex; /* 新增：啟用 Flexbox 佈局 */
+            flex-direction: column; /* 新增：子元素垂直堆疊 */
+            justify-content: center; /* 新增：垂直居中內容 */
+            align-items: center; /* 新增：水平居中內容 */
+            padding: 40px 0; /* 新增：為內容提供上下邊距 */
+            box-sizing: border-box; /* 新增：確保 padding 不會增加總寬度/高度 */
+        }
+        /* Canvas 背景樣式 */
+        canvas {
+            position: fixed; /* 讓 Canvas 固定在視窗背景，不隨滾動條移動 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 1; /* 最底層 */
+        }
+        /* 新增圖片容器樣式：位於 Canvas 上方，內容下方，固定在畫面中央 */
+        .fixed-background-image-layer {
+            position: fixed; /* 固定在視窗中，不隨滾動條移動 */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* 精確居中 */
+            width: 100vw; /* 佔滿視窗寬度 */
+            height: 100vh; /* 佔滿視窗高度 */
+            display: flex; /* 使用 flex 居中內部的圖片 */
+            justify-content: center;
+            align-items: center;
+            z-index: 2; /* 在 Canvas (z-index: 1) 上方，在 menu-content-wrapper (z-index: 10) 下方 */
+            pointer-events: none; /* 允許點擊穿透圖片到後面的元素 */
+            opacity: 0.5; /* <--- 在這裡調整透明度！值從 0.0 (完全透明) 到 1.0 (完全不透明) */
+        }
+        .fixed-background-image-layer img {
+            display: block;
+            width: 100%; /* 圖片寬度佔滿父容器 */
+            height: 100%; /* 圖片高度佔滿父容器 */
+            object-fit: contain; /* 【重要修改】確保圖片完整顯示，不裁剪，可能會留白邊 */
+            border-radius: 8px; /* 圖片本身也可以有圓角 */
+            /* 圖片本身不需要 box-shadow，因為外層容器已經是半透明的 */
+        }
+        /* MENU 內容的容器，使其疊加在 Canvas 和固定圖片上方 */
+        .menu-content-wrapper {
+            position: relative; /* 確保在 Canvas 和圖片上方 */
+            z-index: 10; /* 在固定圖片 (z-index: 2) 上方 */
+            background-color: rgba(22, 27, 34, 0.8); /* 半透明背景 */
+            max-width: 900px; 
+            width: 90%; 
+            padding: 20px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'GenJyuuGothic', sans-serif;
+            color: #ffffff; /* 標題顏色 */
+            margin-top: 1.2em;
+            margin-bottom: 0.8em;
+            /* MENU 標題的發光效果 */
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4); 
+        }
+        h1 { 
+            margin: 0; 
+            padding: 0; 
+        }
+        /* 超連結文字的顏色和發光效果 */
+        a {
+            color: #FFC000; /* 連結文字顏色與發光顏色一致 */
+            text-decoration: none;
+            text-shadow: 0 0 8px #FFC000, 0 0 15px rgba(255,192,0,0.3); 
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+        /* 超連結鼠標靠近時變亮 */
+        a:hover {
+            color: #FFFF00; /* 懸停時顏色更亮，接近純黃色 */
+            text-shadow: 0 0 15px #FFFF00, 0 0 25px rgba(255,255,0,0.6); /* 懸停時發光更強 */
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        ul {
+            list-style-type: none; 
+            padding-left: 0; 
+        }
+        li {
+            /* 新增底部邊框作為分隔線 */
+            border-bottom: 1px solid rgba(128, 128, 128, 0.3); /* 淺灰色半透明線條 */
+            padding-bottom: 8px; /* 線條下方間距 */
+            margin-bottom: 8px; /* 列表項目之間間距 */
+            padding-top: 5px; /* 線條上方間距 */
+        }
+        /* 移除最後一個列表項目的底部邊框，避免多餘的線條 */
+        li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        /* 如果是巢狀列表，其最後一個子項目的底部邊框也移除 */
+        .collapsible-content li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        code {
+            font-family: "Fira Code", "Cascadia Code", "JetBrains Mono", monospace;
+            background-color: #2b323b;
+            padding: 2px 4px;
+            border-radius: 4px;
+            color: #e6edfa;
+        }
+        pre {
+            background-color: #2b323b;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1.5em;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: inherit;
+        }
+        blockquote {
+            border-left: 4px solid #6a737d;
+            padding-left: 15px;
+            margin-left: 0;
+            color: #8b949e;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1em;
+        }
+        th, td {
+            border: 1px solid #30363d;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #30363d;
+            color: #c9d1d9;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        /* 自定義 Hashtag 樣式 */
+        .hashtag {
+            color: #ddd; 
+            background-color: #4a3e6b; 
+            padding: 3px 8px; 
+            border-radius: 6px; 
+            font-size: 0.85em; 
+            margin-right: 6px; 
+            white-space: nowrap;
+            display: inline-block; 
+        }
+        /* 資料夾名稱和箭頭樣式 */
+        .folder-name {
+            font-family: 'GenJyuuGothic', sans-serif;
+            cursor: pointer; 
+            font-weight: bold;
+            color: white; /* 資料夾名稱文字顏色設定為白色 */
+            user-select: none; 
+            text-shadow: 0 0 8px white, 0 0 15px rgba(255,255,255,0.3); 
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+        /* 資料夾名稱鼠標靠近時變亮 */
+        .folder-name:hover {
+            color: #E0E0E0; /* 懸停時顏色稍亮 */
+            text-shadow: 0 0 12px white, 0 0 20px rgba(255,255,255,0.5); /* 懸停時發光更強 */
+        }
+        .folder-toggle {
+            display: inline-block;
+            width: 1em; 
+            margin-right: 5px;
+            color: #0FFFC0; /* ">" 符號文字顏色設定為青綠色 */
+            color: #baffed;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+            text-shadow: 0 0 8px #0FFFC0, 0 0 15px rgba(0,255,192,0.3); 
+        }
+        /* 下拉符號鼠標靠近時變亮 */
+        .folder-toggle:hover {
+            color: #66FFFF; /* 懸停時顏色更亮 */
+            text-shadow: 0 0 12px #66FFFF, 0 0 20px rgba(102,255,255,0.6); /* 懸停時發光更強 */
+        }
+        .folder-toggle.expanded {
+            transform: rotate(90deg); 
+        }
+        /* 可收合內容的樣式 */
+        .collapsible-content {
+            display: none; 
+            padding-left: 20px; 
+            border-left: 1px solid #0fffbfb6; 
+            margin-top: 5px;
+        }
+        .collapsible-content.expanded {
+            display: block; 
+        }
+        /* 連結樣式 (再次定義以確保優先級，並將顏色與發光顏色一致) */
+        li > a {
+            font-family: 'GenJyuuGothic', sans-serif;
+            font-size: 1.1em;
+            color: #FFC000; /* 連結顏色與發光顏色一致 */
+            text-decoration: none;
+            text-shadow: 0 0 8px #FFC000, 0 0 15px rgba(255,192,0,0.3); 
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+        li > a:hover {
+            color: #FFFF00; /* 懸停時顏色更亮，接近純黃色 */
+            text-shadow: 0 0 15px #FFFF00, 0 0 25px rgba(255,255,0,0.6); /* 懸停時發光更強 */
+            text-decoration: underline;
+        }
+        /* 為 Back to MENU 連結和 header-container 新增的樣式 (也適用於 MENU.html 的登出按鈕) */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-shrink: 0; 
+        }
+        .header-container h1 {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .user-info { 
+            justify-content: flex-start;
+            color: #0FFFC0; /* Welcome, DemoUser! 文字顏色設定為青綠色 */
+            font-size: 1em;
+            margin-right: 15px; 
+            text-shadow: 0 0 8px #0FFFC0, 0 0 15px rgba(0,255,192,0.3); /* 與下拉符號相同的發光效果 */
+            transition: color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+        }
+        /* 用戶資訊鼠標靠近時變亮 */
+        .user-info:hover {
+            color: #66FFFF; /* 懸停時顏色更亮 */
+            text-shadow: 0 0 12px #66FFFF, 0 0 20px rgba(102,255,255,0.6); /* 懸停時發光更強 */
+        }
+        .header-right { 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logout-button { 
+            background-color: #FF4D4D; 
+            color: white; /* 按鈕文字顏色 */
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease; /* 添加過渡效果 */
+            cursor: pointer;
+            border: none; 
+            font-family: 'GenJyuuGothic', sans-serif; 
+            text-shadow: 0 0 5px rgba(255,255,255,0.7); 
+        }
+        /* 登出按鈕文字鼠標靠近時變亮 */
+        .logout-button:hover {
+            background-color: #CC0000; 
+            color: #FFEEEE; /* 懸停時文字顏色稍亮 */
+            text-shadow: 0 0 8px rgba(255,255,255,1), 0 0 15px rgba(255,255,255,0.8); /* 懸停時發光更強 */
+            text-decoration: none; 
+        }
+        /* 語言切換按鈕樣式 */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-right: 15px; /* 與用戶資訊保持距離 */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 輕微邊框 */
+            border-radius: 5px;
+            overflow: hidden; /* 確保按鈕圓角 */
+        }
+        .lang-button {
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #c9d1d9; /* 預設文字顏色 */
+            background-color: rgba(43, 48, 59, 0.7); /* 預設背景色 */
+            transition: background-color 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+            text-shadow: none; /* 移除預設發光，active 時再添加 */
+        }
+        .lang-button:hover:not(.active) {
+            background-color: rgba(60, 68, 80, 0.8);
+            color: #e0e0e0;
+        }
+        .lang-button.active {
+            background-color: #0FFFC0; /* 選中時的背景色 */
+            color: #161b22; /* 選中時的文字顏色 */
+            /* color: #fddc78; */
+            text-shadow: 0 0 5px #0FFFC0; /* 選中時的發光 */
+        }
+        /* 確保左右兩個按鈕之間有分隔線，或者邊界清晰 */
+        #langZh {
+            border-right: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        /* 新增：Network Button 和其容器的樣式 */
+        .secondary-header-row {
+            display: flex; /* 啟用 Flexbox 佈局 */
+            align-items: center; /* 垂直居中對齊子元素 */
+            /* justify-content: flex-end; */
+            justify-content: flex-start;
+            margin-bottom: 30px; /* 與下方列表的間距 */
+            margin-top: 10px; /* 與上方主標題的間距 */
+            /* margin-left: 30px; */
+        }
+        .network-button {
+            display: flex; /* 使用 Flexbox 居中 SVG */
+            justify-content: center;
+            align-items: center;
+            width: 40px; /* 按鈕寬度 */
+            height: 40px; /* 按鈕高度，使其成為正方形 */
+            background-color: hsl(45, 100%, 50%);
+            border-radius: 8px; /* 圓角 */
+            text-decoration: none; /* 移除連結下劃線 */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 過渡效果 */
+            border: 2px solid hsl(45, 100%, 60%);
+            cursor: pointer; /* 指針樣式 */
+            box-shadow: 0 0 5px #ffdd77, 0 0 10px #ffdd7780;
+            margin-right: 15px; /* 與右側元素 (user-info) 的間距 */
+            flex-shrink: 0; /* 防止按鈕縮小 */
+            position: relative; /* 新增：為內部絕對定位的文字提供參考點 */
+        }
+        .network-button:hover {
+            background-color: hsla(45, 100%, 60%, 0.502);
+        }
+        /* Network Button 內部 SVG 圖標的樣式 */
+        .network-button svg {
+            width: 60%; /* SVG 佔按鈕大小的比例 */
+            height: 60%;
+        }
+        .network-button svg path {
+            stroke: #ffffff;
+            stroke-width: 1;
+            stroke-linecap: round;
+            fill: none;
+        }
+        .network-button svg circle {
+            stroke: #ffffff;
+            fill: #ffffff;
+            stroke-width: 1;
+        }
+        /* 新增：Network Button 懸浮時顯示的文字標籤 */
+        .network-button-label {
+            position: absolute;
+            left: 50%; /* 水平居中 */
+            bottom: -35px; /* 初始位置：在按鈕下方隱藏 */
+            transform: translateX(-50%) translateY(-10px); /* 初始動畫位置：稍微上移，為下移動畫做準備 */
+            opacity: 0; /* 初始狀態：完全透明 */
+            white-space: nowrap; /* 防止文字換行 */
+            background-color: rgba(0, 0, 0, 0.0); /* 文字背景，半透明黑色 */
+            color: #FFC000; /* 文字顏色 */
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-family: 'GenJyuuGothic', sans-serif; /* 套用字體 */
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out; /* 過渡動畫效果 */
+            pointer-events: none; /* 讓滑鼠事件穿透到下方的按鈕 */
+            z-index: 100; /* 確保文字在最上層 */
+            text-shadow: 0 0 5px rgba(255,192,0,0.5); /* 文字發光 */
+        }
+        /* Network Button 懸浮時，文字標籤的最終狀態 */
+        .network-button:hover .network-button-label {
+            opacity: 1; /* 顯示文字 */
+            bottom: -35px; /* 最終位置 (與初始 bottom 相同，因為是 transform 導致的位移) */
+            transform: translateX(-50%) translateY(0); /* 滑動到自然位置 (向下移動) */
+        }
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            .menu-content-wrapper {
+                margin: 20px auto;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            .user-info {
+                font-size: 0.9em;
+                margin-right: 10px;
+            }
+            .logout-button {
+                padding: 6px 12px;
+                font-size: 0.8em;
+            }
+            /* 響應式調整語言切換按鈕 */
+            .language-switcher {
+                margin-right: 10px;
+            }
+            .lang-button {
+                padding: 4px 8px;
+                font-size: 0.8em;
+            }
+            .network-button {
+                width: 35px;
+                height: 35px;
+                border-radius: 6px;
+                margin-right: 10px;
+                /* color: #646464; */
+            }
+        }
+    

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Grad - Log in</title>
+    <link rel="stylesheet" href="CSS/index.css">
+</head>
+<body>
+    <canvas id="neonCanvas"></canvas>
+    <div class="login-container">
+        <h1 data-lang-key="loginTitle">Mad Grad</h1>
+        <button type="button" id="languageToggleButton">⇄ 繁體中文</button>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username" data-lang-key="usernameLabel">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password" data-lang-key="passwordLabel">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <p id="errorMessage" class="error-message" data-lang-key="errorMessage"></p>
+            <button type="submit" class="base-button login-button" data-lang-key="loginButton">Log in</button>
+        </form>
+        <button type="button" id="registerButton" class="base-button register-button" data-lang-key="registerButton">Register</button>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 data-lang-key="registerAccountTitle">Register Account</h2>
+            <form id="registerForm">
+                <div class="input-group">
+                    <label for="regNickname" data-lang-key="nicknameLabel">Nickname:</label>
+                    <input type="text" id="regNickname" name="nickname" required>
+                </div>
+                <div class="input-group">
+                    <label for="regUsername" data-lang-key="regUsernameLabel">Username:</label>
+                    <input type="text" id="regUsername" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="regPassword" data-lang-key="regPasswordLabel">Password:</label>
+                    <input type="password" id="regPassword" name="password" required>
+                </div>
+                <div class="input-group">
+                    <label for="regConfirmPassword" data-lang-key="regConfirmPasswordLabel">Confirm Password:</label>
+                    <input type="password" id="regConfirmPassword" name="confirm_password" required>
+                </div>
+                <div class="input-group">
+                    <label for="regEmail" data-lang-key="regEmailLabel">Email:</label>
+                    <input type="email" id="regEmail" name="email" required>
+                </div>
+                <button type="submit" class="base-button" data-lang-key="submitButton">Submit</button>
+                <p id="registerErrorMessage" class="error-message" data-lang-key="registerErrorMessage"></p>
+                </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+            </div>
+            <p id="successMessageText" data-lang-key="successMessageText">Received!<br>Activation will be notified by email.</p>
+            <button type="button" id="successOkButton" class="base-button" data-lang-key="successOkButton">OK</button>
+        </div>
+    </div>
+
+    <script src="JS/index.js"></script>
+</body>
+</html>
