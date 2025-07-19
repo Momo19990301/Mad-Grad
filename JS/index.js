@@ -383,7 +383,8 @@
     { username: "Wen Chung kao", password_hashed: "66c27a1cdeb4235cda456dd75a1cb770f19d807c2cf44e2240d3bd916882eb7e", user_id: "Wen Chung kao" },
     { username: "abxyz888", password_hashed: "04480e703894f1b625c5372fb0d016f06b25bba1be38272f2a5eda8912c32c84", user_id: "Wen" },
     { username: "v5485519", password_hashed: "96336aac3e1427a1deb921ae65dd58dacfb8228f364abad6caee479a773fd631", user_id: "畫畫a公" },
-    { username: "Handgrip4053", password_hashed: "3f8685226fbd4015108d0dc1be60134ba3f6b85e57eee6cea3bdead7b1b45caa", user_id: "焦糖o彤兒" }
+    { username: "Handgrip4053", password_hashed: "3f8685226fbd4015108d0dc1be60134ba3f6b85e57eee6cea3bdead7b1b45caa", user_id: "焦糖o彤兒" },
+    { username: "Eric1002", password_hashed: "315c2d535097d1424eee99cb4ac549b0a137302533ead8c38ac656f7005ac999", user_id: "Eric1002" }
 ]; 
             
             loginForm.addEventListener('submit', async function(event) {
