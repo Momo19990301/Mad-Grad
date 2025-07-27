@@ -11,7 +11,7 @@
 ##### 電機工程研究所
 ###### 研究題目：電子紙
 ###### 研究專長：數位晶片設計、半色調
-###### 論文發表：Magazines - 1, Journals - 11, Conferences - 3
+###### 論文發表：Magazines - 1, Journals - 1, Conferences - 3
 #### [[馬華]]
 ##### 電機工程研究所
 ###### 研究題目：眼動儀
@@ -128,6 +128,7 @@
 "Start Over": "../Illustration/Start Over.png",
 "Tone Reproduction": "../Illustration/Tone Reproduction.png",
 "余十三": "../Illustration/余十三.png",
+"哭哭貓比讚": "../Illustration/哭哭貓比讚.png",
 "小南瓜": "../Illustration/小南瓜.png",
 "小瓜": "../Illustration/小瓜.png",
 "徐丞丞": "../Illustration/徐丞丞.png",
@@ -146,6 +147,7 @@
 "深淵": "../Illustration/深淵.png",
 "渟渟急轉彎": "../Illustration/渟渟急轉彎.png",
 "湖口砲兵連連長": "../Illustration/湖口砲兵連連長.png",
+"為什麼大家都在靠杯我？": "../Illustration/為什麼大家都在靠杯我？.png",
 "焦糖o彤兒": "../Illustration/焦糖o彤兒.png",
 "牛仔褲寶貝": "../Illustration/牛仔褲寶貝.png",
 "王依渟": "../Illustration/王依渟.png",
@@ -210,6 +212,7 @@
 "Start Over": "../Action/Start Over.html",
 "Tone Reproduction": "../Algorithm/Paper Based/Tone Reproduction.html",
 "余十三": "../SoC Lab/余十三.html",
+"哭哭貓比讚": "#",
 "小南瓜": "../SoC Lab/小南瓜.html",
 "小瓜": "../AIoT Lab/小瓜.html",
 "徐丞丞": "../SoC Lab/徐丞丞.html",
@@ -228,6 +231,7 @@
 "深淵": "../Appendix/深淵.html",
 "渟渟急轉彎": "../Badass/渟渟急轉彎.html",
 "湖口砲兵連連長": "../SoC Lab/湖口砲兵連連長.html",
+"為什麼大家都在靠杯我？": "#",
 "焦糖o彤兒": "../SoC Lab/焦糖o彤兒.html",
 "牛仔褲寶貝": "../AIoT Lab/牛仔褲寶貝.html",
 "王依渟": "../Badass/王依渟.html",
