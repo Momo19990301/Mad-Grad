@@ -26,7 +26,7 @@
 ###### 研究專長：人工智慧
 ###### 論文發表：Conferences - 1
 
-#### [[小瓜]]
+#### [[小蝸]]
 ##### AI 跨域應用研究所
 `;
 
@@ -76,7 +76,7 @@
 "偉哥": "../Illustration/偉哥.png",
 "哭哭貓比讚": "../Illustration/哭哭貓比讚.png",
 "小南瓜": "../Illustration/小南瓜.png",
-"小瓜": "../Illustration/小瓜.png",
+"小蝸": "../Illustration/小蝸.png",
 "小馬": "../Illustration/小馬.png",
 "幫你調整飲料甜度": "../Illustration/幫你調整飲料甜度.png",
 "幹你娘弄死你": "../Illustration/幹你娘弄死你.png",
@@ -172,7 +172,7 @@
 "偉哥": "../EMCA Lab/偉哥.html",
 "哭哭貓比讚": "#",
 "小南瓜": "../SoC Lab/小南瓜.html",
-"小瓜": "../AIoT Lab/小瓜.html",
+"小蝸": "../AIoT Lab/小蝸.html",
 "小馬": "../EMCA Lab/小馬.html",
 "幫你調整飲料甜度": "#",
 "幹你娘弄死你": "#",
