@@ -5,7 +5,7 @@
 ##### 電機工程研究所
 ###### 研究專長：人工智慧
 ###### 論文發表：Conferences - 5
-#### [[阿詠]]
+#### [[ㄚ詠]]
 ##### 電機工程研究所
 ###### 研究專長：人工智慧
 ###### 論文發表：Conferences - 4
@@ -71,6 +71,7 @@
 "Side Quest": "../Illustration/Side Quest.png",
 "Start Over": "../Illustration/Start Over.png",
 "Tone Reproduction": "../Illustration/Tone Reproduction.png",
+"ㄚ詠": "../Illustration/ㄚ詠.png",
 "余十三": "../Illustration/余十三.png",
 "偉哥": "../Illustration/偉哥.png",
 "哭哭貓比讚": "../Illustration/哭哭貓比讚.png",
@@ -119,7 +120,6 @@
 "金門王": "../Illustration/金門王.png",
 "金門王與敦敦玩": "../Illustration/金門王與敦敦玩.png",
 "阿福": "../Illustration/阿福.png",
-"阿詠": "../Illustration/阿詠.png",
 "陳大帥帥": "../Illustration/陳大帥帥.png",
 "首蒙元": "../Illustration/首蒙元.png",
 "馬華": "../Illustration/馬華.png",
@@ -167,6 +167,7 @@
 "Side Quest": "../Action/Side Quest.html",
 "Start Over": "../Action/Start Over.html",
 "Tone Reproduction": "../Algorithm/Paper Based/Tone Reproduction.html",
+"ㄚ詠": "../AIoT Lab/ㄚ詠.html",
 "余十三": "../SoC Lab/余十三.html",
 "偉哥": "../EMCA Lab/偉哥.html",
 "哭哭貓比讚": "#",
@@ -215,7 +216,6 @@
 "金門王": "../EMCA Lab/金門王.html",
 "金門王與敦敦玩": "#",
 "阿福": "../SoC Lab/阿福.html",
-"阿詠": "../AIoT Lab/阿詠.html",
 "陳大帥帥": "../SoC Lab/陳大帥帥.html",
 "首蒙元": "#",
 "馬華": "../SoC Lab/馬華.html",
