@@ -52,17 +52,21 @@
 "Start Over": "../Illustration/Start Over.png",
 "Tone Reproduction": "../Illustration/Tone Reproduction.png",
 "余十三": "../Illustration/余十三.png",
+"偉哥": "../Illustration/偉哥.png",
 "哭哭貓比讚": "../Illustration/哭哭貓比讚.png",
 "小南瓜": "../Illustration/小南瓜.png",
 "小瓜": "../Illustration/小瓜.png",
+"小馬": "../Illustration/小馬.png",
+"幫你調整飲料甜度": "../Illustration/幫你調整飲料甜度.png",
 "幹你娘弄死你": "../Illustration/幹你娘弄死你.png",
 "徐丞丞": "../Illustration/徐丞丞.png",
+"德撲小子": "../Illustration/德撲小子.png",
 "心碎小狗": "../Illustration/心碎小狗.png",
 "慈慈": "../Illustration/慈慈.png",
 "憑拳大將軍": "../Illustration/憑拳大將軍.png",
 "應葛格": "../Illustration/應葛格.png",
-"懶惰小依 & 賴床小依": "../Illustration/懶惰小依 & 賴床小依.png",
-"懶惰小依": "../Illustration/懶惰小依.png",
+"搗蛋小依 & 賴床小依": "../Illustration/搗蛋小依 & 賴床小依.png",
+"搗蛋小依": "../Illustration/搗蛋小依.png",
 "敦敦": "../Illustration/敦敦.png",
 "梵楓霖": "../Illustration/梵楓霖.png",
 "橋牌社長": "../Illustration/橋牌社長.png",
@@ -71,7 +75,7 @@
 "海神巨獸": "../Illustration/海神巨獸.png",
 "海神巨獸誕生": "../Illustration/海神巨獸誕生.png",
 "深淵": "../Illustration/深淵.png",
-"渟渟急轉彎": "../Illustration/渟渟急轉彎.png",
+"渟渟": "../Illustration/渟渟.png",
 "湖口砲兵連連長": "../Illustration/湖口砲兵連連長.png",
 "為什麼大家都在靠杯我？": "../Illustration/為什麼大家都在靠杯我？.png",
 "焦糖o彤兒": "../Illustration/焦糖o彤兒.png",
@@ -80,16 +84,21 @@
 "王依渟": "../Illustration/王依渟.png",
 "珊珊姊": "../Illustration/珊珊姊.png",
 "球球": "../Illustration/球球.png",
+"琳": "../Illustration/琳.png",
 "穢土轉生研究生": "../Illustration/穢土轉生研究生.png",
 "紀崴": "../Illustration/紀崴.png",
 "老人與狗": "../Illustration/老人與狗.png",
+"胖胖": "../Illustration/胖胖.png",
 "色彩學大師": "../Illustration/色彩學大師.png",
+"莉莉": "../Illustration/莉莉.png",
 "蒂娜": "../Illustration/蒂娜.png",
 "裘萌 & 首蒙元": "../Illustration/裘萌 & 首蒙元.png",
 "裘萌": "../Illustration/裘萌.png",
 "諸葛小劉": "../Illustration/諸葛小劉.png",
 "賴床小依": "../Illustration/賴床小依.png",
 "金門王": "../Illustration/金門王.png",
+"金門王與敦敦玩": "../Illustration/金門王與敦敦玩.png",
+"阿福": "../Illustration/阿福.png",
 "阿詠": "../Illustration/阿詠.png",
 "陳大帥帥": "../Illustration/陳大帥帥.png",
 "首蒙元": "../Illustration/首蒙元.png",
@@ -139,17 +148,21 @@
 "Start Over": "../Action/Start Over.html",
 "Tone Reproduction": "../Algorithm/Paper Based/Tone Reproduction.html",
 "余十三": "../SoC Lab/余十三.html",
+"偉哥": "../EMCA Lab/偉哥.html",
 "哭哭貓比讚": "#",
 "小南瓜": "../SoC Lab/小南瓜.html",
 "小瓜": "../AIoT Lab/小瓜.html",
+"小馬": "../EMCA Lab/小馬.html",
+"幫你調整飲料甜度": "#",
 "幹你娘弄死你": "#",
 "徐丞丞": "../SoC Lab/徐丞丞.html",
+"德撲小子": "../AIoT Lab/德撲小子.html",
 "心碎小狗": "../SoC Lab/心碎小狗.html",
 "慈慈": "../AIoT Lab/慈慈.html",
 "憑拳大將軍": "../Badass/憑拳大將軍.html",
 "應葛格": "../SoC Lab/應葛格.html",
-"懶惰小依 & 賴床小依": "../Badass/懶惰小依 & 賴床小依.html",
-"懶惰小依": "#",
+"搗蛋小依 & 賴床小依": "../Badass/搗蛋小依 & 賴床小依.html",
+"搗蛋小依": "#",
 "敦敦": "../SoC Lab/敦敦.html",
 "梵楓霖": "../SoC Lab/梵楓霖.html",
 "橋牌社長": "../SoC Lab/橋牌社長.html",
@@ -158,7 +171,7 @@
 "海神巨獸": "../EMCA Lab/海神巨獸.html",
 "海神巨獸誕生": "#",
 "深淵": "../Appendix/深淵.html",
-"渟渟急轉彎": "../Badass/渟渟急轉彎.html",
+"渟渟": "../Badass/渟渟.html",
 "湖口砲兵連連長": "../SoC Lab/湖口砲兵連連長.html",
 "為什麼大家都在靠杯我？": "#",
 "焦糖o彤兒": "../SoC Lab/焦糖o彤兒.html",
@@ -167,16 +180,21 @@
 "王依渟": "../Badass/王依渟.html",
 "珊珊姊": "../SoC Lab/珊珊姊.html",
 "球球": "../Appendix/球球.html",
+"琳": "../Badass/琳.html",
 "穢土轉生研究生": "../Appendix/穢土轉生研究生.html",
 "紀崴": "../Badass/紀崴.html",
 "老人與狗": "../AIoT Lab/老人與狗.html",
+"胖胖": "../SoC Lab/胖胖.html",
 "色彩學大師": "../SoC Lab/色彩學大師.html",
+"莉莉": "../EMCA Lab/莉莉.html",
 "蒂娜": "../Badass/蒂娜.html",
 "裘萌 & 首蒙元": "../AIoT Lab/裘萌 & 首蒙元.html",
 "裘萌": "#",
 "諸葛小劉": "../SoC Lab/諸葛小劉.html",
 "賴床小依": "#",
 "金門王": "../EMCA Lab/金門王.html",
+"金門王與敦敦玩": "#",
+"阿福": "../SoC Lab/阿福.html",
 "阿詠": "../AIoT Lab/阿詠.html",
 "陳大帥帥": "../SoC Lab/陳大帥帥.html",
 "首蒙元": "#",
@@ -417,12 +435,12 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const isLoggedIn = sessionStorage.getItem('loggedIn');
-            if (isLoggedIn !== 'true') {
-                // 如果沒有登入標誌，重定向到登入頁面
-                const currentDirPath = "../index.html";
-                // const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-                window.location.href = currentDirPath; 
-            }
+            // if (isLoggedIn !== 'true') {
+            //     // 如果沒有登入標誌，重定向到登入頁面
+            //     const currentDirPath = "../index.html";
+            //     // const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+            //     window.location.href = currentDirPath; 
+            // }
 
             renderData();
         });

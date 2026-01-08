@@ -22,11 +22,11 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const isLoggedIn = sessionStorage.getItem('loggedIn');
-            if (isLoggedIn !== 'true') {
-                // 如果沒有登入標誌，重定向到登入頁面
-                const currentDirPath = "../../index.html";
-                window.location.href = currentDirPath; 
-            }
+            // if (isLoggedIn !== 'true') {
+            //     // 如果沒有登入標誌，重定向到登入頁面
+            //     const currentDirPath = "../index.html";
+            //     window.location.href = currentDirPath; 
+            // }
             // 在頁面載入時也執行一次，以確保按鈕的初始狀態正確
             toggleBackToTopButton();
         });

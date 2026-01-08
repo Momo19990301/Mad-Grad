@@ -281,10 +281,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             // 登入檢查
             const isLoggedIn = sessionStorage.getItem('loggedIn');
-            if (isLoggedIn !== 'true') {
-                const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-                window.location.href = currentDirPath + 'index.html'; 
-            }
+            // if (isLoggedIn !== 'true') {
+            //     const currentDirPath = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+            //     window.location.href = currentDirPath + 'index.html'; 
+            // }
 
             // 顯示用戶資訊
             const userInfoSpan = document.getElementById('userInfo');
